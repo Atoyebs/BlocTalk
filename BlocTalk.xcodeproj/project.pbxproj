@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
-		818C1A091D18946000130F5B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* AppDelegate.m */; };
+		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
 		818C1A0C1D18946000130F5B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* ViewController.m */; };
 		818C1A0F1D18946000130F5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A0D1D18946000130F5B /* Main.storyboard */; };
 		818C1A111D18946000130F5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A101D18946000130F5B /* Assets.xcassets */; };
@@ -29,8 +29,8 @@
 /* Begin PBXFileReference section */
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		818C1A071D18946000130F5B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		818C1A081D18946000130F5B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
+		818C1A081D18946000130F5B /* BLCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLCAppDelegate.m; sourceTree = "<group>"; };
 		818C1A0A1D18946000130F5B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		818C1A0B1D18946000130F5B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		818C1A0E1D18946000130F5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,6 +60,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		811C0C0A1D1895B500B969F9 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				818C1A071D18946000130F5B /* BLCAppDelegate.h */,
+				818C1A081D18946000130F5B /* BLCAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				818C1A0A1D18946000130F5B /* ViewController.h */,
+				818C1A0B1D18946000130F5B /* ViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		811C0C0C1D1895D900B969F9 /* Custom UI (Views) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom UI (Views)";
+			sourceTree = "<group>";
+		};
+		811C0C0D1D1895EB00B969F9 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		811C0C0E1D18962900B969F9 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				818C1A0D1D18946000130F5B /* Main.storyboard */,
+				818C1A121D18946100130F5B /* LaunchScreen.storyboard */,
+			);
+			name = StoryBoards;
+			sourceTree = "<group>";
+		};
 		818C19F81D18946000130F5B = {
 			isa = PBXGroup;
 			children = (
@@ -81,14 +122,12 @@
 		818C1A031D18946000130F5B /* BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
-				818C1A071D18946000130F5B /* AppDelegate.h */,
-				818C1A081D18946000130F5B /* AppDelegate.m */,
-				818C1A0A1D18946000130F5B /* ViewController.h */,
-				818C1A0B1D18946000130F5B /* ViewController.m */,
-				818C1A0D1D18946000130F5B /* Main.storyboard */,
+				811C0C0E1D18962900B969F9 /* StoryBoards */,
+				811C0C0D1D1895EB00B969F9 /* Utility */,
+				811C0C0C1D1895D900B969F9 /* Custom UI (Views) */,
+				811C0C0B1D1895C700B969F9 /* View Controllers */,
+				811C0C0A1D1895B500B969F9 /* App Delegate */,
 				818C1A101D18946000130F5B /* Assets.xcassets */,
-				818C1A121D18946100130F5B /* LaunchScreen.storyboard */,
-				818C1A151D18946100130F5B /* Info.plist */,
 				818C1A041D18946000130F5B /* Supporting Files */,
 			);
 			path = BlocTalk;
@@ -97,6 +136,7 @@
 		818C1A041D18946000130F5B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				818C1A151D18946100130F5B /* Info.plist */,
 				818C1A051D18946000130F5B /* main.m */,
 			);
 			name = "Supporting Files";
@@ -212,7 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818C1A0C1D18946000130F5B /* ViewController.m in Sources */,
-				818C1A091D18946000130F5B /* AppDelegate.m in Sources */,
+				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
