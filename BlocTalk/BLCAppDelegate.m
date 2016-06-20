@@ -7,6 +7,9 @@
 //
 
 #import "BLCAppDelegate.h"
+#import "BLCSettingsViewController.h"
+#import "BLCMessageListTableViewController.h"
+#import "UIImage+UIImageExtensions.h"
 
 @interface BLCAppDelegate ()
 
@@ -19,6 +22,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.tabBarController = [[UITabBarController alloc] init];
+    
+    BLCSettingsViewController *settingsViewController = [[BLCSettingsViewController alloc] init];
+    settingsViewController.title = @"Settings";
+    UIImage *settingsIcon = [UIImage imageNamed:@"Settings-100.png"];
+    settingsViewController.tabBarItem.image = [UIImage imageWithImage:settingsIcon scaledToSize:CGSizeMake(30, 30)];
+    
+    
+    BLCMessageListTableViewController *messageListViewController = [[BLCMessageListTableViewController alloc] init];
+    messageListViewController.title = @"BlocTalk";
+    UIImage *messageIcon = [UIImage imageNamed:@"message-icon.png"];
+    messageListViewController.tabBarItem.image = [UIImage imageWithImage:messageIcon scaledToSize:CGSizeMake(30, 30)];
+    
+    
+    UINavigationController *settingsNavigationVC = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    UINavigationController *messagesNavigationVC = [[UINavigationController alloc] initWithRootViewController:messageListViewController];
+    
+    
+    
+    NSArray *controllers = [NSArray arrayWithObjects:messagesNavigationVC, settingsNavigationVC, nil];
+    
+    self.tabBarController.viewControllers = controllers;
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.rootViewController = self.tabBarController;
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -43,5 +75,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		810B25031D189FB600167D97 /* BLCMessageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B25021D189FB600167D97 /* BLCMessageListTableViewController.m */; };
+		810B25071D18AD0700167D97 /* Settings-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 810B25061D18AD0700167D97 /* Settings-100.png */; };
+		810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */; };
+		810B250D1D18B4BE00167D97 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 810B250C1D18B4BE00167D97 /* message-icon.png */; };
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
 		818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */; };
@@ -33,6 +37,12 @@
 		2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		516A938A131C65C5482CCEC0 /* Pods-BlocTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlocTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlocTalk/Pods-BlocTalk.release.xcconfig"; sourceTree = "<group>"; };
 		6F5F2EBBDE283A13518A02D9 /* Pods-BlocTalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlocTalkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BlocTalkTests/Pods-BlocTalkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		810B25011D189FB600167D97 /* BLCMessageListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMessageListTableViewController.h; sourceTree = "<group>"; };
+		810B25021D189FB600167D97 /* BLCMessageListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMessageListTableViewController.m; sourceTree = "<group>"; };
+		810B25061D18AD0700167D97 /* Settings-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Settings-100.png"; sourceTree = "<group>"; };
+		810B25091D18B2B800167D97 /* UIImage+UIImageExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageExtensions.h"; sourceTree = "<group>"; };
+		810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageExtensions.m"; sourceTree = "<group>"; };
+		810B250C1D18B4BE00167D97 /* message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-icon.png"; sourceTree = "<group>"; };
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
@@ -77,6 +87,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		810B25041D189FD400167D97 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		810B25051D18ACE400167D97 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				810B250C1D18B4BE00167D97 /* message-icon.png */,
+				810B25061D18AD0700167D97 /* Settings-100.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		810B25081D18B26C00167D97 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				810B25091D18B2B800167D97 /* UIImage+UIImageExtensions.h */,
+				810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		811C0C0A1D1895B500B969F9 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +124,8 @@
 		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				810B25011D189FB600167D97 /* BLCMessageListTableViewController.h */,
+				810B25021D189FB600167D97 /* BLCMessageListTableViewController.m */,
 				818C1A0A1D18946000130F5B /* BLCSettingsViewController.h */,
 				818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */,
 			);
@@ -140,6 +177,9 @@
 		818C1A031D18946000130F5B /* BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
+				810B25081D18B26C00167D97 /* Categories */,
+				810B25051D18ACE400167D97 /* Images */,
+				810B25041D189FD400167D97 /* Data */,
 				811C0C0E1D18962900B969F9 /* StoryBoards */,
 				811C0C0D1D1895EB00B969F9 /* Utility */,
 				811C0C0C1D1895D900B969F9 /* Custom UI (Views) */,
@@ -268,6 +308,8 @@
 			files = (
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
+				810B250D1D18B4BE00167D97 /* message-icon.png in Resources */,
+				810B25071D18AD0700167D97 /* Settings-100.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +423,8 @@
 				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
+				810B25031D189FB600167D97 /* BLCMessageListTableViewController.m in Sources */,
+				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
