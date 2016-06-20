@@ -10,6 +10,8 @@
 
 @interface BLCAppDelegate ()
 
+@property (nonatomic, strong) UITabBarController *tabBarController;
+
 @end
 
 @implementation BLCAppDelegate

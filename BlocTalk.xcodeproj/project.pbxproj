@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
-		818C1A0C1D18946000130F5B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* ViewController.m */; };
-		818C1A0F1D18946000130F5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A0D1D18946000130F5B /* Main.storyboard */; };
+		818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */; };
 		818C1A111D18946000130F5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A101D18946000130F5B /* Assets.xcassets */; };
 		818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A121D18946100130F5B /* LaunchScreen.storyboard */; };
 		818C1A1F1D18946100130F5B /* BlocTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A1E1D18946100130F5B /* BlocTalkTests.m */; };
@@ -38,9 +37,8 @@
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
 		818C1A081D18946000130F5B /* BLCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLCAppDelegate.m; sourceTree = "<group>"; };
-		818C1A0A1D18946000130F5B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		818C1A0B1D18946000130F5B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		818C1A0E1D18946000130F5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		818C1A0A1D18946000130F5B /* BLCSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCSettingsViewController.h; sourceTree = "<group>"; };
+		818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLCSettingsViewController.m; sourceTree = "<group>"; };
 		818C1A101D18946000130F5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		818C1A131D18946100130F5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		818C1A151D18946100130F5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,8 +89,8 @@
 		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				818C1A0A1D18946000130F5B /* ViewController.h */,
-				818C1A0B1D18946000130F5B /* ViewController.m */,
+				818C1A0A1D18946000130F5B /* BLCSettingsViewController.h */,
+				818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -114,7 +112,6 @@
 		811C0C0E1D18962900B969F9 /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
-				818C1A0D1D18946000130F5B /* Main.storyboard */,
 				818C1A121D18946100130F5B /* LaunchScreen.storyboard */,
 			);
 			name = StoryBoards;
@@ -271,7 +268,6 @@
 			files = (
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
-				818C1A0F1D18946000130F5B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,7 +378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				818C1A0C1D18946000130F5B /* ViewController.m in Sources */,
+				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 			);
@@ -407,14 +403,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		818C1A0D1D18946000130F5B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				818C1A0E1D18946000130F5B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		818C1A121D18946100130F5B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

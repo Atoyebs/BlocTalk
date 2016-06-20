@@ -6,13 +6,13 @@
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "BLCSettingsViewController.h"
 
-@interface ViewController ()
+@interface BLCSettingsViewController ()
 
 @end
 
-@implementation ViewController
+@implementation BLCSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
