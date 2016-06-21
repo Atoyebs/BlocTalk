@@ -9,6 +9,7 @@
 #import "BLCProfilePictureImageView.h"
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 @interface BLCSettingsViewController () <UITextFieldDelegate>
 
@@ -23,6 +24,9 @@
 
 @property (nonatomic, assign) NSInteger minimumUsernameLength;
 
+@property (nonatomic, strong) NSString *usernameKey;
+@property (nonatomic, strong) NSString *userName;
+
 
 @end
 
@@ -32,8 +36,14 @@
     [super viewDidLoad];
     
     self.hasSetupConstraints = NO;
-    
+    self.usernameKey = @"usernameKey";
     self.minimumUsernameLength = 5;
+    
+    NSString *storedUsername = [UICKeyChainStore stringForKey:self.usernameKey];
+    
+    if (storedUsername) {
+        self.userName = storedUsername;
+    }
     
     self.view = [UIView new];
     self.profilePicture = [[BLCProfilePictureImageView alloc] init];
@@ -44,7 +54,14 @@
     self.usernameTextField = [[UITextField alloc] init];
     [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:15.0f]];
     self.usernameTextField.backgroundColor = [UIColor lightGrayColor];
-    [self.usernameTextField setPlaceholder:@"Username"];
+    
+    if (!storedUsername) {
+        [self.usernameTextField setPlaceholder:@"Username"];
+    }
+    else {
+        [self.usernameTextField setText:storedUsername];
+    }
+    
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
     self.usernameTextField.leftView = paddingView;
     self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;
@@ -204,6 +221,8 @@
     
     [self.navigationItem setRightBarButtonItem:self.editButton animated:YES];
     [self setUsernameTextfieldStateActive:NO];
+    
+    [UICKeyChainStore setString:self.usernameTextField.text forKey:self.usernameKey];
 }
 
 

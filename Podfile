@@ -5,6 +5,7 @@
 
 target 'BlocTalk' do
    pod 'PureLayout'
+   pod 'UICKeyChainStore'
 end
 
 target 'BlocTalkTests' do
