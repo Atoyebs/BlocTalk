@@ -10,12 +10,15 @@
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 
-@interface BLCSettingsViewController ()
+@interface BLCSettingsViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) BLCProfilePictureImageView *profilePicture;
 @property (nonatomic, assign) BOOL hasSetupConstraints;
 
 @property (nonatomic, strong) UITextField *usernameTextField;
+@property (nonatomic, assign) NSInteger textFieldLimit;
+
+
 
 @end
 
@@ -30,9 +33,16 @@
     self.profilePicture = [[BLCProfilePictureImageView alloc] init];
     self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
     
-    self.usernameTextField = [[UITextField alloc] init];
+    self.textFieldLimit = 25;
     
+    self.usernameTextField = [[UITextField alloc] init];
+    [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-Light" size:14.5f]];
     self.usernameTextField.backgroundColor = [UIColor whiteColor];
+    [self.usernameTextField setPlaceholder:@"Name"];
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 20)];
+    self.usernameTextField.leftView = paddingView;
+    self.usernameTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.usernameTextField.delegate = self;
     
     [self.view addSubview:self.profilePicture];
     [self.view addSubview:self.usernameTextField];
@@ -74,7 +84,16 @@
     [super updateViewConstraints];
 }
 
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= self.textFieldLimit;
+}
 
 
 - (CGSize)screenDimensions {
