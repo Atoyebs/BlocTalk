@@ -17,6 +17,8 @@
 		818C1A111D18946000130F5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A101D18946000130F5B /* Assets.xcassets */; };
 		818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A121D18946100130F5B /* LaunchScreen.storyboard */; };
 		818C1A1F1D18946100130F5B /* BlocTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A1E1D18946100130F5B /* BlocTalkTests.m */; };
+		819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 819504A01D199E5D0031EFB9 /* Ok-icon.png */; };
+		819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 819504A21D19A4170031EFB9 /* edit-textbox.png */; };
 		81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */; };
 		81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B024371D18DA5B00273D14 /* profile-placeholder.jpg */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
@@ -57,6 +59,8 @@
 		818C1A1A1D18946100130F5B /* BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A1E1D18946100130F5B /* BlocTalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocTalkTests.m; sourceTree = "<group>"; };
 		818C1A201D18946100130F5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		819504A01D199E5D0031EFB9 /* Ok-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ok-icon.png"; sourceTree = "<group>"; };
+		819504A21D19A4170031EFB9 /* edit-textbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-textbox.png"; sourceTree = "<group>"; };
 		81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCProfilePictureImageView.h; sourceTree = "<group>"; };
 		81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCProfilePictureImageView.m; sourceTree = "<group>"; };
 		81B024371D18DA5B00273D14 /* profile-placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "profile-placeholder.jpg"; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		810B25051D18ACE400167D97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				819504A21D19A4170031EFB9 /* edit-textbox.png */,
+				819504A01D199E5D0031EFB9 /* Ok-icon.png */,
 				81B024371D18DA5B00273D14 /* profile-placeholder.jpg */,
 				810B250C1D18B4BE00167D97 /* message-icon.png */,
 				810B25061D18AD0700167D97 /* Settings-100.png */,
@@ -314,8 +320,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */,
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
+				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
 				810B250D1D18B4BE00167D97 /* message-icon.png in Resources */,
 				810B25071D18AD0700167D97 /* Settings-100.png in Resources */,
