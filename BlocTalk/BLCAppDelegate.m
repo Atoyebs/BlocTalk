@@ -32,7 +32,7 @@
     
     
     BLCMessageListTableViewController *messageListViewController = [[BLCMessageListTableViewController alloc] init];
-    messageListViewController.title = @"BlocTalk";
+    messageListViewController.title = @"Messages";
     UIImage *messageIcon = [UIImage imageNamed:@"message-icon.png"];
     messageListViewController.tabBarItem.image = [UIImage imageWithImage:messageIcon scaledToSize:CGSizeMake(30, 30)];
     

@@ -17,6 +17,8 @@
 		818C1A111D18946000130F5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A101D18946000130F5B /* Assets.xcassets */; };
 		818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818C1A121D18946100130F5B /* LaunchScreen.storyboard */; };
 		818C1A1F1D18946100130F5B /* BlocTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A1E1D18946100130F5B /* BlocTalkTests.m */; };
+		81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */; };
+		81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B024371D18DA5B00273D14 /* profile-placeholder.jpg */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
 		EB2D931AB8271C6E7A7B59B3 /* libPods-BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,9 @@
 		818C1A1A1D18946100130F5B /* BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A1E1D18946100130F5B /* BlocTalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlocTalkTests.m; sourceTree = "<group>"; };
 		818C1A201D18946100130F5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCProfilePictureImageView.h; sourceTree = "<group>"; };
+		81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCProfilePictureImageView.m; sourceTree = "<group>"; };
+		81B024371D18DA5B00273D14 /* profile-placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "profile-placeholder.jpg"; sourceTree = "<group>"; };
 		E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -97,6 +102,7 @@
 		810B25051D18ACE400167D97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				81B024371D18DA5B00273D14 /* profile-placeholder.jpg */,
 				810B250C1D18B4BE00167D97 /* message-icon.png */,
 				810B25061D18AD0700167D97 /* Settings-100.png */,
 			);
@@ -135,6 +141,8 @@
 		811C0C0C1D1895D900B969F9 /* Custom UI (Views) */ = {
 			isa = PBXGroup;
 			children = (
+				81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */,
+				81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -307,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
+				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
 				810B250D1D18B4BE00167D97 /* message-icon.png in Resources */,
 				810B25071D18AD0700167D97 /* Settings-100.png in Resources */,
@@ -425,6 +434,7 @@
 				818C1A061D18946000130F5B /* main.m in Sources */,
 				810B25031D189FB600167D97 /* BLCMessageListTableViewController.m in Sources */,
 				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,
+				81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
