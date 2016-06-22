@@ -90,9 +90,6 @@
                                     <outletCollection property="gestureRecognizers" destination="K3P-rV-CeJ" appends="YES" id="BzI-5K-bhd"/>
                                 </connections>
                             </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Switch Camera-104.png" translatesAutoresizingMaskIntoConstraints="NO" id="M7b-73-vdS">
-                                <rect key="frame" x="503" y="11" width="50" height="50"/>
-                            </imageView>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="take-photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-fq-gIc">
                                 <rect key="frame" x="261" y="514" width="78" height="73"/>
                                 <constraints>
@@ -101,11 +98,19 @@
                                 </constraints>
                             </imageView>
                             <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Landscape-Placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ihr-Uw-Y6L">
-                                <rect key="frame" x="37" y="508" width="89" height="84"/>
+                                <rect key="frame" x="484" y="509" width="89" height="84"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="84" id="FXT-Di-0sA"/>
                                     <constraint firstAttribute="width" secondItem="Ihr-Uw-Y6L" secondAttribute="height" multiplier="1:1" id="qsK-5y-Sbb"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="FXT-Di-0sA"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Switch Camera-104.png" translatesAutoresizingMaskIntoConstraints="NO" id="M7b-73-vdS">
+                                <rect key="frame" x="20" y="526" width="50" height="50"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,22 +120,25 @@
                             <constraint firstItem="M7b-73-vdS" firstAttribute="centerY" secondItem="7Y3-BP-iMe" secondAttribute="centerY" id="ETi-1P-ORb"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="7Y3-BP-iMe" secondAttribute="bottom" constant="13" id="KVM-6t-aGp"/>
                             <constraint firstItem="7Y3-BP-iMe" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.07" id="PV0-TR-bhn"/>
+                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="height" secondItem="M7b-73-vdS" secondAttribute="height" multiplier="0.85" id="Sc2-Zn-BLt"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="width" secondItem="ISB-Rp-PNA" secondAttribute="width" id="TJG-Px-jAy"/>
                             <constraint firstItem="M7b-73-vdS" firstAttribute="width" secondItem="7Y3-BP-iMe" secondAttribute="width" id="TOF-r6-tsD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="M7b-73-vdS" secondAttribute="trailing" constant="27" id="eQ9-w3-LyY"/>
                             <constraint firstItem="M7b-73-vdS" firstAttribute="height" secondItem="7Y3-BP-iMe" secondAttribute="height" id="i0F-iT-BSG"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="M7b-73-vdS" secondAttribute="bottom" constant="13" id="i2M-Cm-Wfs"/>
+                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerY" secondItem="ffN-fq-gIc" secondAttribute="centerY" id="iKj-69-OV6"/>
                             <constraint firstAttribute="leadingMargin" secondItem="7Y3-BP-iMe" secondAttribute="leading" id="kTI-U5-ktb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="M7b-73-vdS" secondAttribute="trailing" id="kkl-dg-NCa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ihr-Uw-Y6L" secondAttribute="trailing" constant="7" id="klR-Rk-FJh"/>
                             <constraint firstItem="ffN-fq-gIc" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" constant="14" id="mI7-mW-nmc"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.67" id="q17-2S-JBI"/>
-                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" id="qaK-yK-xdb"/>
                             <constraint firstItem="ffN-fq-gIc" firstAttribute="centerX" secondItem="VlD-c8-rkM" secondAttribute="centerX" id="w3Q-he-iYf"/>
+                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerX" secondItem="7Y3-BP-iMe" secondAttribute="centerX" id="wG3-ED-gDU"/>
                             <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="centerY" secondItem="ffN-fq-gIc" secondAttribute="centerY" id="xSQ-ei-4Bk"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="i2M-Cm-Wfs"/>
+                                <exclude reference="ETi-1P-ORb"/>
                                 <exclude reference="eQ9-w3-LyY"/>
                             </mask>
                         </variation>
@@ -143,8 +151,7 @@
                         <outlet property="distanceBetweenCancelButtonAndCameraPreview" destination="KVM-6t-aGp" id="NMb-y7-5Jc"/>
                         <outlet property="distanceBetweenTakePhotoButtonAndCameraPreview" destination="mI7-mW-nmc" id="DWp-a9-TU4"/>
                         <outlet property="pickerViewButton" destination="Ihr-Uw-Y6L" id="VjQ-XT-5h7"/>
-                        <outlet property="pickerViewButtonHeight" destination="FXT-Di-0sA" id="Xla-v9-eCm"/>
-                        <outlet property="pickerViewDistanceFromLeftMargin" destination="qaK-yK-xdb" id="kgo-kX-HhF"/>
+                        <outlet property="pickerViewDistanceFromRightMargin" destination="klR-Rk-FJh" id="2bg-NL-fJS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlW-aq-9sM" userLabel="First Responder" sceneMemberID="firstResponder"/>

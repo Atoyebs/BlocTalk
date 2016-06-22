@@ -18,14 +18,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *pickerViewButton;
 
 
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewDistanceFromLeftMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewDistanceFromRightMargin;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceBetweenCancelButtonAndCameraPreview;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceBetweenTakePhotoButtonAndCameraPreview;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewButtonHeight;
 
 
 
@@ -63,9 +60,7 @@
         
         self.distanceBetweenTakePhotoButtonAndCameraPreview.constant = screenDimensions.height/30;
         
-        self.pickerViewButtonHeight.constant = screenDimensions.height/19;
-        
-        self.pickerViewDistanceFromLeftMargin.constant = screenDimensions.width/30;
+        self.pickerViewDistanceFromRightMargin.constant = screenDimensions.width/30;
         
     }
     
