@@ -12,6 +12,11 @@
 		814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814275CD1D1AA76E00F95162 /* Main.storyboard */; };
 		814275D01D1AAC7400F95162 /* messages-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275CF1D1AAC7400F95162 /* messages-icon.png */; };
 		814275D21D1AACD400F95162 /* profile-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275D11D1AACD400F95162 /* profile-icon.png */; };
+		814275D51D1ACCB800F95162 /* BLCCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 814275D41D1ACCB800F95162 /* BLCCameraViewController.m */; };
+		814275D91D1AD04000F95162 /* Cancel-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275D61D1AD04000F95162 /* Cancel-100.png */; };
+		814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275D81D1AD04000F95162 /* Switch Camera-104.png */; };
+		814275DD1D1AEE3100F95162 /* take-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275DC1D1AEE3100F95162 /* take-photo.png */; };
+		814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */; };
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
 		818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */; };
@@ -49,6 +54,12 @@
 		814275CD1D1AA76E00F95162 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		814275CF1D1AAC7400F95162 /* messages-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages-icon.png"; sourceTree = "<group>"; };
 		814275D11D1AACD400F95162 /* profile-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-icon.png"; sourceTree = "<group>"; };
+		814275D31D1ACCB800F95162 /* BLCCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCCameraViewController.h; sourceTree = "<group>"; };
+		814275D41D1ACCB800F95162 /* BLCCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCCameraViewController.m; sourceTree = "<group>"; };
+		814275D61D1AD04000F95162 /* Cancel-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cancel-100.png"; sourceTree = "<group>"; };
+		814275D81D1AD04000F95162 /* Switch Camera-104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Switch Camera-104.png"; sourceTree = "<group>"; };
+		814275DC1D1AEE3100F95162 /* take-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "take-photo.png"; sourceTree = "<group>"; };
+		814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Landscape-Placeholder.png"; sourceTree = "<group>"; };
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
@@ -108,6 +119,10 @@
 		810B25051D18ACE400167D97 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */,
+				814275DC1D1AEE3100F95162 /* take-photo.png */,
+				814275D61D1AD04000F95162 /* Cancel-100.png */,
+				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
 				814275D11D1AACD400F95162 /* profile-icon.png */,
 				814275CF1D1AAC7400F95162 /* messages-icon.png */,
 				819504A21D19A4170031EFB9 /* edit-textbox.png */,
@@ -142,6 +157,8 @@
 				810B25021D189FB600167D97 /* BLCMessageListTableViewController.m */,
 				818C1A0A1D18946000130F5B /* BLCSettingsViewController.h */,
 				818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */,
+				814275D31D1ACCB800F95162 /* BLCCameraViewController.h */,
+				814275D41D1ACCB800F95162 /* BLCCameraViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -324,11 +341,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */,
+				814275D91D1AD04000F95162 /* Cancel-100.png in Resources */,
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
+				814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */,
 				814275D21D1AACD400F95162 /* profile-icon.png in Resources */,
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
+				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
 				814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */,
 				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
+				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
 			);
@@ -444,6 +465,7 @@
 				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
+				814275D51D1ACCB800F95162 /* BLCCameraViewController.m in Sources */,
 				810B25031D189FB600167D97 /* BLCMessageListTableViewController.m in Sources */,
 				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,
 				81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */,

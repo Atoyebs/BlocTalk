@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -21,9 +22,14 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="profile-placeholder.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="mfX-O1-xJE" customClass="BLCProfilePictureImageView">
                                 <rect key="frame" x="180" y="101" width="240" height="128"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mfX-O1-xJE" secondAttribute="height" multiplier="1:1" id="uSs-uT-Vob"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="tapGestureRecognizer" destination="RhR-Gq-4Rq" id="hXq-Cg-m9j"/>
+                                    <outletCollection property="gestureRecognizers" destination="RhR-Gq-4Rq" appends="YES" id="Uy4-Rm-rNw"/>
+                                </connections>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tc8-Yb-mDd">
                                 <rect key="frame" x="0.0" y="263" width="600" height="30"/>
@@ -50,8 +56,105 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="It4-g2-5hB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RhR-Gq-4Rq">
+                    <connections>
+                        <segue destination="qiH-vl-ScS" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="8Av-Fg-zJN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1905" y="305"/>
+            <point key="canvasLocation" x="1857" y="305"/>
+        </scene>
+        <!--Camera View Controller-->
+        <scene sceneID="pMI-Sc-vw6">
+            <objects>
+                <viewController id="qiH-vl-ScS" customClass="BLCCameraViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9fV-Yh-3Ur"/>
+                        <viewControllerLayoutGuide type="bottom" id="Un8-oB-0MY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ISB-Rp-PNA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlD-c8-rkM">
+                                <rect key="frame" x="0.0" y="74" width="600" height="426"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Cancel-100.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Y3-BP-iMe">
+                                <rect key="frame" x="20" y="11" width="50" height="50"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7Y3-BP-iMe" secondAttribute="height" multiplier="1:1" id="abM-YH-mhm"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="K3P-rV-CeJ" appends="YES" id="BzI-5K-bhd"/>
+                                </connections>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Switch Camera-104.png" translatesAutoresizingMaskIntoConstraints="NO" id="M7b-73-vdS">
+                                <rect key="frame" x="503" y="11" width="50" height="50"/>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="take-photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-fq-gIc">
+                                <rect key="frame" x="261" y="514" width="78" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="6bn-wc-urW"/>
+                                    <constraint firstAttribute="width" secondItem="ffN-fq-gIc" secondAttribute="height" multiplier="1:1" id="yTh-dq-MuT"/>
+                                </constraints>
+                            </imageView>
+                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Landscape-Placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ihr-Uw-Y6L">
+                                <rect key="frame" x="37" y="508" width="89" height="84"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="84" id="FXT-Di-0sA"/>
+                                    <constraint firstAttribute="width" secondItem="Ihr-Uw-Y6L" secondAttribute="height" multiplier="1:1" id="qsK-5y-Sbb"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="6gb-Ad-sRo"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="centerX" secondItem="ISB-Rp-PNA" secondAttribute="centerX" id="936-Zx-RMo"/>
+                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerY" secondItem="7Y3-BP-iMe" secondAttribute="centerY" id="ETi-1P-ORb"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="7Y3-BP-iMe" secondAttribute="bottom" constant="13" id="KVM-6t-aGp"/>
+                            <constraint firstItem="7Y3-BP-iMe" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.07" id="PV0-TR-bhn"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="width" secondItem="ISB-Rp-PNA" secondAttribute="width" id="TJG-Px-jAy"/>
+                            <constraint firstItem="M7b-73-vdS" firstAttribute="width" secondItem="7Y3-BP-iMe" secondAttribute="width" id="TOF-r6-tsD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M7b-73-vdS" secondAttribute="trailing" constant="27" id="eQ9-w3-LyY"/>
+                            <constraint firstItem="M7b-73-vdS" firstAttribute="height" secondItem="7Y3-BP-iMe" secondAttribute="height" id="i0F-iT-BSG"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="M7b-73-vdS" secondAttribute="bottom" constant="13" id="i2M-Cm-Wfs"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="7Y3-BP-iMe" secondAttribute="leading" id="kTI-U5-ktb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M7b-73-vdS" secondAttribute="trailing" id="kkl-dg-NCa"/>
+                            <constraint firstItem="ffN-fq-gIc" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" constant="14" id="mI7-mW-nmc"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.67" id="q17-2S-JBI"/>
+                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" id="qaK-yK-xdb"/>
+                            <constraint firstItem="ffN-fq-gIc" firstAttribute="centerX" secondItem="VlD-c8-rkM" secondAttribute="centerX" id="w3Q-he-iYf"/>
+                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="centerY" secondItem="ffN-fq-gIc" secondAttribute="centerY" id="xSQ-ei-4Bk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="i2M-Cm-Wfs"/>
+                                <exclude reference="eQ9-w3-LyY"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cameraPreview" destination="VlD-c8-rkM" id="IPM-9U-Efw"/>
+                        <outlet property="cancelButtonGesutureRecognizer" destination="K3P-rV-CeJ" id="9ax-h7-7Oo"/>
+                        <outlet property="cancelCameraViewButton" destination="7Y3-BP-iMe" id="bSv-OQ-Onv"/>
+                        <outlet property="changeCameraInUseButton" destination="M7b-73-vdS" id="WZa-4a-e9u"/>
+                        <outlet property="distanceBetweenCancelButtonAndCameraPreview" destination="KVM-6t-aGp" id="NMb-y7-5Jc"/>
+                        <outlet property="distanceBetweenTakePhotoButtonAndCameraPreview" destination="mI7-mW-nmc" id="DWp-a9-TU4"/>
+                        <outlet property="pickerViewButton" destination="Ihr-Uw-Y6L" id="VjQ-XT-5h7"/>
+                        <outlet property="pickerViewButtonHeight" destination="FXT-Di-0sA" id="Xla-v9-eCm"/>
+                        <outlet property="pickerViewDistanceFromLeftMargin" destination="qaK-yK-xdb" id="kgo-kX-HhF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GlW-aq-9sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="K3P-rV-CeJ">
+                    <connections>
+                        <action selector="cancelButtonPressed:" destination="qiH-vl-ScS" id="LXJ-ba-PdZ"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2651" y="305"/>
         </scene>
         <!--Messages-->
         <scene sceneID="Rcc-ia-woF">
@@ -111,8 +214,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Cancel-100.png" width="100" height="100"/>
+        <image name="Landscape-Placeholder.png" width="800" height="500"/>
+        <image name="Switch Camera-104.png" width="104" height="104"/>
         <image name="messages-icon.png" width="30" height="30"/>
         <image name="profile-icon.png" width="30" height="30"/>
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
+        <image name="take-photo.png" width="512" height="512"/>
     </resources>
 </document>

@@ -14,6 +14,7 @@
 @interface BLCProfilePictureImageView()
 
 @property (nonatomic, strong) UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -24,12 +25,7 @@
     self = [super init];
  
     if (self) {
-        self.descriptionLabel = [UILabel new];
-        self.descriptionLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:13.5f];
-        self.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.descriptionLabel];
-        self.clipsToBounds = YES;
-        self.userInteractionEnabled = YES;
+        [self basicImageViewSetup];
     }
     
     return self;
@@ -41,17 +37,25 @@
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        self.descriptionLabel = [UILabel new];
-        self.descriptionLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:13.5f];
-        self.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.descriptionLabel];
-        self.clipsToBounds = YES;
-        self.userInteractionEnabled = YES;
+        [self basicImageViewSetup];
     }
     
     return self;
     
 }
+
+
+-(void)basicImageViewSetup {
+    
+    self.descriptionLabel = [UILabel new];
+    self.descriptionLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:13.5f];
+    self.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.descriptionLabel];
+    self.clipsToBounds = YES;
+    self.userInteractionEnabled = YES;
+}
+
+
 
 -(void)layoutSubviews {
     
@@ -70,6 +74,7 @@
     [self.descriptionLabel autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self withOffset:-10];
     [super updateConstraints];
 }
+
 
 
 @end
