@@ -13,10 +13,10 @@
 
 @interface BLCSettingsViewController () <UITextFieldDelegate>
 
-@property (nonatomic, strong) BLCProfilePictureImageView *profilePicture;
+@property (nonatomic, strong) IBOutlet BLCProfilePictureImageView *profilePicture;
 @property (nonatomic, assign) BOOL hasSetupConstraints;
 
-@property (nonatomic, strong) UITextField *usernameTextField;
+@property (nonatomic, strong) IBOutlet UITextField *usernameTextField;
 @property (nonatomic, assign) NSInteger textFieldLimit;
 
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
@@ -27,6 +27,9 @@
 @property (nonatomic, strong) NSString *usernameKey;
 @property (nonatomic, strong) NSString *userName;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewDistanceFromTop;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameTextFieldDistanceFromProfilePicture;
 
 @end
 
@@ -45,20 +48,13 @@
         self.userName = storedUsername;
     }
     
-    self.view = [UIView new];
-    self.profilePicture = [[BLCProfilePictureImageView alloc] init];
     self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
     
     self.textFieldLimit = 25;
-    
-    self.usernameTextField = [[UITextField alloc] init];
     [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:15.0f]];
     self.usernameTextField.backgroundColor = [UIColor lightGrayColor];
     
-    if (!storedUsername) {
-        [self.usernameTextField setPlaceholder:@"Username"];
-    }
-    else {
+    if (storedUsername) {
         [self.usernameTextField setText:storedUsername];
     }
     
@@ -75,8 +71,6 @@
     [self.navigationItem setRightBarButtonItem:self.editButton animated:NO];
     self.editButton.enabled = YES;
     
-    
-    [self.view addSubview:self.profilePicture];
     [self.view addSubview:self.usernameTextField];
 }
 
@@ -86,31 +80,15 @@
 }
 
 
--(void)viewWillLayoutSubviews {
-    
-    [super viewWillLayoutSubviews];
-    
-    [self.view setNeedsUpdateConstraints];
-    
-}
-
-
 -(void)updateViewConstraints {
     
     if (!self.hasSetupConstraints) {
         
         CGSize screenDimensions = [self screenDimensions];
         
-        [self.profilePicture autoAlignAxisToSuperviewAxis:ALAxisVertical];
-        [self.profilePicture autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.view withOffset:(0.17 * screenDimensions.height)];
+        self.imageViewDistanceFromTop.constant = screenDimensions.height * 0.07;
         
-        [self.profilePicture autoSetDimensionsToSize:CGSizeMake(110, 110)];
-        
-        [self.usernameTextField autoPinEdgeToSuperviewEdge:ALEdgeLeft];
-        [self.usernameTextField autoPinEdgeToSuperviewEdge:ALEdgeRight];
-        [self.usernameTextField autoSetDimension:ALDimensionHeight toSize:(screenDimensions.height * 0.06)];
-        
-        [self.usernameTextField autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.profilePicture withOffset:screenDimensions.height * 0.05];
+        self.usernameTextFieldDistanceFromProfilePicture.constant = screenDimensions.height * 0.05;
         
         self.hasSetupConstraints = YES;
     }

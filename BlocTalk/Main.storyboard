@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cS5-G2-mR3">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--Settings-->
+        <scene sceneID="pYb-RP-NoP">
+            <objects>
+                <viewController title="Settings" id="pH1-jF-Ljx" customClass="BLCSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UYZ-m5-pJ9"/>
+                        <viewControllerLayoutGuide type="bottom" id="q5t-bz-0uf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9O0-Bc-fBT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="profile-placeholder.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="mfX-O1-xJE" customClass="BLCProfilePictureImageView">
+                                <rect key="frame" x="180" y="101" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mfX-O1-xJE" secondAttribute="height" multiplier="1:1" id="uSs-uT-Vob"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tc8-Yb-mDd">
+                                <rect key="frame" x="0.0" y="263" width="600" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mfX-O1-xJE" firstAttribute="centerX" secondItem="9O0-Bc-fBT" secondAttribute="centerX" id="2O7-bb-X12"/>
+                            <constraint firstItem="tc8-Yb-mDd" firstAttribute="centerX" secondItem="9O0-Bc-fBT" secondAttribute="centerX" id="cBL-V7-CWW"/>
+                            <constraint firstItem="tc8-Yb-mDd" firstAttribute="top" secondItem="mfX-O1-xJE" secondAttribute="bottom" constant="34" id="dqV-qd-eN7"/>
+                            <constraint firstItem="tc8-Yb-mDd" firstAttribute="width" secondItem="9O0-Bc-fBT" secondAttribute="width" id="haY-kN-Y5p"/>
+                            <constraint firstItem="mfX-O1-xJE" firstAttribute="top" secondItem="UYZ-m5-pJ9" secondAttribute="bottom" constant="37" id="t9f-fL-Jby"/>
+                            <constraint firstItem="mfX-O1-xJE" firstAttribute="height" secondItem="9O0-Bc-fBT" secondAttribute="height" multiplier="0.2" id="zqC-3H-em6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="2lh-4f-EpZ"/>
+                    <connections>
+                        <outlet property="imageViewDistanceFromTop" destination="t9f-fL-Jby" id="0g1-bR-xDa"/>
+                        <outlet property="profilePicture" destination="mfX-O1-xJE" id="Rya-xN-f9M"/>
+                        <outlet property="usernameTextField" destination="tc8-Yb-mDd" id="WeQ-tP-ID0"/>
+                        <outlet property="usernameTextFieldDistanceFromProfilePicture" destination="dqV-qd-eN7" id="exP-fT-hw1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="It4-g2-5hB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1905" y="305"/>
+        </scene>
+        <!--Messages-->
+        <scene sceneID="Rcc-ia-woF">
+            <objects>
+                <viewController title="Messages" id="yHg-MO-2y7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gqq-vc-aVL"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Bv-zh-T8k"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZeX-Sv-UAd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Messages" image="messages-icon.png" selectedImage="messages-icon.png" id="nfy-w2-EDy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Rq-wk-duQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093" y="-356"/>
+        </scene>
+        <!--BlocTalk-->
+        <scene sceneID="YLw-My-dcg">
+            <objects>
+                <tabBarController title="BlocTalk" id="cS5-G2-mR3" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ik2-Nx-87x">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="yHg-MO-2y7" kind="relationship" relationship="viewControllers" id="LcD-9J-lag"/>
+                        <segue destination="AyR-we-Act" kind="relationship" relationship="viewControllers" id="C6E-3M-oEN"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pk6-v5-1k8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="273" y="-25"/>
+        </scene>
+        <!--Settings Scene Nav Controller-->
+        <scene sceneID="5SK-OH-8Rg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AyR-we-Act" userLabel="Settings Scene Nav Controller" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="profile-icon.png" selectedImage="profile-icon.png" id="VVy-3M-bgm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="T4K-LL-C0c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pH1-jF-Ljx" kind="relationship" relationship="rootViewController" id="kB6-i6-rIF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0sr-nC-x7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093" y="305"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="messages-icon.png" width="30" height="30"/>
+        <image name="profile-icon.png" width="30" height="30"/>
+        <image name="profile-placeholder.jpg" width="1024" height="1024"/>
+    </resources>
+</document>
