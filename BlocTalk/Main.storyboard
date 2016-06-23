@@ -89,6 +89,9 @@
                                             <constraint firstAttribute="width" secondItem="h1c-MZ-Qab" secondAttribute="height" multiplier="1:1" id="DGm-eA-SI2"/>
                                         </constraints>
                                         <state key="normal" image="take-photo.png"/>
+                                        <connections>
+                                            <action selector="takePicture:" destination="qiH-vl-ScS" eventType="touchUpInside" id="fGj-Hb-MWX"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iE-zw-4px" userLabel="Change Camera Button">
                                         <rect key="frame" x="8" y="19" width="62" height="62"/>
@@ -96,6 +99,9 @@
                                             <constraint firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="height" multiplier="1:1" id="NlT-lf-Z33"/>
                                         </constraints>
                                         <state key="normal" image="Switch Camera-104.png"/>
+                                        <connections>
+                                            <action selector="changeCamera:" destination="qiH-vl-ScS" eventType="touchUpInside" id="rGr-G7-HiI"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5F-mu-M7t">
                                         <rect key="frame" x="528" y="13" width="64" height="68"/>

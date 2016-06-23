@@ -41,29 +41,24 @@
 }
 
 
--(void)updateViewConstraints {
-    
-    if (!self.hasSetupConstraints) {
-        
-        CGSize screenSize = [UIScreen mainScreen].bounds.size;
-        
-        NSLog(@"Testing!");
-        
-//        self.cancelButtonHeightFromTopOfView.constant = screenSize.height/65;
-//        
-//        self.takePhotoButtonDistanceFromCameraPreview.constant = screenSize.height/60;
-        
-    }
-    
-    [super updateViewConstraints];
-    
-}
-
 
 - (IBAction)cancelButtonPressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+
+- (IBAction)takePicture:(id)sender {
+    
+    NSLog(@"Take Picture Button Pressed");
+    
+}
+
+
+- (IBAction)changeCamera:(id)sender {
+    
+    NSLog(@"Change Camera Button Pressed");
 }
 
 
