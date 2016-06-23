@@ -80,86 +80,125 @@
                                 <rect key="frame" x="0.0" y="74" width="600" height="426"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Cancel-100.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Y3-BP-iMe">
-                                <rect key="frame" x="20" y="11" width="50" height="50"/>
-                                <gestureRecognizers/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-j3-28o">
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1c-MZ-Qab" userLabel="Take Picture Button">
+                                        <rect key="frame" x="255" y="4" width="91" height="91"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="h1c-MZ-Qab" secondAttribute="height" multiplier="1:1" id="DGm-eA-SI2"/>
+                                        </constraints>
+                                        <state key="normal" image="take-photo.png"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iE-zw-4px" userLabel="Change Camera Button">
+                                        <rect key="frame" x="8" y="19" width="62" height="62"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="height" multiplier="1:1" id="NlT-lf-Z33"/>
+                                        </constraints>
+                                        <state key="normal" image="Switch Camera-104.png"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5F-mu-M7t">
+                                        <rect key="frame" x="528" y="13" width="64" height="68"/>
+                                        <state key="normal" title="Button" image="Landscape-Placeholder.png"/>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="7Y3-BP-iMe" secondAttribute="height" multiplier="1:1" id="abM-YH-mhm"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="K3P-rV-CeJ" appends="YES" id="BzI-5K-bhd"/>
-                                </connections>
-                            </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="take-photo.png" translatesAutoresizingMaskIntoConstraints="NO" id="ffN-fq-gIc">
-                                <rect key="frame" x="261" y="514" width="78" height="73"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="6bn-wc-urW"/>
-                                    <constraint firstAttribute="width" secondItem="ffN-fq-gIc" secondAttribute="height" multiplier="1:1" id="yTh-dq-MuT"/>
-                                </constraints>
-                            </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Landscape-Placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ihr-Uw-Y6L">
-                                <rect key="frame" x="484" y="509" width="89" height="84"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="FXT-Di-0sA"/>
-                                    <constraint firstAttribute="width" secondItem="Ihr-Uw-Y6L" secondAttribute="height" multiplier="1:1" id="qsK-5y-Sbb"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="height" secondItem="7iE-zw-4px" secondAttribute="height" id="3dN-KV-KpI"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="centerY" secondItem="h1c-MZ-Qab" secondAttribute="centerY" id="H2m-yi-enn"/>
+                                    <constraint firstItem="7iE-zw-4px" firstAttribute="leading" secondItem="CzW-j3-28o" secondAttribute="leading" constant="20" symbolic="YES" id="Ig4-4l-gvN"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="height" secondItem="7iE-zw-4px" secondAttribute="height" id="Krm-pQ-JDz"/>
+                                    <constraint firstAttribute="trailing" secondItem="d5F-mu-M7t" secondAttribute="trailing" constant="20" symbolic="YES" id="Tsj-VE-3ho"/>
+                                    <constraint firstItem="7iE-zw-4px" firstAttribute="height" secondItem="h1c-MZ-Qab" secondAttribute="height" multiplier="0.7" id="Yf6-Ru-yQg"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="width" id="Zfe-3w-ece"/>
+                                    <constraint firstItem="7iE-zw-4px" firstAttribute="centerY" secondItem="h1c-MZ-Qab" secondAttribute="centerY" id="bjT-sg-Rhd"/>
+                                    <constraint firstItem="h1c-MZ-Qab" firstAttribute="centerX" secondItem="CzW-j3-28o" secondAttribute="centerX" id="d8G-WD-vRi"/>
+                                    <constraint firstItem="h1c-MZ-Qab" firstAttribute="height" secondItem="CzW-j3-28o" secondAttribute="height" multiplier="0.8" id="pxA-fF-rdQ"/>
+                                    <constraint firstItem="h1c-MZ-Qab" firstAttribute="centerY" secondItem="CzW-j3-28o" secondAttribute="centerY" id="x8R-Pl-u6F"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="width" id="xjN-AA-UpL"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="FXT-Di-0sA"/>
+                                        <exclude reference="3dN-KV-KpI"/>
+                                        <exclude reference="xjN-AA-UpL"/>
                                     </mask>
                                 </variation>
-                            </imageView>
-                            <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Switch Camera-104.png" translatesAutoresizingMaskIntoConstraints="NO" id="M7b-73-vdS">
-                                <rect key="frame" x="20" y="526" width="50" height="50"/>
-                            </imageView>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03m-H8-mcb">
+                                <rect key="frame" x="0.0" y="20" width="600" height="55"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fhS-lC-4Zy">
+                                        <rect key="frame" x="16" y="8" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="fhS-lC-4Zy" secondAttribute="height" multiplier="1:1" id="nVa-B7-dPC"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="Cancel-100.png"/>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="qiH-vl-ScS" eventType="touchUpInside" id="h8I-8g-EWw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="leading" secondItem="03m-H8-mcb" secondAttribute="leading" constant="20" symbolic="YES" id="eq0-pg-roq"/>
+                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="centerY" secondItem="03m-H8-mcb" secondAttribute="centerY" id="fjN-kS-Xly"/>
+                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="height" secondItem="03m-H8-mcb" secondAttribute="height" multiplier="0.6" id="h5c-B7-3Jb"/>
+                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="leading" secondItem="03m-H8-mcb" secondAttribute="leading" constant="16" id="hcr-a9-Nqw"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hcr-a9-Nqw"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="2uI-1u-s9V"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="6gb-Ad-sRo"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" constant="425" id="7mC-j9-wIn"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="centerX" secondItem="ISB-Rp-PNA" secondAttribute="centerX" id="936-Zx-RMo"/>
-                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerY" secondItem="7Y3-BP-iMe" secondAttribute="centerY" id="ETi-1P-ORb"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="7Y3-BP-iMe" secondAttribute="bottom" constant="13" id="KVM-6t-aGp"/>
-                            <constraint firstItem="7Y3-BP-iMe" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.07" id="PV0-TR-bhn"/>
-                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="height" secondItem="M7b-73-vdS" secondAttribute="height" multiplier="0.85" id="Sc2-Zn-BLt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" constant="-20" id="Cs3-CY-4Zu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="F4K-Mw-FxT"/>
+                            <constraint firstItem="7iE-zw-4px" firstAttribute="width" secondItem="fhS-lC-4Zy" secondAttribute="width" id="FL5-mw-PfZ"/>
+                            <constraint firstItem="03m-H8-mcb" firstAttribute="top" secondItem="9fV-Yh-3Ur" secondAttribute="bottom" id="K13-Zk-qsX"/>
+                            <constraint firstItem="7iE-zw-4px" firstAttribute="centerX" secondItem="fhS-lC-4Zy" secondAttribute="centerX" id="LgY-vx-ro5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="03m-H8-mcb" secondAttribute="trailing" constant="-20" id="Mme-dM-UPN"/>
+                            <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="Moi-ER-uYm"/>
+                            <constraint firstItem="03m-H8-mcb" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="20" id="Nwq-nB-4Ot"/>
                             <constraint firstItem="VlD-c8-rkM" firstAttribute="width" secondItem="ISB-Rp-PNA" secondAttribute="width" id="TJG-Px-jAy"/>
-                            <constraint firstItem="M7b-73-vdS" firstAttribute="width" secondItem="7Y3-BP-iMe" secondAttribute="width" id="TOF-r6-tsD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="M7b-73-vdS" secondAttribute="trailing" constant="27" id="eQ9-w3-LyY"/>
-                            <constraint firstItem="M7b-73-vdS" firstAttribute="height" secondItem="7Y3-BP-iMe" secondAttribute="height" id="i0F-iT-BSG"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="M7b-73-vdS" secondAttribute="bottom" constant="13" id="i2M-Cm-Wfs"/>
-                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerY" secondItem="ffN-fq-gIc" secondAttribute="centerY" id="iKj-69-OV6"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="7Y3-BP-iMe" secondAttribute="leading" id="kTI-U5-ktb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ihr-Uw-Y6L" secondAttribute="trailing" constant="7" id="klR-Rk-FJh"/>
-                            <constraint firstItem="ffN-fq-gIc" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" constant="14" id="mI7-mW-nmc"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.67" id="q17-2S-JBI"/>
-                            <constraint firstItem="ffN-fq-gIc" firstAttribute="centerX" secondItem="VlD-c8-rkM" secondAttribute="centerX" id="w3Q-he-iYf"/>
-                            <constraint firstItem="M7b-73-vdS" firstAttribute="centerX" secondItem="7Y3-BP-iMe" secondAttribute="centerX" id="wG3-ED-gDU"/>
-                            <constraint firstItem="Ihr-Uw-Y6L" firstAttribute="centerY" secondItem="ffN-fq-gIc" secondAttribute="centerY" id="xSQ-ei-4Bk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="03m-H8-mcb" secondAttribute="trailing" constant="20" id="U6L-sz-vIj"/>
+                            <constraint firstItem="7iE-zw-4px" firstAttribute="height" secondItem="fhS-lC-4Zy" secondAttribute="height" id="UyV-js-nyR"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="VLK-IN-b1t"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="Xfn-xg-inW"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" id="aOM-2q-AA7"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="eNA-Kh-RG6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="oVS-iQ-bTf"/>
+                            <constraint firstItem="VlD-c8-rkM" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.75" id="q17-2S-JBI"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" id="rwD-sD-nGY"/>
+                            <constraint firstItem="03m-H8-mcb" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="yfh-Uq-mPT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="i2M-Cm-Wfs"/>
-                                <exclude reference="ETi-1P-ORb"/>
-                                <exclude reference="eQ9-w3-LyY"/>
+                                <exclude reference="Nwq-nB-4Ot"/>
+                                <exclude reference="U6L-sz-vIj"/>
+                                <exclude reference="VLK-IN-b1t"/>
+                                <exclude reference="7mC-j9-wIn"/>
+                                <exclude reference="F4K-Mw-FxT"/>
+                                <exclude reference="oVS-iQ-bTf"/>
+                                <exclude reference="rwD-sD-nGY"/>
+                                <exclude reference="FL5-mw-PfZ"/>
+                                <exclude reference="LgY-vx-ro5"/>
+                                <exclude reference="UyV-js-nyR"/>
+                                <exclude reference="Moi-ER-uYm"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="cameraPreview" destination="VlD-c8-rkM" id="IPM-9U-Efw"/>
-                        <outlet property="cancelButtonGesutureRecognizer" destination="K3P-rV-CeJ" id="9ax-h7-7Oo"/>
-                        <outlet property="cancelCameraViewButton" destination="7Y3-BP-iMe" id="bSv-OQ-Onv"/>
-                        <outlet property="changeCameraInUseButton" destination="M7b-73-vdS" id="WZa-4a-e9u"/>
-                        <outlet property="distanceBetweenCancelButtonAndCameraPreview" destination="KVM-6t-aGp" id="NMb-y7-5Jc"/>
-                        <outlet property="distanceBetweenTakePhotoButtonAndCameraPreview" destination="mI7-mW-nmc" id="DWp-a9-TU4"/>
-                        <outlet property="pickerViewButton" destination="Ihr-Uw-Y6L" id="VjQ-XT-5h7"/>
-                        <outlet property="pickerViewDistanceFromRightMargin" destination="klR-Rk-FJh" id="2bg-NL-fJS"/>
+                        <outlet property="cancelButton" destination="fhS-lC-4Zy" id="PuS-Zf-IvR"/>
+                        <outlet property="imagePickerButton" destination="d5F-mu-M7t" id="4sb-86-8CG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlW-aq-9sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="K3P-rV-CeJ">
-                    <connections>
-                        <action selector="cancelButtonPressed:" destination="qiH-vl-ScS" id="LXJ-ba-PdZ"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2651" y="305"/>
         </scene>

@@ -10,23 +10,16 @@
 
 @interface BLCCameraViewController ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *changeCameraInUseButton;
+#pragma mark UI Controls
 
-@property (weak, nonatomic) IBOutlet UIImageView *cancelCameraViewButton;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraPreview;
 
-@property (weak, nonatomic) IBOutlet UIImageView *pickerViewButton;
+@property (weak, nonatomic) IBOutlet UIButton *imagePickerButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickerViewDistanceFromRightMargin;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceBetweenCancelButtonAndCameraPreview;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *distanceBetweenTakePhotoButtonAndCameraPreview;
-
-
-
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *cancelButtonGesutureRecognizer;
+#pragma mark Constraints
 
 @property (nonatomic, assign) BOOL hasSetupConstraints;
 
@@ -52,28 +45,28 @@
     
     if (!self.hasSetupConstraints) {
         
-        CGSize screenDimensions = [UIScreen mainScreen].bounds.size;
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
         
-        CGFloat distanceBetweenTopOfPreviewAndTopOfScreen = self.cameraPreview.frame.origin.y;
+        NSLog(@"Testing!");
         
-        self.distanceBetweenCancelButtonAndCameraPreview.constant = (distanceBetweenTopOfPreviewAndTopOfScreen/2) - 20;
-        
-        self.distanceBetweenTakePhotoButtonAndCameraPreview.constant = screenDimensions.height/30;
-        
-        self.pickerViewDistanceFromRightMargin.constant = screenDimensions.width/30;
+//        self.cancelButtonHeightFromTopOfView.constant = screenSize.height/65;
+//        
+//        self.takePhotoButtonDistanceFromCameraPreview.constant = screenSize.height/60;
         
     }
     
-    
     [super updateViewConstraints];
+    
 }
-
 
 
 - (IBAction)cancelButtonPressed:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
+
+
 
 /*
 #pragma mark - Navigation
