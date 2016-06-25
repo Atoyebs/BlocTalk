@@ -76,10 +76,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VlD-c8-rkM">
-                                <rect key="frame" x="0.0" y="74" width="600" height="426"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-j3-28o">
                                 <rect key="frame" x="0.0" y="500" width="600" height="100"/>
                                 <subviews>
@@ -113,6 +109,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="d5F-mu-M7t" firstAttribute="height" secondItem="7iE-zw-4px" secondAttribute="height" id="3dN-KV-KpI"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="height" secondItem="7iE-zw-4px" secondAttribute="height" id="B4f-Pk-QuD"/>
                                     <constraint firstItem="d5F-mu-M7t" firstAttribute="centerY" secondItem="h1c-MZ-Qab" secondAttribute="centerY" id="H2m-yi-enn"/>
                                     <constraint firstItem="7iE-zw-4px" firstAttribute="leading" secondItem="CzW-j3-28o" secondAttribute="leading" constant="20" symbolic="YES" id="Ig4-4l-gvN"/>
                                     <constraint firstItem="d5F-mu-M7t" firstAttribute="height" secondItem="7iE-zw-4px" secondAttribute="height" id="Krm-pQ-JDz"/>
@@ -120,14 +117,19 @@
                                     <constraint firstItem="7iE-zw-4px" firstAttribute="height" secondItem="h1c-MZ-Qab" secondAttribute="height" multiplier="0.7" id="Yf6-Ru-yQg"/>
                                     <constraint firstItem="d5F-mu-M7t" firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="width" id="Zfe-3w-ece"/>
                                     <constraint firstItem="7iE-zw-4px" firstAttribute="centerY" secondItem="h1c-MZ-Qab" secondAttribute="centerY" id="bjT-sg-Rhd"/>
+                                    <constraint firstItem="d5F-mu-M7t" firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="width" id="bqh-IG-CaS"/>
                                     <constraint firstItem="h1c-MZ-Qab" firstAttribute="centerX" secondItem="CzW-j3-28o" secondAttribute="centerX" id="d8G-WD-vRi"/>
-                                    <constraint firstItem="h1c-MZ-Qab" firstAttribute="height" secondItem="CzW-j3-28o" secondAttribute="height" multiplier="0.8" id="pxA-fF-rdQ"/>
+                                    <constraint firstItem="h1c-MZ-Qab" firstAttribute="height" secondItem="CzW-j3-28o" secondAttribute="height" multiplier="0.7" id="pxA-fF-rdQ"/>
                                     <constraint firstItem="h1c-MZ-Qab" firstAttribute="centerY" secondItem="CzW-j3-28o" secondAttribute="centerY" id="x8R-Pl-u6F"/>
                                     <constraint firstItem="d5F-mu-M7t" firstAttribute="width" secondItem="7iE-zw-4px" secondAttribute="width" id="xjN-AA-UpL"/>
+                                    <constraint firstItem="7iE-zw-4px" firstAttribute="height" secondItem="h1c-MZ-Qab" secondAttribute="height" multiplier="0.75" id="yqE-FS-nXA"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="Yf6-Ru-yQg"/>
                                         <exclude reference="3dN-KV-KpI"/>
+                                        <exclude reference="Krm-pQ-JDz"/>
+                                        <exclude reference="Zfe-3w-ece"/>
                                         <exclude reference="xjN-AA-UpL"/>
                                     </mask>
                                 </variation>
@@ -149,7 +151,7 @@
                                 <constraints>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="leading" secondItem="03m-H8-mcb" secondAttribute="leading" constant="20" symbolic="YES" id="eq0-pg-roq"/>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="centerY" secondItem="03m-H8-mcb" secondAttribute="centerY" id="fjN-kS-Xly"/>
-                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="height" secondItem="03m-H8-mcb" secondAttribute="height" multiplier="0.6" id="h5c-B7-3Jb"/>
+                                    <constraint firstItem="fhS-lC-4Zy" firstAttribute="height" secondItem="03m-H8-mcb" secondAttribute="height" multiplier="0.5" id="h5c-B7-3Jb"/>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="leading" secondItem="03m-H8-mcb" secondAttribute="leading" constant="16" id="hcr-a9-Nqw"/>
                                 </constraints>
                                 <variation key="default">
@@ -158,14 +160,18 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skQ-zE-DTp">
+                                <rect key="frame" x="0.0" y="83" width="600" height="409"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="2uI-1u-s9V"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="6gb-Ad-sRo"/>
                             <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" constant="425" id="7mC-j9-wIn"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="centerX" secondItem="ISB-Rp-PNA" secondAttribute="centerX" id="936-Zx-RMo"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.75" id="BWa-OA-Gue"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" constant="-20" id="Cs3-CY-4Zu"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="E97-Lc-qRM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="F4K-Mw-FxT"/>
                             <constraint firstItem="7iE-zw-4px" firstAttribute="width" secondItem="fhS-lC-4Zy" secondAttribute="width" id="FL5-mw-PfZ"/>
                             <constraint firstItem="03m-H8-mcb" firstAttribute="top" secondItem="9fV-Yh-3Ur" secondAttribute="bottom" id="K13-Zk-qsX"/>
@@ -173,27 +179,28 @@
                             <constraint firstAttribute="trailingMargin" secondItem="03m-H8-mcb" secondAttribute="trailing" constant="-20" id="Mme-dM-UPN"/>
                             <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="Moi-ER-uYm"/>
                             <constraint firstItem="03m-H8-mcb" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="20" id="Nwq-nB-4Ot"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="width" secondItem="ISB-Rp-PNA" secondAttribute="width" id="TJG-Px-jAy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="03m-H8-mcb" secondAttribute="trailing" constant="20" id="U6L-sz-vIj"/>
                             <constraint firstItem="7iE-zw-4px" firstAttribute="height" secondItem="fhS-lC-4Zy" secondAttribute="height" id="UyV-js-nyR"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="VLK-IN-b1t"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="Xfn-xg-inW"/>
-                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" id="aOM-2q-AA7"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="skQ-zE-DTp" secondAttribute="bottom" id="ZlX-I7-NIP"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="auL-Gt-PfG"/>
                             <constraint firstItem="CzW-j3-28o" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="eNA-Kh-RG6"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="skQ-zE-DTp" secondAttribute="bottom" id="kkT-kD-IR0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="skQ-zE-DTp" secondAttribute="trailing" constant="-20" id="li3-0D-j1d"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="centerX" secondItem="ISB-Rp-PNA" secondAttribute="centerX" id="m2j-lU-QBW"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="o2R-CK-Vay"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="oVS-iQ-bTf"/>
-                            <constraint firstItem="VlD-c8-rkM" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.75" id="q17-2S-JBI"/>
-                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="VlD-c8-rkM" secondAttribute="bottom" id="rwD-sD-nGY"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="qib-MD-aaI"/>
                             <constraint firstItem="03m-H8-mcb" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="yfh-Uq-mPT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Nwq-nB-4Ot"/>
                                 <exclude reference="U6L-sz-vIj"/>
-                                <exclude reference="VLK-IN-b1t"/>
+                                <exclude reference="auL-Gt-PfG"/>
                                 <exclude reference="7mC-j9-wIn"/>
                                 <exclude reference="F4K-Mw-FxT"/>
+                                <exclude reference="ZlX-I7-NIP"/>
                                 <exclude reference="oVS-iQ-bTf"/>
-                                <exclude reference="rwD-sD-nGY"/>
                                 <exclude reference="FL5-mw-PfZ"/>
                                 <exclude reference="LgY-vx-ro5"/>
                                 <exclude reference="UyV-js-nyR"/>
@@ -202,7 +209,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="cameraPreview" destination="VlD-c8-rkM" id="IPM-9U-Efw"/>
+                        <outlet property="cameraImagePreview" destination="skQ-zE-DTp" id="D1t-e6-6SB"/>
                         <outlet property="cancelButton" destination="fhS-lC-4Zy" id="PuS-Zf-IvR"/>
                         <outlet property="imagePickerButton" destination="d5F-mu-M7t" id="4sb-86-8CG"/>
                     </connections>

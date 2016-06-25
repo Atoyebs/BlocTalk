@@ -309,6 +309,7 @@
 				TargetAttributes = {
 					818C1A001D18946000130F5B = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = C84Y8645XV;
 					};
 					818C1A191D18946100130F5B = {
 						CreatedOnToolsVersion = 7.3;
@@ -520,7 +521,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: I O Atoyebi (TPKXL9FM52)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: I O Atoyebi (TPKXL9FM52)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -565,7 +567,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: I O Atoyebi (TPKXL9FM52)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: I O Atoyebi (TPKXL9FM52)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -591,6 +594,7 @@
 			baseConfigurationReference = 2A74DF3D771D1BF95B5B9EF1 /* Pods-BlocTalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BlocTalk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -604,6 +608,7 @@
 			baseConfigurationReference = 516A938A131C65C5482CCEC0 /* Pods-BlocTalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BlocTalk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
