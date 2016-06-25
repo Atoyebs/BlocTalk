@@ -8,6 +8,8 @@
 
 #import "BLCCameraViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "UIImage+UIImageExtensions.h"
+#import "BLCSettingsViewController.h"
 
 @interface BLCCameraViewController ()
 
@@ -19,7 +21,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *cameraImagePreview;
 
+@property (weak, nonatomic) IBOutlet UIButton *useImageButton;
 
+@property (nonatomic, strong) UIImage *mostRecentCapturedImage;
 
 #pragma mark AVFoundation
 
@@ -48,6 +52,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)useImageButtonPressed:(id)sender {
+    
+    if (self.mostRecentCapturedImage) {
+        [self.delegate useImageButtonPressed:self.mostRecentCapturedImage];
+    }
+    
+}
 
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -60,6 +71,8 @@
 - (IBAction)takePicture:(id)sender {
     
     NSLog(@"Take Picture Button Pressed");
+ 
+    [self cameraButtonPressed];
     
 }
 
@@ -146,6 +159,55 @@
     
 }
 
+
+
+- (void) cameraButtonPressed {
+    
+    AVCaptureConnection *videoConnection;
+    
+    // Find the right connection object
+    for (AVCaptureConnection *connection in self.cameraStillImageOutput.connections) {
+        for (AVCaptureInputPort *port in connection.inputPorts) {
+            if ([port.mediaType isEqual:AVMediaTypeVideo]) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) { break; }
+    }
+    
+    [self.cameraStillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+        if (imageSampleBuffer) {
+            NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+            UIImage *image = [UIImage imageWithData:imageData scale:[UIScreen mainScreen].scale];
+            image = [image imageWithFixedOrientation];
+            image = [image imageResizedToMatchAspectRatioOfSize:self.captureVideoPreviewLayer.bounds.size];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (image) {
+                    [self.cameraSession stopRunning];
+                    self.useImageButton.enabled = YES;
+                    self.mostRecentCapturedImage = image;
+                }
+                
+                
+                
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription message:error.localizedRecoverySuggestion delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", @"OK button") otherButtonTitles:nil];
+                [alert show];
+            });
+            
+        }
+    }];
+    
+}
+
+
 - (void) switchInUseCamera {
     
     AVCaptureDeviceInput *currentCameraInput = self.cameraSession.inputs.firstObject;
@@ -184,14 +246,7 @@
     
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

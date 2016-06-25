@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol BLCCameraViewControllerDelegate <NSObject>
+
+- (void)useImageButtonPressed:(UIImage *)capturedImage;
+
+@end
+
+
 @interface BLCCameraViewController : UIViewController
+
+@property (nonatomic, strong) id <BLCCameraViewControllerDelegate> delegate;
 
 @end

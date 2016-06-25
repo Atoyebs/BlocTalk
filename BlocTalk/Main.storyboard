@@ -56,9 +56,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="It4-g2-5hB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="RhR-Gq-4Rq">
+                <tapGestureRecognizer id="RhR-Gq-4Rq" userLabel="profilePictureGestureRecognizer">
                     <connections>
-                        <segue destination="qiH-vl-ScS" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="8Av-Fg-zJN"/>
+                        <segue destination="qiH-vl-ScS" kind="presentation" identifier="toCameraViewController" id="Kik-tJ-Z1U"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -147,8 +147,17 @@
                                             <action selector="cancelButtonPressed:" destination="qiH-vl-ScS" eventType="touchUpInside" id="h8I-8g-EWw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOh-0H-fYL">
+                                        <rect key="frame" x="554" y="8" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <state key="normal" title="Use"/>
+                                        <connections>
+                                            <action selector="useImageButtonPressed:" destination="qiH-vl-ScS" eventType="touchUpInside" id="hhE-f8-qJT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="oOh-0H-fYL" firstAttribute="centerY" secondItem="fhS-lC-4Zy" secondAttribute="centerY" id="CdU-jQ-JHy"/>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="leading" secondItem="03m-H8-mcb" secondAttribute="leading" constant="20" symbolic="YES" id="eq0-pg-roq"/>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="centerY" secondItem="03m-H8-mcb" secondAttribute="centerY" id="fjN-kS-Xly"/>
                                     <constraint firstItem="fhS-lC-4Zy" firstAttribute="height" secondItem="03m-H8-mcb" secondAttribute="height" multiplier="0.5" id="h5c-B7-3Jb"/>
@@ -169,6 +178,7 @@
                         <constraints>
                             <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="2uI-1u-s9V"/>
                             <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" constant="425" id="7mC-j9-wIn"/>
+                            <constraint firstItem="oOh-0H-fYL" firstAttribute="centerX" secondItem="d5F-mu-M7t" secondAttribute="centerX" id="7oM-k1-yWK"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.75" id="BWa-OA-Gue"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" constant="-20" id="Cs3-CY-4Zu"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="E97-Lc-qRM"/>
@@ -212,6 +222,7 @@
                         <outlet property="cameraImagePreview" destination="skQ-zE-DTp" id="D1t-e6-6SB"/>
                         <outlet property="cancelButton" destination="fhS-lC-4Zy" id="PuS-Zf-IvR"/>
                         <outlet property="imagePickerButton" destination="d5F-mu-M7t" id="4sb-86-8CG"/>
+                        <outlet property="useImageButton" destination="oOh-0H-fYL" id="Pbo-zJ-nu9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlW-aq-9sM" userLabel="First Responder" sceneMemberID="firstResponder"/>

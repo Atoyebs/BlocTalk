@@ -12,4 +12,8 @@
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
+- (UIImage *) imageWithFixedOrientation;
+
+- (UIImage *) imageResizedToMatchAspectRatioOfSize:(CGSize)size;
+
 @end

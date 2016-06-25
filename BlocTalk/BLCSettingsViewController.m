@@ -7,11 +7,12 @@
 //
 
 #import "BLCProfilePictureImageView.h"
+#import "BLCCameraViewController.h"
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
-@interface BLCSettingsViewController () <UITextFieldDelegate>
+@interface BLCSettingsViewController () <UITextFieldDelegate, BLCCameraViewControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet BLCProfilePictureImageView *profilePicture;
 @property (nonatomic, assign) BOOL hasSetupConstraints;
@@ -227,6 +228,29 @@
     }
 }
 
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    // Check the segue identifier
+    if([segue.identifier isEqualToString:@"toCameraViewController"]) {
+        
+        BLCCameraViewController *cameraViewController = (BLCCameraViewController *)segue.destinationViewController;
+        
+        cameraViewController.delegate = self;
+        
+    }
+    
+    
+}
+
+
+-(void)useImageButtonPressed:(UIImage *)capturedImage {
+    
+    NSLog(@"use image button pressed! Yay!");
+    
+}
 
 
 @end
