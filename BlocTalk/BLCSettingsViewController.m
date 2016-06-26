@@ -252,6 +252,10 @@
     self.profilePicture.image = capturedImage;
     self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
     
+    UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil);
+    
+    #warning The image that is saved to the photo album is not quite the same, it is a second delayed or so, rectify this.
+    
 }
 
 
