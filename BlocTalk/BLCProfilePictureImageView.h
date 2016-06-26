@@ -10,5 +10,6 @@
 
 @interface BLCProfilePictureImageView : UIImageView
 
+@property (nonatomic, assign) BOOL hideLabel;
 
 @end

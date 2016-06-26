@@ -152,7 +152,7 @@
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <state key="normal" title="Use"/>
                                         <connections>
-                                            <action selector="useImageButtonPressed:" destination="qiH-vl-ScS" eventType="touchUpInside" id="hhE-f8-qJT"/>
+                                            <segue destination="pH1-jF-Ljx" kind="custom" identifier="selectUseImageSegue" customClass="BLCDissmissSegue" id="RXi-CB-C7I"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -329,4 +329,7 @@
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
         <image name="take-photo.png" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="RXi-CB-C7I"/>
+    </inferredMetricsTieBreakers>
 </document>

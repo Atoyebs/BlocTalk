@@ -52,13 +52,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)useImageButtonPressed:(id)sender {
-    
-    if (self.mostRecentCapturedImage) {
-        [self.delegate useImageButtonPressed:self.mostRecentCapturedImage];
-    }
-    
-}
 
 
 - (IBAction)cancelButtonPressed:(id)sender {
@@ -246,6 +239,14 @@
     
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"selectUseImageSegue"]) {
+        
+        [self.delegate useImageButtonPressed:self.mostRecentCapturedImage];
+    }
+    
+}
 
 
 

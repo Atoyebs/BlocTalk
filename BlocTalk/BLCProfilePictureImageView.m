@@ -75,6 +75,9 @@
     [super updateConstraints];
 }
 
+-(void)setHideLabel:(BOOL)hideLabel {
+    self.descriptionLabel.hidden = hideLabel;
+}
 
 
 @end

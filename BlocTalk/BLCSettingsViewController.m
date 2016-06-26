@@ -248,7 +248,9 @@
 
 -(void)useImageButtonPressed:(UIImage *)capturedImage {
     
-    NSLog(@"use image button pressed! Yay!");
+    self.profilePicture.hideLabel = YES;
+    self.profilePicture.image = capturedImage;
+    self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
     
 }
 
