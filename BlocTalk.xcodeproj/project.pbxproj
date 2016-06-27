@@ -25,7 +25,6 @@
 		818C1A1F1D18946100130F5B /* BlocTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A1E1D18946100130F5B /* BlocTalkTests.m */; };
 		819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 819504A01D199E5D0031EFB9 /* Ok-icon.png */; };
 		819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 819504A21D19A4170031EFB9 /* edit-textbox.png */; };
-		819EB0801D1F384300A5F09C /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 819EB07F1D1F384300A5F09C /* CameraViewController.xib */; };
 		81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */; };
 		81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B024371D18DA5B00273D14 /* profile-placeholder.jpg */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
@@ -76,7 +75,6 @@
 		818C1A201D18946100130F5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		819504A01D199E5D0031EFB9 /* Ok-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ok-icon.png"; sourceTree = "<group>"; };
 		819504A21D19A4170031EFB9 /* edit-textbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-textbox.png"; sourceTree = "<group>"; };
-		819EB07F1D1F384300A5F09C /* CameraViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCProfilePictureImageView.h; sourceTree = "<group>"; };
 		81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCProfilePictureImageView.m; sourceTree = "<group>"; };
 		81B024371D18DA5B00273D14 /* profile-placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "profile-placeholder.jpg"; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 			children = (
 				818C1A121D18946100130F5B /* LaunchScreen.storyboard */,
 				814275CD1D1AA76E00F95162 /* Main.storyboard */,
-				819EB07F1D1F384300A5F09C /* CameraViewController.xib */,
 				81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */,
 				81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */,
 			);
@@ -357,7 +354,6 @@
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
 				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
 				814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */,
-				819EB0801D1F384300A5F09C /* CameraViewController.xib in Resources */,
 				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
 				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,

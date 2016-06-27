@@ -11,7 +11,7 @@
 #import "UIImage+UIImageExtensions.h"
 #import "BLCSettingsViewController.h"
 
-@interface BLCCameraViewController ()
+@interface BLCCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 #pragma mark UI Controls
 
@@ -248,12 +248,34 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"selectUseImageSegue"]) {
-        
         [self.delegate useImageButtonPressed:self.mostRecentCapturedImage];
+    }
+    else if ([segue.identifier isEqualToString:@"showImagePickerController"]) {
+        
+        UIImagePickerController *pickerController = [segue.destinationViewController init];
+        pickerController.delegate = self;
+        pickerController.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     }
     
 }
 
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    if (image) {
+        NSLog(@"We Found An Image! Yay!");
+        self.useImageButton.enabled = YES;
+        self.mostRecentCapturedImage = image;
+        self.capturedImageImageView.image = self.mostRecentCapturedImage;
+        self.cameraImagePreview.hidden = YES;
+        [self.cameraSession stopRunning];
+    }
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
 
 @end

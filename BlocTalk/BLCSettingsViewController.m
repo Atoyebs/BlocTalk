@@ -250,11 +250,7 @@
     self.profilePicture.image = capturedImage;
     self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
     
-    BOOL persistWasSuccesful = [self persistNewProfilePictureToDisk];
-    
-    if(persistWasSuccesful){
-        UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil);
-    }
+    [self persistNewProfilePictureToDisk];
     
 }
 
