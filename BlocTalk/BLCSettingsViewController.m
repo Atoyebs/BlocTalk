@@ -7,12 +7,11 @@
 //
 
 #import "BLCProfilePictureImageView.h"
-#import "BLCCameraViewController.h"
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 
-@interface BLCSettingsViewController () <UITextFieldDelegate, BLCCameraViewControllerDelegate>
+@interface BLCSettingsViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet BLCProfilePictureImageView *profilePicture;
 @property (nonatomic, assign) BOOL hasSetupConstraints;
@@ -27,6 +26,15 @@
 
 @property (nonatomic, strong) NSString *usernameKey;
 @property (nonatomic, strong) NSString *userName;
+
+@property (nonatomic, strong) UIImagePickerController *libraryImagePickerController;
+@property (nonatomic, strong) UIImagePickerController *cameraSnapshotPickerController;
+@property (nonatomic, strong) UIAlertController *imagePickerChoice;
+@property (nonatomic, strong) UIAlertAction *selectFromLibraryAction;
+@property (nonatomic, strong) UIAlertAction *selectFromCameraAction;
+
+@property (nonatomic, assign) BOOL imageChosenFromGallery;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewDistanceFromTop;
 
@@ -48,7 +56,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
     
     self.textFieldLimit = 25;
-    [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:15.0f]];
+    [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:17.0f]];
     self.usernameTextField.backgroundColor = [UIColor lightGrayColor];
     
     if (storedUsername) {
@@ -193,6 +201,97 @@
 }
 
 
+#pragma mark - Actions
+
+
+- (IBAction)tapImageView:(id)sender {
+    
+    self.imagePickerChoice = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIImagePickerControllerSourceType chooseFromLibraryType;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+    {
+        chooseFromLibraryType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    else {
+        chooseFromLibraryType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    }
+    
+    self.selectFromLibraryAction = [UIAlertAction actionWithTitle:@"Choose From Library" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        self.libraryImagePickerController = [[UIImagePickerController alloc] init];
+        self.libraryImagePickerController.delegate = self;
+        self.libraryImagePickerController.allowsEditing = YES;
+        self.libraryImagePickerController.sourceType = chooseFromLibraryType;
+        self.imageChosenFromGallery = YES;
+        [self presentViewController:self.libraryImagePickerController animated:YES completion:nil];
+    }];
+    
+    self.selectFromCameraAction = [UIAlertAction actionWithTitle:@"Take Photo (Camera)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if([self isCameraAvailableOnDevice]){
+            self.cameraSnapshotPickerController = [[UIImagePickerController alloc] init];
+            self.cameraSnapshotPickerController.delegate = self;
+            self.cameraSnapshotPickerController.allowsEditing = YES;
+            self.cameraSnapshotPickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.imageChosenFromGallery = NO;
+            [self presentViewController:self.cameraSnapshotPickerController animated:YES completion:nil];
+        }
+        else {
+            UIAlertController *noCameraAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Camera Unavailable For Device" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [noCameraAlert addAction:okAction];
+            
+            [self presentViewController:noCameraAlert animated:YES completion:nil];
+        }
+        
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    [self.imagePickerChoice addAction:self.selectFromLibraryAction];
+    [self.imagePickerChoice addAction:self.selectFromCameraAction];
+    [self.imagePickerChoice addAction:cancelAction];
+    [self presentViewController:self.imagePickerChoice animated:YES completion:nil];
+    
+}
+
+
+- (BOOL)isCameraAvailableOnDevice {
+    
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+    
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    
+    UIImage *imageToUse = info[UIImagePickerControllerEditedImage];
+    self.profilePicture.image = imageToUse;
+    self.profilePicture.hideLabel = YES;
+    self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
+    [self persistNewProfilePictureToDisk];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+       
+        if (!self.imageChosenFromGallery) {
+             UIImageWriteToSavedPhotosAlbum(imageToUse, nil, nil, nil);
+        }
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
 -(void)tapDoneButton:(id)sender {
     
     NSLog(@"Done Button Tapped");
@@ -228,15 +327,14 @@
 }
 
 
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     // Check the segue identifier
-    if([segue.identifier isEqualToString:@"toCameraViewController"]) {
+    if([segue.identifier isEqualToString:@"toImagePicker"]) {
         
-        BLCCameraViewController *cameraViewController = (BLCCameraViewController *)segue.destinationViewController;
-        cameraViewController.delegate = self;
         
     }
     
@@ -244,23 +342,12 @@
 }
 
 
--(void)useImageButtonPressed:(UIImage *)capturedImage {
-    
-    self.profilePicture.hideLabel = YES;
-    self.profilePicture.image = capturedImage;
-    self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
-    
-    [self persistNewProfilePictureToDisk];
-    
-}
-
 - (NSString *) pathForFilename:(NSString *) filename {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths firstObject];
     NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:filename];
     return dataPath;
 }
-
 
 -(void)loadProfilePictureDataFromDisk {
     
@@ -280,9 +367,7 @@
                 self.profilePicture.hideLabel = YES;
                 NSLog(@"ImageView succesfully loaded");
             }
-//            else {
-//                
-//            }
+
         });
     });
     
