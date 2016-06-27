@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BLCProfilePictureImageView : UIImageView
+@interface BLCProfilePictureImageView : UIImageView <NSCoding>
 
 @property (nonatomic, assign) BOOL hideLabel;
+@property (nonatomic, strong) UIImage *profilePicImage;
 
 @end

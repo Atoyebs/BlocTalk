@@ -76,6 +76,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n8j-TT-G0h">
+                                <rect key="frame" x="103" y="148" width="401" height="216"/>
+                            </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CzW-j3-28o">
                                 <rect key="frame" x="0.0" y="500" width="600" height="100"/>
                                 <subviews>
@@ -177,11 +180,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Un8-oB-0MY" firstAttribute="top" secondItem="CzW-j3-28o" secondAttribute="bottom" id="2uI-1u-s9V"/>
+                            <constraint firstItem="skQ-zE-DTp" firstAttribute="top" secondItem="n8j-TT-G0h" secondAttribute="bottom" constant="-281" id="4XZ-RL-eu9"/>
+                            <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="n8j-TT-G0h" secondAttribute="bottom" id="5Lp-6U-Mz7"/>
                             <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" constant="425" id="7mC-j9-wIn"/>
                             <constraint firstItem="oOh-0H-fYL" firstAttribute="centerX" secondItem="d5F-mu-M7t" secondAttribute="centerX" id="7oM-k1-yWK"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="829-om-t62"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="height" secondItem="ISB-Rp-PNA" secondAttribute="height" multiplier="0.75" id="BWa-OA-Gue"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="centerX" secondItem="skQ-zE-DTp" secondAttribute="centerX" id="CLI-on-K0s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" constant="-20" id="Cs3-CY-4Zu"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="centerY" secondItem="ISB-Rp-PNA" secondAttribute="centerY" id="E97-Lc-qRM"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="width" secondItem="skQ-zE-DTp" secondAttribute="width" id="EEP-7C-zZO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="F4K-Mw-FxT"/>
                             <constraint firstItem="7iE-zw-4px" firstAttribute="width" secondItem="fhS-lC-4Zy" secondAttribute="width" id="FL5-mw-PfZ"/>
                             <constraint firstItem="03m-H8-mcb" firstAttribute="top" secondItem="9fV-Yh-3Ur" secondAttribute="bottom" id="K13-Zk-qsX"/>
@@ -196,17 +204,22 @@
                             <constraint firstItem="CzW-j3-28o" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="eNA-Kh-RG6"/>
                             <constraint firstItem="CzW-j3-28o" firstAttribute="top" secondItem="skQ-zE-DTp" secondAttribute="bottom" id="kkT-kD-IR0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="skQ-zE-DTp" secondAttribute="trailing" constant="-20" id="li3-0D-j1d"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="leading" secondItem="skQ-zE-DTp" secondAttribute="trailing" constant="-497" id="ll2-2o-5ZB"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="centerX" secondItem="ISB-Rp-PNA" secondAttribute="centerX" id="m2j-lU-QBW"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="o2R-CK-Vay"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CzW-j3-28o" secondAttribute="trailing" id="oVS-iQ-bTf"/>
                             <constraint firstItem="skQ-zE-DTp" firstAttribute="top" secondItem="03m-H8-mcb" secondAttribute="bottom" id="qib-MD-aaI"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="height" secondItem="skQ-zE-DTp" secondAttribute="height" id="tCn-DE-Ytf"/>
+                            <constraint firstItem="n8j-TT-G0h" firstAttribute="centerY" secondItem="skQ-zE-DTp" secondAttribute="centerY" id="yPx-wo-uTS"/>
                             <constraint firstItem="03m-H8-mcb" firstAttribute="leading" secondItem="ISB-Rp-PNA" secondAttribute="leadingMargin" constant="-20" id="yfh-Uq-mPT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Nwq-nB-4Ot"/>
                                 <exclude reference="U6L-sz-vIj"/>
+                                <exclude reference="4XZ-RL-eu9"/>
                                 <exclude reference="auL-Gt-PfG"/>
+                                <exclude reference="ll2-2o-5ZB"/>
                                 <exclude reference="7mC-j9-wIn"/>
                                 <exclude reference="F4K-Mw-FxT"/>
                                 <exclude reference="ZlX-I7-NIP"/>
@@ -221,6 +234,7 @@
                     <connections>
                         <outlet property="cameraImagePreview" destination="skQ-zE-DTp" id="D1t-e6-6SB"/>
                         <outlet property="cancelButton" destination="fhS-lC-4Zy" id="PuS-Zf-IvR"/>
+                        <outlet property="capturedImageImageView" destination="n8j-TT-G0h" id="7QH-ao-wNt"/>
                         <outlet property="imagePickerButton" destination="d5F-mu-M7t" id="4sb-86-8CG"/>
                         <outlet property="useImageButton" destination="oOh-0H-fYL" id="Pbo-zJ-nu9"/>
                     </connections>

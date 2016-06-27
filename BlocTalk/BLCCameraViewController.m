@@ -15,6 +15,8 @@
 
 #pragma mark UI Controls
 
+@property (weak, nonatomic) IBOutlet UIImageView *capturedImageImageView;
+
 @property (weak, nonatomic) IBOutlet UIButton *imagePickerButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
@@ -24,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *useImageButton;
 
 @property (nonatomic, strong) UIImage *mostRecentCapturedImage;
+
+
 
 #pragma mark AVFoundation
 
@@ -91,7 +95,7 @@
     
     
     self.cameraSession = [[AVCaptureSession alloc] init];
-    self.cameraSession.sessionPreset = AVCaptureSessionPresetHigh;
+    self.cameraSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
     self.captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.cameraSession];
     self.captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -153,7 +157,6 @@
 }
 
 
-
 - (void) cameraButtonPressed {
     
     AVCaptureConnection *videoConnection;
@@ -180,12 +183,14 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 if (image) {
+                    self.cameraImagePreview.hidden = YES;
                     [self.cameraSession stopRunning];
+                    self.capturedImageImageView.image = image;
+                    self.cameraImagePreview.contentMode = UIViewContentModeRedraw;
                     self.useImageButton.enabled = YES;
                     self.mostRecentCapturedImage = image;
+                    
                 }
-                
-                
                 
             });
             
@@ -239,7 +244,8 @@
     
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"selectUseImageSegue"]) {
         

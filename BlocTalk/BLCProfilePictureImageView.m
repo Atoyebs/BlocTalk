@@ -40,15 +40,21 @@
         [self basicImageViewSetup];
     }
     
+    self.profilePicImage = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(profilePicImage))];
+    
     return self;
     
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.image forKey:NSStringFromSelector(@selector(profilePicImage))];
+}
 
 -(void)basicImageViewSetup {
     
     self.descriptionLabel = [UILabel new];
     self.descriptionLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:13.5f];
+    self.profilePicImage = self.image;
     self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.descriptionLabel];
     self.clipsToBounds = YES;

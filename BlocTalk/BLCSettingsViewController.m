@@ -45,10 +45,6 @@
     
     NSString *storedUsername = [UICKeyChainStore stringForKey:self.usernameKey];
     
-    if (storedUsername) {
-        self.userName = storedUsername;
-    }
-    
     self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
     
     self.textFieldLimit = 25;
@@ -56,8 +52,11 @@
     self.usernameTextField.backgroundColor = [UIColor lightGrayColor];
     
     if (storedUsername) {
+        self.userName = storedUsername;
         [self.usernameTextField setText:storedUsername];
     }
+    
+    [self loadProfilePictureDataFromDisk];
     
     UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
     self.usernameTextField.leftView = paddingView;
@@ -237,7 +236,6 @@
     if([segue.identifier isEqualToString:@"toCameraViewController"]) {
         
         BLCCameraViewController *cameraViewController = (BLCCameraViewController *)segue.destinationViewController;
-        
         cameraViewController.delegate = self;
         
     }
@@ -252,9 +250,58 @@
     self.profilePicture.image = capturedImage;
     self.profilePicture.contentMode = UIViewContentModeScaleAspectFill;
     
-    UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil);
+    BOOL persistWasSuccesful = [self persistNewProfilePictureToDisk];
     
-    #warning The image that is saved to the photo album is not quite the same, it is a second delayed or so, rectify this.
+    if(persistWasSuccesful){
+        UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil);
+    }
+    
+}
+
+- (NSString *) pathForFilename:(NSString *) filename {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:filename];
+    return dataPath;
+}
+
+
+-(void)loadProfilePictureDataFromDisk {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        //get the fullPath of the same file you saved/wrote to earlier
+        NSString *fullPath = [self pathForFilename:NSStringFromSelector(@selector(profilePicImage))];
+        
+        //unarchive the file into the SAME DATA/OBJECT TYPE YOU SAVED/WROTE it with
+        BLCProfilePictureImageView *loadedImageView = [NSKeyedUnarchiver unarchiveObjectWithFile:fullPath];
+        
+        //go back to the main queue as you've now finished the heavy lifting
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if (loadedImageView) {
+                self.profilePicture.image = loadedImageView.profilePicImage;
+                self.profilePicture.hideLabel = YES;
+                NSLog(@"ImageView succesfully loaded");
+            }
+//            else {
+//                
+//            }
+        });
+    });
+    
+}
+
+- (BOOL)persistNewProfilePictureToDisk {
+    
+    NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:self.profilePicture];
+    NSError *dataError = nil;
+    
+    NSString *fullPath = [self pathForFilename:NSStringFromSelector(@selector(profilePicImage))];
+    
+    BOOL wroteSuccesfully = [dataToSave writeToFile:fullPath options:NSDataWritingAtomic | NSDataWritingFileProtectionCompleteUnlessOpen error:&dataError];
+    
+    return wroteSuccesfully;
     
 }
 
