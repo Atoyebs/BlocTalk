@@ -7,80 +7,99 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08995E2610C0CD373544FF04120C05C3 /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF183D164AEA03A4AA2A2F5185EFE7D /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0B267FAF322513CE3AB957EB8406A3B7 /* PureLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0A907C755768715DA7F954CDC61B9E /* PureLayout-dummy.m */; };
 		166B1886D253A0FD33071100430E69C7 /* Pods-BlocTalkTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 85472C20BD4B2AF491C35FE4AA62F22D /* Pods-BlocTalkTests-dummy.m */; };
-		29ADB7E9BF099316D14C015EE7C537D0 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 45945D8F3DAD605A883B94C9128AB860 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41A7E2E5731692267407C83C01FB6173 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
-		54DE4B9681DB5FC49B5A53952B1290BD /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E956DAAFFAB936CB60D9273E05D498 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		633DC381185D0A966625157485F4126B /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D7DC82AF6F6260F768473B043656411 /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754B77BB2CC5308A1EE8E43F57E2D51B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
-		8687332EFB1CC8D04E2A978339F5DB06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */; };
-		B54361BC2DDC483F82C400F5C44DA509 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F48602517ECB353DCB8C98633FCAB09 /* ALView+PureLayout.m */; };
-		CD8DC2767ED3EFC8B1E049BC05F49418 /* PureLayout+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = D10E06F10AB8CECE8141D32B75CCA4FE /* PureLayout+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E57E5A4B40E363F2FBEC72F7B078C5EF /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F545BE94C48C8AFEED462FE6F8D3597A /* NSLayoutConstraint+PureLayout.m */; };
-		F1B909FB78F8AE5D26B960710F4047D1 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 873FC3649F700A415796A33CE2641055 /* NSArray+PureLayout.m */; };
-		F522C662DA4D26B75D2BCFA49C40BE76 /* Pods-BlocTalk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D66893A53D15D84AD53EF8AFC92A906 /* Pods-BlocTalk-dummy.m */; };
-		F85418358183793C8F9377F273697885 /* NSLayoutConstraint+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E41D14862AA071D9F8A5E652619270AF /* NSLayoutConstraint+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		180359F0765BF827EE21C6DF3785BE23 /* UICKeyChainStore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C58DEE4B6AC753C5915AA1CD182A32 /* UICKeyChainStore-dummy.m */; };
+		2BD70AA4D0AD8124D40A29C23888C42A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */; };
+		3532F7601C93E0C1513339DE2C8C61F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */; };
+		39AE3DE0BFE9F9537B52CAE3CAF9EFDC /* Pods-BlocTalk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D66893A53D15D84AD53EF8AFC92A906 /* Pods-BlocTalk-dummy.m */; };
+		3AA583DDFEBBA33AD89514E3AD59D192 /* NSLayoutConstraint+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 718FE09EEADADC48FAA6412D74EDC7D1 /* NSLayoutConstraint+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		400188E1B08385BB87415D02ECC606D2 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EF58E8601047E0270B6A69B8E7272C /* NSArray+PureLayout.m */; };
+		41A7E2E5731692267407C83C01FB6173 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */; };
+		5E2C4B70F81380837E977CC8BB76E9FF /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = A86771D47F813B0094420F313CD0A510 /* NSLayoutConstraint+PureLayout.m */; };
+		6AA7D69A1E1BCBF3349F10107AFBDC1D /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 711EFAC89DFC85AE0DF17E9C9B44F5E8 /* UICKeyChainStore.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		7475A937FBF404AF4CAA721BCF473BAA /* PureLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7EB80575D2CFBEF44E64A43406FCED /* PureLayout-dummy.m */; };
+		78659093EA0BB548DD5119D9D5EFEE8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD2500D1B139B0343EDFBF10E0D488E3 /* Security.framework */; };
+		A135A24708667483E4748776CBE6982B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */; };
+		AF82087EF8E50D7275017B24D14CB3A8 /* NSArray+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE10398E7266A329CA84CF5069DC3A6 /* NSArray+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C463AD72264C87152D3DF4703167C1F9 /* PureLayout+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = D2787E4F6546A8B7BE6189496F6DA740 /* PureLayout+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF270BE75BEDECC4C8533ADDFA7863B1 /* PureLayoutDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 388C4AD17A7B97DF264A9D09A5051944 /* PureLayoutDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E63B39BBB01F5892D367393FBA3AA5D3 /* PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 4433C94254040A3B5F6819C78492C4B7 /* PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EE56FDC8CC4FAFFA6C6B9EFEE215E971 /* ALView+PureLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = AA9103B357D76A23A00288DD4BA2A592 /* ALView+PureLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F46A5951A47D2187193B23210554D0A0 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0F34E07619C7188AE53CA8A7B48EC9 /* ALView+PureLayout.m */; };
+		F67B7FD48E5E7473A37DCE40CAF4329B /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E3775CE6A959BC073CD0B82A2535FF2 /* UICKeyChainStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		30FB3FB1B5F188CCD72F0B4167FAB3D9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EC5F778F4BFDF4C2637DB7470B5DF38E;
-			remoteInfo = PureLayout;
-		};
 		6C98EFA230DBE96B3A13F81E0D1636DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EC5F778F4BFDF4C2637DB7470B5DF38E;
+			remoteGlobalIDString = B421D16F7B8D850AEE51901511DE67DA;
 			remoteInfo = PureLayout;
+		};
+		B26B5C21687441CA588CBC1BC45D861E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B421D16F7B8D850AEE51901511DE67DA;
+			remoteInfo = PureLayout;
+		};
+		F45E7CE5FE780FE09EA2ED0345495921 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A9155B12687AA55EABD15826582A2E;
+			remoteInfo = UICKeyChainStore;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		129832CAED57495522F06699874AB5E0 /* PureLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-prefix.pch"; sourceTree = "<group>"; };
+		06C58DEE4B6AC753C5915AA1CD182A32 /* UICKeyChainStore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UICKeyChainStore-dummy.m"; sourceTree = "<group>"; };
 		178CD51AFAC0E4D03B8A3930A0E9F5D6 /* Pods-BlocTalkTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BlocTalkTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		1921C9085225BF5FB77507517ECB83BA /* Pods-BlocTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BlocTalk.debug.xcconfig"; sourceTree = "<group>"; };
-		1951A12F7C46D8BBF64BC9D3F882A2EA /* PureLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.xcconfig; sourceTree = "<group>"; };
-		32A8BB263DEE9A70D7E66F392EADEEFF /* libPods-BlocTalkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		35290B29680A156193371715EAF85305 /* libPureLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPureLayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		45945D8F3DAD605A883B94C9128AB860 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
+		29D8724B1965937CA14517E376D1EE51 /* PureLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PureLayout.xcconfig; sourceTree = "<group>"; };
+		388C4AD17A7B97DF264A9D09A5051944 /* PureLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = "<group>"; };
+		3BF2B80757C30CD1FBE7A57752640A15 /* libPods-BlocTalkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4433C94254040A3B5F6819C78492C4B7 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
+		4A0F34E07619C7188AE53CA8A7B48EC9 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
 		53C9E20EB5B5634683CE1C40327DADA4 /* Pods-BlocTalk-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BlocTalk-frameworks.sh"; sourceTree = "<group>"; };
-		57E956DAAFFAB936CB60D9273E05D498 /* PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayout.h; path = PureLayout/PureLayout/PureLayout.h; sourceTree = "<group>"; };
 		5C57144EB65024AE19A4EE5D7C47232C /* Pods-BlocTalkTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BlocTalkTests-frameworks.sh"; sourceTree = "<group>"; };
 		5D66893A53D15D84AD53EF8AFC92A906 /* Pods-BlocTalk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BlocTalk-dummy.m"; sourceTree = "<group>"; };
-		5F48602517ECB353DCB8C98633FCAB09 /* ALView+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ALView+PureLayout.m"; path = "PureLayout/PureLayout/ALView+PureLayout.m"; sourceTree = "<group>"; };
 		61DBA1828C102FD7B53D05225E58566B /* Pods-BlocTalkTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BlocTalkTests-resources.sh"; sourceTree = "<group>"; };
-		7D7DC82AF6F6260F768473B043656411 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		626ADBBCABF139588BA3D785811CA5E9 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E3775CE6A959BC073CD0B82A2535FF2 /* UICKeyChainStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UICKeyChainStore.h; path = Lib/UICKeyChainStore/UICKeyChainStore.h; sourceTree = "<group>"; };
+		711EFAC89DFC85AE0DF17E9C9B44F5E8 /* UICKeyChainStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UICKeyChainStore.m; path = Lib/UICKeyChainStore/UICKeyChainStore.m; sourceTree = "<group>"; };
+		718FE09EEADADC48FAA6412D74EDC7D1 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		78DE0D0160D2A08703B4362179EC231D /* UICKeyChainStore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UICKeyChainStore.xcconfig; sourceTree = "<group>"; };
+		7B7EB80575D2CFBEF44E64A43406FCED /* PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PureLayout-dummy.m"; sourceTree = "<group>"; };
 		85472C20BD4B2AF491C35FE4AA62F22D /* Pods-BlocTalkTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BlocTalkTests-dummy.m"; sourceTree = "<group>"; };
-		873FC3649F700A415796A33CE2641055 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9A3B0CAC15BF1FDC3F35F54DF0808242 /* Pods-BlocTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BlocTalk.release.xcconfig"; sourceTree = "<group>"; };
-		A1EE0A39AD0D14EBBC8257A1ACCECB98 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4368CC8BAA3D26316CCD9F01DF2607E /* libUICKeyChainStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libUICKeyChainStore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A86771D47F813B0094420F313CD0A510 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		AA9103B357D76A23A00288DD4BA2A592 /* ALView+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ALView+PureLayout.h"; path = "PureLayout/PureLayout/ALView+PureLayout.h"; sourceTree = "<group>"; };
 		AC8F44DC5DD3F9567FE1D2B8423E864D /* Pods-BlocTalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BlocTalkTests.debug.xcconfig"; sourceTree = "<group>"; };
-		ACF183D164AEA03A4AA2A2F5185EFE7D /* PureLayoutDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PureLayoutDefines.h; path = PureLayout/PureLayout/PureLayoutDefines.h; sourceTree = "<group>"; };
 		B28D55A569D2181EDCF3ED9284A31A72 /* Pods-BlocTalkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BlocTalkTests.release.xcconfig"; sourceTree = "<group>"; };
-		CE0A907C755768715DA7F954CDC61B9E /* PureLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PureLayout-dummy.m"; sourceTree = "<group>"; };
-		D10E06F10AB8CECE8141D32B75CCA4FE /* PureLayout+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = "<group>"; };
+		CEE10398E7266A329CA84CF5069DC3A6 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+PureLayout.h"; path = "PureLayout/PureLayout/NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		D17EE06728D22AD77709E95A3AF99D88 /* libPureLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPureLayout.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2787E4F6546A8B7BE6189496F6DA740 /* PureLayout+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PureLayout+Internal.h"; path = "PureLayout/PureLayout/PureLayout+Internal.h"; sourceTree = "<group>"; };
 		D7EEA311337D1166D29327CB69040257 /* Pods-BlocTalk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BlocTalk-acknowledgements.markdown"; sourceTree = "<group>"; };
-		E41D14862AA071D9F8A5E652619270AF /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+PureLayout.h"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		E9EF58E8601047E0270B6A69B8E7272C /* NSArray+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PureLayout.m"; path = "PureLayout/PureLayout/NSArray+PureLayout.m"; sourceTree = "<group>"; };
 		EA51E55605F3D4FACF5308D901D42564 /* Pods-BlocTalk-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BlocTalk-resources.sh"; sourceTree = "<group>"; };
-		F545BE94C48C8AFEED462FE6F8D3597A /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+PureLayout.m"; path = "PureLayout/PureLayout/NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		EE9098A703C94CD6FE88C145ADCF7445 /* UICKeyChainStore-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UICKeyChainStore-prefix.pch"; sourceTree = "<group>"; };
+		F7BD801E2D61215E00C04BDC746126EA /* PureLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PureLayout-prefix.pch"; sourceTree = "<group>"; };
 		F887FB79DE397D8A04103D1A83C2C9D2 /* Pods-BlocTalk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BlocTalk-acknowledgements.plist"; sourceTree = "<group>"; };
+		FD2500D1B139B0343EDFBF10E0D488E3 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		FEF2F37E0CE72114C7B4BADC74E0B32E /* Pods-BlocTalkTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BlocTalkTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7CC6663588609D1839E8BC07480B4D16 /* Frameworks */ = {
+		460F5A4C9DD05B716559F87D17447AB3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8687332EFB1CC8D04E2A978339F5DB06 /* Foundation.framework in Frameworks */,
+				2BD70AA4D0AD8124D40A29C23888C42A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,21 +111,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0705FD148392549AC47B599750B8BE4 /* Frameworks */ = {
+		CF7BB2210A6CDEC371B37111014BA7C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				754B77BB2CC5308A1EE8E43F57E2D51B /* Foundation.framework in Frameworks */,
+				A135A24708667483E4748776CBE6982B /* Foundation.framework in Frameworks */,
+				78659093EA0BB548DD5119D9D5EFEE8C /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCAAB5FD408C00B0FB4AD95F9141850B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3532F7601C93E0C1513339DE2C8C61F1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		112C7921E3A497328D11F4930CBBC9CA /* iOS */ = {
+		29C41EEF1FFF3F820CEF809483114E00 /* UICKeyChainStore */ = {
 			isa = PBXGroup;
 			children = (
-				3997E5D2953ECDF377B85B234FDF550D /* Foundation.framework */,
+				6E3775CE6A959BC073CD0B82A2535FF2 /* UICKeyChainStore.h */,
+				711EFAC89DFC85AE0DF17E9C9B44F5E8 /* UICKeyChainStore.m */,
+				76B8AA12D8EEB5A5478CA76FE60F9FB0 /* Support Files */,
+			);
+			path = UICKeyChainStore;
+			sourceTree = "<group>";
+		};
+		32B34FA20426C332956DCC1A4DD6E15A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				626ADBBCABF139588BA3D785811CA5E9 /* libPods-BlocTalk.a */,
+				3BF2B80757C30CD1FBE7A57752640A15 /* libPods-BlocTalkTests.a */,
+				D17EE06728D22AD77709E95A3AF99D88 /* libPureLayout.a */,
+				A4368CC8BAA3D26316CCD9F01DF2607E /* libUICKeyChainStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4DF64A452704262C01DE890C44547FDA /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4DF64A452704262C01DE890C44547FDA /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D99EEA7D51345A1AAC96B7A6A50D5D61 /* Foundation.framework */,
+				FD2500D1B139B0343EDFBF10E0D488E3 /* Security.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -126,36 +184,43 @@
 			path = "Target Support Files/Pods-BlocTalk";
 			sourceTree = "<group>";
 		};
-		72602C68E1DD892CF0B9E78D54D56D7C /* Products */ = {
+		76B8AA12D8EEB5A5478CA76FE60F9FB0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A1EE0A39AD0D14EBBC8257A1ACCECB98 /* libPods-BlocTalk.a */,
-				32A8BB263DEE9A70D7E66F392EADEEFF /* libPods-BlocTalkTests.a */,
-				35290B29680A156193371715EAF85305 /* libPureLayout.a */,
+				78DE0D0160D2A08703B4362179EC231D /* UICKeyChainStore.xcconfig */,
+				06C58DEE4B6AC753C5915AA1CD182A32 /* UICKeyChainStore-dummy.m */,
+				EE9098A703C94CD6FE88C145ADCF7445 /* UICKeyChainStore-prefix.pch */,
 			);
-			name = Products;
+			name = "Support Files";
+			path = "../Target Support Files/UICKeyChainStore";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				A2FDD832DA64F35B104DD4C55A31BF8E /* Pods */,
-				72602C68E1DD892CF0B9E78D54D56D7C /* Products */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				E1CE9ED8C99A6CA288445540B568F294 /* Pods */,
+				32B34FA20426C332956DCC1A4DD6E15A /* Products */,
 				936222C70A2BC7FEF4497BAF23A1DC53 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		83F65399C3808A743CC1392CF12DD692 /* Support Files */ = {
+		8C5E1BDA653D699C199CC7BA746532B3 /* PureLayout */ = {
 			isa = PBXGroup;
 			children = (
-				1951A12F7C46D8BBF64BC9D3F882A2EA /* PureLayout.xcconfig */,
-				CE0A907C755768715DA7F954CDC61B9E /* PureLayout-dummy.m */,
-				129832CAED57495522F06699874AB5E0 /* PureLayout-prefix.pch */,
+				AA9103B357D76A23A00288DD4BA2A592 /* ALView+PureLayout.h */,
+				4A0F34E07619C7188AE53CA8A7B48EC9 /* ALView+PureLayout.m */,
+				CEE10398E7266A329CA84CF5069DC3A6 /* NSArray+PureLayout.h */,
+				E9EF58E8601047E0270B6A69B8E7272C /* NSArray+PureLayout.m */,
+				718FE09EEADADC48FAA6412D74EDC7D1 /* NSLayoutConstraint+PureLayout.h */,
+				A86771D47F813B0094420F313CD0A510 /* NSLayoutConstraint+PureLayout.m */,
+				4433C94254040A3B5F6819C78492C4B7 /* PureLayout.h */,
+				D2787E4F6546A8B7BE6189496F6DA740 /* PureLayout+Internal.h */,
+				388C4AD17A7B97DF264A9D09A5051944 /* PureLayoutDefines.h */,
+				9780B6D9CFAECACC46BFBB12E4C2628B /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/PureLayout";
+			path = PureLayout;
 			sourceTree = "<group>";
 		};
 		936222C70A2BC7FEF4497BAF23A1DC53 /* Targets Support Files */ = {
@@ -167,37 +232,24 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		A2FDD832DA64F35B104DD4C55A31BF8E /* Pods */ = {
+		9780B6D9CFAECACC46BFBB12E4C2628B /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				AB198DB8875A98298498BA74D26897FE /* PureLayout */,
+				29D8724B1965937CA14517E376D1EE51 /* PureLayout.xcconfig */,
+				7B7EB80575D2CFBEF44E64A43406FCED /* PureLayout-dummy.m */,
+				F7BD801E2D61215E00C04BDC746126EA /* PureLayout-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/PureLayout";
+			sourceTree = "<group>";
+		};
+		E1CE9ED8C99A6CA288445540B568F294 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8C5E1BDA653D699C199CC7BA746532B3 /* PureLayout */,
+				29C41EEF1FFF3F820CEF809483114E00 /* UICKeyChainStore */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		AB198DB8875A98298498BA74D26897FE /* PureLayout */ = {
-			isa = PBXGroup;
-			children = (
-				45945D8F3DAD605A883B94C9128AB860 /* ALView+PureLayout.h */,
-				5F48602517ECB353DCB8C98633FCAB09 /* ALView+PureLayout.m */,
-				7D7DC82AF6F6260F768473B043656411 /* NSArray+PureLayout.h */,
-				873FC3649F700A415796A33CE2641055 /* NSArray+PureLayout.m */,
-				E41D14862AA071D9F8A5E652619270AF /* NSLayoutConstraint+PureLayout.h */,
-				F545BE94C48C8AFEED462FE6F8D3597A /* NSLayoutConstraint+PureLayout.m */,
-				57E956DAAFFAB936CB60D9273E05D498 /* PureLayout.h */,
-				D10E06F10AB8CECE8141D32B75CCA4FE /* PureLayout+Internal.h */,
-				ACF183D164AEA03A4AA2A2F5185EFE7D /* PureLayoutDefines.h */,
-				83F65399C3808A743CC1392CF12DD692 /* Support Files */,
-			);
-			path = PureLayout;
-			sourceTree = "<group>";
-		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				112C7921E3A497328D11F4930CBBC9CA /* iOS */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F619CF950B48A8CC41B9EABE644A6E33 /* Pods-BlocTalkTests */ = {
@@ -218,22 +270,48 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D454092E20EEADD945D4C3138300DF1E /* Headers */ = {
+		4D184EBA1989F39E62BB628AA5CD7ACD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29ADB7E9BF099316D14C015EE7C537D0 /* ALView+PureLayout.h in Headers */,
-				633DC381185D0A966625157485F4126B /* NSArray+PureLayout.h in Headers */,
-				F85418358183793C8F9377F273697885 /* NSLayoutConstraint+PureLayout.h in Headers */,
-				CD8DC2767ED3EFC8B1E049BC05F49418 /* PureLayout+Internal.h in Headers */,
-				54DE4B9681DB5FC49B5A53952B1290BD /* PureLayout.h in Headers */,
-				08995E2610C0CD373544FF04120C05C3 /* PureLayoutDefines.h in Headers */,
+				EE56FDC8CC4FAFFA6C6B9EFEE215E971 /* ALView+PureLayout.h in Headers */,
+				AF82087EF8E50D7275017B24D14CB3A8 /* NSArray+PureLayout.h in Headers */,
+				3AA583DDFEBBA33AD89514E3AD59D192 /* NSLayoutConstraint+PureLayout.h in Headers */,
+				C463AD72264C87152D3DF4703167C1F9 /* PureLayout+Internal.h in Headers */,
+				E63B39BBB01F5892D367393FBA3AA5D3 /* PureLayout.h in Headers */,
+				CF270BE75BEDECC4C8533ADDFA7863B1 /* PureLayoutDefines.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DFA402326BD1132FE068ADC709840FD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F67B7FD48E5E7473A37DCE40CAF4329B /* UICKeyChainStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		719F939FF807939339C76CC985DE87BA /* Pods-BlocTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8BD174697F73E05B50CD460C0C343B42 /* Build configuration list for PBXNativeTarget "Pods-BlocTalk" */;
+			buildPhases = (
+				3643A4FB1FFD5216CF7AAFA074189A1B /* Sources */,
+				FCAAB5FD408C00B0FB4AD95F9141850B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3640251C828DD566846331AC66565A36 /* PBXTargetDependency */,
+				E5C867A0367667AFD4AEA810CB87A27E /* PBXTargetDependency */,
+			);
+			name = "Pods-BlocTalk";
+			productName = "Pods-BlocTalk";
+			productReference = 626ADBBCABF139588BA3D785811CA5E9 /* libPods-BlocTalk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		80F23597C738CDE5EF31F24EC10920CC /* Pods-BlocTalkTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5452A3956828DF5286D32E0C911B4830 /* Build configuration list for PBXNativeTarget "Pods-BlocTalkTests" */;
@@ -248,16 +326,16 @@
 			);
 			name = "Pods-BlocTalkTests";
 			productName = "Pods-BlocTalkTests";
-			productReference = 32A8BB263DEE9A70D7E66F392EADEEFF /* libPods-BlocTalkTests.a */;
+			productReference = 3BF2B80757C30CD1FBE7A57752640A15 /* libPods-BlocTalkTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		EC5F778F4BFDF4C2637DB7470B5DF38E /* PureLayout */ = {
+		B421D16F7B8D850AEE51901511DE67DA /* PureLayout */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E1C3FB4C6E742A47F20DD9664D8CF329 /* Build configuration list for PBXNativeTarget "PureLayout" */;
+			buildConfigurationList = 6CB86AEBD74534DC648A62CA8704B982 /* Build configuration list for PBXNativeTarget "PureLayout" */;
 			buildPhases = (
-				3DFEF06B60C30F3E74635B5B3A21C406 /* Sources */,
-				7CC6663588609D1839E8BC07480B4D16 /* Frameworks */,
-				D454092E20EEADD945D4C3138300DF1E /* Headers */,
+				CC0F928E12EC9B54A6A25858A12E1A5E /* Sources */,
+				460F5A4C9DD05B716559F87D17447AB3 /* Frameworks */,
+				4D184EBA1989F39E62BB628AA5CD7ACD /* Headers */,
 			);
 			buildRules = (
 			);
@@ -265,24 +343,24 @@
 			);
 			name = PureLayout;
 			productName = PureLayout;
-			productReference = 35290B29680A156193371715EAF85305 /* libPureLayout.a */;
+			productReference = D17EE06728D22AD77709E95A3AF99D88 /* libPureLayout.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		F941EFBA1C23093D006B0ED6EC738A9D /* Pods-BlocTalk */ = {
+		F0A9155B12687AA55EABD15826582A2E /* UICKeyChainStore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 77ED758BE5C6BBCC513E90F190CC13AF /* Build configuration list for PBXNativeTarget "Pods-BlocTalk" */;
+			buildConfigurationList = 47FCBD5CEAFA6474BBBD28A2E5528034 /* Build configuration list for PBXNativeTarget "UICKeyChainStore" */;
 			buildPhases = (
-				4576AE46DA19880818A3CCC77918FC60 /* Sources */,
-				C0705FD148392549AC47B599750B8BE4 /* Frameworks */,
+				7E938F2AB3DEEFE48D4ABA09A1E4A0C7 /* Sources */,
+				CF7BB2210A6CDEC371B37111014BA7C6 /* Frameworks */,
+				5DFA402326BD1132FE068ADC709840FD /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C4A00827639F40616ACB620009533CAF /* PBXTargetDependency */,
 			);
-			name = "Pods-BlocTalk";
-			productName = "Pods-BlocTalk";
-			productReference = A1EE0A39AD0D14EBBC8257A1ACCECB98 /* libPods-BlocTalk.a */;
+			name = UICKeyChainStore;
+			productName = UICKeyChainStore;
+			productReference = A4368CC8BAA3D26316CCD9F01DF2607E /* libUICKeyChainStore.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -302,13 +380,14 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 72602C68E1DD892CF0B9E78D54D56D7C /* Products */;
+			productRefGroup = 32B34FA20426C332956DCC1A4DD6E15A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F941EFBA1C23093D006B0ED6EC738A9D /* Pods-BlocTalk */,
+				719F939FF807939339C76CC985DE87BA /* Pods-BlocTalk */,
 				80F23597C738CDE5EF31F24EC10920CC /* Pods-BlocTalkTests */,
-				EC5F778F4BFDF4C2637DB7470B5DF38E /* PureLayout */,
+				B421D16F7B8D850AEE51901511DE67DA /* PureLayout */,
+				F0A9155B12687AA55EABD15826582A2E /* UICKeyChainStore */,
 			);
 		};
 /* End PBXProject section */
@@ -322,39 +401,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3DFEF06B60C30F3E74635B5B3A21C406 /* Sources */ = {
+		3643A4FB1FFD5216CF7AAFA074189A1B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B54361BC2DDC483F82C400F5C44DA509 /* ALView+PureLayout.m in Sources */,
-				F1B909FB78F8AE5D26B960710F4047D1 /* NSArray+PureLayout.m in Sources */,
-				E57E5A4B40E363F2FBEC72F7B078C5EF /* NSLayoutConstraint+PureLayout.m in Sources */,
-				0B267FAF322513CE3AB957EB8406A3B7 /* PureLayout-dummy.m in Sources */,
+				39AE3DE0BFE9F9537B52CAE3CAF9EFDC /* Pods-BlocTalk-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4576AE46DA19880818A3CCC77918FC60 /* Sources */ = {
+		7E938F2AB3DEEFE48D4ABA09A1E4A0C7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F522C662DA4D26B75D2BCFA49C40BE76 /* Pods-BlocTalk-dummy.m in Sources */,
+				180359F0765BF827EE21C6DF3785BE23 /* UICKeyChainStore-dummy.m in Sources */,
+				6AA7D69A1E1BCBF3349F10107AFBDC1D /* UICKeyChainStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC0F928E12EC9B54A6A25858A12E1A5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F46A5951A47D2187193B23210554D0A0 /* ALView+PureLayout.m in Sources */,
+				400188E1B08385BB87415D02ECC606D2 /* NSArray+PureLayout.m in Sources */,
+				5E2C4B70F81380837E977CC8BB76E9FF /* NSLayoutConstraint+PureLayout.m in Sources */,
+				7475A937FBF404AF4CAA721BCF473BAA /* PureLayout-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3640251C828DD566846331AC66565A36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PureLayout;
+			target = B421D16F7B8D850AEE51901511DE67DA /* PureLayout */;
+			targetProxy = B26B5C21687441CA588CBC1BC45D861E /* PBXContainerItemProxy */;
+		};
 		83D1C1CC179B2466E253565C8F9664CF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PureLayout;
-			target = EC5F778F4BFDF4C2637DB7470B5DF38E /* PureLayout */;
+			target = B421D16F7B8D850AEE51901511DE67DA /* PureLayout */;
 			targetProxy = 6C98EFA230DBE96B3A13F81E0D1636DC /* PBXContainerItemProxy */;
 		};
-		C4A00827639F40616ACB620009533CAF /* PBXTargetDependency */ = {
+		E5C867A0367667AFD4AEA810CB87A27E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = PureLayout;
-			target = EC5F778F4BFDF4C2637DB7470B5DF38E /* PureLayout */;
-			targetProxy = 30FB3FB1B5F188CCD72F0B4167FAB3D9 /* PBXContainerItemProxy */;
+			name = UICKeyChainStore;
+			target = F0A9155B12687AA55EABD15826582A2E /* UICKeyChainStore */;
+			targetProxy = F45E7CE5FE780FE09EA2ED0345495921 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -400,30 +494,9 @@
 			};
 			name = Debug;
 		};
-		0EF4A2E16E0591E62CC46B74B4E0E925 /* Debug */ = {
+		0F3808865D45447E53811A9BD47A943A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1921C9085225BF5FB77507517ECB83BA /* Pods-BlocTalk.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		262A479EE2AD691E01AE6DDB623C31D5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1951A12F7C46D8BBF64BC9D3F882A2EA /* PureLayout.xcconfig */;
+			baseConfigurationReference = 29D8724B1965937CA14517E376D1EE51 /* PureLayout.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -442,7 +515,49 @@
 			};
 			name = Debug;
 		};
-		7EF112CCB78CB386D928A7AD79BE7EE6 /* Release */ = {
+		18C71299839F130F5964A260A643C002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29D8724B1965937CA14517E376D1EE51 /* PureLayout.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/PureLayout/PureLayout-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		37BEF8BC42F7395BA7B8EFC06E1BBA3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78DE0D0160D2A08703B4362179EC231D /* UICKeyChainStore.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/UICKeyChainStore/UICKeyChainStore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		3838344942A7FCC8FE7E8A14152A5DD2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A3B0CAC15BF1FDC3F35F54DF0808242 /* Pods-BlocTalk.release.xcconfig */;
 			buildSettings = {
@@ -463,17 +578,17 @@
 			};
 			name = Release;
 		};
-		C218F6B406881734F5D8669BF05E8C81 /* Release */ = {
+		4B6A3C7FDF4004E099B5B39218ED9C22 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1951A12F7C46D8BBF64BC9D3F882A2EA /* PureLayout.xcconfig */;
+			baseConfigurationReference = 78DE0D0160D2A08703B4362179EC231D /* UICKeyChainStore.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/PureLayout/PureLayout-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/UICKeyChainStore/UICKeyChainStore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -482,7 +597,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 		C9EEBF3B206C19FA135B6261F0EF43B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -563,6 +678,27 @@
 			};
 			name = Release;
 		};
+		E3EBAA30BC7F7673DB1371CC47AF0391 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1921C9085225BF5FB77507517ECB83BA /* Pods-BlocTalk.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -571,6 +707,15 @@
 			buildConfigurations = (
 				057D94F870052186C81D26B26EDB6055 /* Debug */,
 				D4B89010D23667A4C9B6E229745CC6D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		47FCBD5CEAFA6474BBBD28A2E5528034 /* Build configuration list for PBXNativeTarget "UICKeyChainStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B6A3C7FDF4004E099B5B39218ED9C22 /* Debug */,
+				37BEF8BC42F7395BA7B8EFC06E1BBA3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -584,20 +729,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		77ED758BE5C6BBCC513E90F190CC13AF /* Build configuration list for PBXNativeTarget "Pods-BlocTalk" */ = {
+		6CB86AEBD74534DC648A62CA8704B982 /* Build configuration list for PBXNativeTarget "PureLayout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0EF4A2E16E0591E62CC46B74B4E0E925 /* Debug */,
-				7EF112CCB78CB386D928A7AD79BE7EE6 /* Release */,
+				0F3808865D45447E53811A9BD47A943A /* Debug */,
+				18C71299839F130F5964A260A643C002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E1C3FB4C6E742A47F20DD9664D8CF329 /* Build configuration list for PBXNativeTarget "PureLayout" */ = {
+		8BD174697F73E05B50CD460C0C343B42 /* Build configuration list for PBXNativeTarget "Pods-BlocTalk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				262A479EE2AD691E01AE6DDB623C31D5 /* Debug */,
-				C218F6B406881734F5D8669BF05E8C81 /* Release */,
+				E3EBAA30BC7F7673DB1371CC47AF0391 /* Debug */,
+				3838344942A7FCC8FE7E8A14152A5DD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
