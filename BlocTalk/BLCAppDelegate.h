@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class BLCMultiPeerConnector;
+
 @interface BLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, strong) BLCMultiPeerConnector *multiPeerManager;
 
 @end
 
