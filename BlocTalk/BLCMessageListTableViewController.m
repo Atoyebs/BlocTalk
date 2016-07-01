@@ -7,21 +7,33 @@
 //
 
 #import "BLCMessageListTableViewController.h"
+#import "BLCMessageTableViewCell.h"
+#import <PureLayout/PureLayout.h>
 
 @interface BLCMessageListTableViewController ()
+
+@property (nonatomic, strong) NSArray *testData;
+@property (nonatomic, strong) UINib *messageCellViewNib;
+@property (nonatomic, strong) UIColor *backgroundColorBlue;
 
 @end
 
 @implementation BLCMessageListTableViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [super viewDidLoad];
+    
+    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi", @"Toyosi Adeyemi", @"Ife Oduyale", @"Afope Atoyebi", @"Charlotte Adeyemi"];
+    
+    self.messageCellViewNib = [UINib nibWithNibName:@"MessageViewCell" bundle:nil];
+    
+    self.backgroundColorBlue = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+ 
+    self.tableView.backgroundColor = self.backgroundColorBlue;
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -32,23 +44,57 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return self.testData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 1;
 }
 
-/*
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    
+    BLCMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    
+    if (!cell) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        
+    }
     
     // Configure the cell...
     
+    NSString *currentName = [self.testData objectAtIndex:indexPath.section];
+    cell.textLabel.text = currentName;
+    cell.imageView.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = self.backgroundColorBlue;
+    
     return cell;
 }
-*/
+
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = self.backgroundColorBlue;
+    return view;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = self.backgroundColorBlue;
+    return view;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 90;
+}
+
 
 /*
 // Override to support conditional editing of the table view.
