@@ -24,7 +24,7 @@
     
     [super viewDidLoad];
     
-    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi", @"Toyosi Adeyemi", @"Ife Oduyale", @"Afope Atoyebi", @"Charlotte Adeyemi"];
+    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi"];
     
     self.messageCellViewNib = [UINib nibWithNibName:@"MessageViewCell" bundle:nil];
     
@@ -43,12 +43,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
     return self.testData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
     return 1;
 }
 
