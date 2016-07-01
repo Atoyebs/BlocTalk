@@ -12,7 +12,7 @@
         <scene sceneID="PzS-BG-lMj">
             <objects>
                 <navigationController title="Messages" id="58A-LE-P84" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="messages-icon.png" selectedImage="messages-icon.png" id="OjC-64-CmJ"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="speech-bubble_icon" selectedImage="speech-bubble_icon" id="OjC-64-CmJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kEd-qJ-1G2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -67,7 +67,9 @@
                             <outlet property="delegate" destination="5AW-ML-yQj" id="CQG-u5-O5G"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="BlocTalk" id="AX2-Mo-Qj5"/>
+                    <navigationItem key="navigationItem" title="BlocTalk" id="AX2-Mo-Qj5">
+                        <barButtonItem key="rightBarButtonItem" image="add_icon" style="plain" id="dHa-ZK-EQm"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJD-0x-R5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -329,7 +331,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Connections" image="messages-icon.png" id="nfy-w2-EDy"/>
+                    <tabBarItem key="tabBarItem" title="Connections" image="wifi_icon" selectedImage="wifi_icon" id="nfy-w2-EDy"/>
                     <connections>
                         <outlet property="connectedDevicesTable" destination="KdX-hv-t0n" id="rl9-HR-vYP"/>
                         <outlet property="disconnectButton" destination="BTG-Vo-Xag" id="gwN-Pc-OSz"/>
@@ -367,7 +369,7 @@
         <scene sceneID="5SK-OH-8Rg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AyR-we-Act" userLabel="Settings Scene Nav Controller" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="profile-icon.png" selectedImage="profile-icon.png" id="VVy-3M-bgm"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="users_icon" selectedImage="users_icon" id="VVy-3M-bgm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="T4K-LL-C0c">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -384,8 +386,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="messages-icon.png" width="30" height="30"/>
-        <image name="profile-icon.png" width="30" height="30"/>
+        <image name="add_icon" width="22" height="22"/>
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
+        <image name="speech-bubble_icon" width="25" height="25"/>
+        <image name="users_icon" width="22" height="22"/>
+        <image name="wifi_icon" width="25" height="25"/>
     </resources>
 </document>
