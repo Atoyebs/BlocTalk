@@ -84,17 +84,6 @@
 }
 
 
-//- (IBAction)startNewConversation:(id)sender {
-//    
-//    BLCConversationMessagesViewController *vc = [[BLCConversationMessagesViewController alloc] init];
-//    vc.senderId = @"Ini";
-//    vc.senderDisplayName = @"Ini.Atoyebi";
-//    
-//    [self.navigationController pushViewController:vc animated:YES];
-//    
-//}
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
