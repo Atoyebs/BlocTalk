@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSArray *testData;
 @property (nonatomic, strong) UINib *messageCellViewNib;
 @property (nonatomic, strong) UIColor *backgroundColorBlue;
+@property (nonatomic, strong) UILabel *noConversationsInfoLabel;
+@property (nonatomic, strong) UIView *noConversationsMainView;
 
 @end
 
@@ -25,15 +27,45 @@
     
     [super viewDidLoad];
     
-    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi"];
+//    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi"];
     
-    self.messageCellViewNib = [UINib nibWithNibName:@"MessageViewCell" bundle:nil];
+    self.testData = [NSArray new];
     
     self.backgroundColorBlue = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
- 
+    
     self.tableView.backgroundColor = self.backgroundColorBlue;
+    
+    [self setUpNoConversationsViewCheckingDataArray:self.testData];
+    
 }
 
+
+
+- (void)setUpNoConversationsViewCheckingDataArray:(NSArray *)conversationsArray {
+    
+    if (conversationsArray.count == 0 || !conversationsArray) {
+        
+        CGSize deviceSize = [UIScreen mainScreen].bounds.size;
+        
+        self.noConversationsInfoLabel = [UILabel new];
+        self.noConversationsInfoLabel.numberOfLines = 3;
+        self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:18.0f];
+        self.noConversationsInfoLabel.text = @"There's Nothing Here. Tap + To Start A New Chat";
+        [self.tableView addSubview:self.noConversationsInfoLabel];
+        
+        [self.noConversationsInfoLabel autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
+        [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3.5];
+        
+        NSMutableAttributedString *attributedLabelText = [[NSMutableAttributedString alloc] initWithAttributedString:self.noConversationsInfoLabel.attributedText];
+        
+        [attributedLabelText addAttribute:NSForegroundColorAttributeName value:self.tableView.tintColor range:NSMakeRange(26, 1)];
+        self.noConversationsInfoLabel.attributedText = attributedLabelText;
+        
+        [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.50)];
+        
+    }
+    
+}
 
 
 - (void)didReceiveMemoryWarning {
