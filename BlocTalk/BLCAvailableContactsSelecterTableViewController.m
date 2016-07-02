@@ -27,7 +27,7 @@
     self.mainDataSource = [BLCDataSource sharedInstance];
     
     
-    if ([self.mainDataSource getConnectedDevices].count <= 3) {
+    if ([self.mainDataSource getConnectedDevices].count <= 1) {
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
