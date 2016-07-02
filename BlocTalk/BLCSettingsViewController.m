@@ -10,6 +10,7 @@
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
+#import "BLCDataSource.h"
 
 @interface BLCSettingsViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -35,17 +36,24 @@
 
 @property (nonatomic, assign) BOOL imageChosenFromGallery;
 
+@property (nonatomic, strong)  BLCDataSource *mainDataSource;
+
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewDistanceFromTop;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *usernameTextFieldDistanceFromProfilePicture;
+
+
 
 @end
 
 @implementation BLCSettingsViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    self.mainDataSource = [BLCDataSource sharedInstance];
     
     self.hasSetupConstraints = NO;
     self.usernameKey = @"usernameKey";
@@ -300,6 +308,7 @@
     [self setUsernameTextfieldStateActive:NO];
     
     [UICKeyChainStore setString:self.usernameTextField.text forKey:self.usernameKey];
+    [self.mainDataSource changeUserName:self.usernameTextField.text];
 }
 
 
@@ -327,19 +336,6 @@
 }
 
 
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    // Check the segue identifier
-    if([segue.identifier isEqualToString:@"toImagePicker"]) {
-        
-        
-    }
-    
-    
-}
 
 
 - (NSString *) pathForFilename:(NSString *) filename {

@@ -1,15 +1,21 @@
 PODS:
+  - JSQMessagesViewController (7.3.3):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
   - PureLayout (3.0.2)
   - UICKeyChainStore (2.1.0)
 
 DEPENDENCIES:
+  - JSQMessagesViewController
   - PureLayout
   - UICKeyChainStore
 
 SPEC CHECKSUMS:
+  JSQMessagesViewController: 0ee3f80237268192a3e8337fd0d787f1a1bf5a7a
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-PODFILE CHECKSUM: d1d7f559d3efb2ac0e984f768dbe9f8bac526f23
+PODFILE CHECKSUM: a7f4f81901aa17b3274ff32daf6cacf49578704f
 
 COCOAPODS: 1.0.0.beta.5

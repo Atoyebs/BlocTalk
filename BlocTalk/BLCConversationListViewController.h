@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BLCMessageListTableViewController : UITableViewController
+@interface BLCConversationListViewController : UITableViewController
 
 @end

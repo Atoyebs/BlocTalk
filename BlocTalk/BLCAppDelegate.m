@@ -8,8 +8,9 @@
 
 #import "BLCAppDelegate.h"
 #import "BLCSettingsViewController.h"
-#import "BLCMessageListTableViewController.h"
+#import "BLCConversationListViewController.h"
 #import "UIImage+UIImageExtensions.h"
+#import "BLCMultiPeerConnector.h"
 
 @interface BLCAppDelegate ()
 
@@ -21,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     
     return YES;
 }
