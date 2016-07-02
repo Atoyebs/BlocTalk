@@ -8,7 +8,7 @@
 
 #import "BLCAppDelegate.h"
 #import "BLCSettingsViewController.h"
-#import "BLCMessageListTableViewController.h"
+#import "BLCConversationListViewController.h"
 #import "UIImage+UIImageExtensions.h"
 #import "BLCMultiPeerConnector.h"
 

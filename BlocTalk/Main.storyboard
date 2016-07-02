@@ -28,11 +28,11 @@
         <!--Messages-->
         <scene sceneID="9Ch-vz-myH">
             <objects>
-                <tableViewController title="Messages" id="5AW-ML-yQj" customClass="BLCMessageListTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Messages" id="5AW-ML-yQj" customClass="BLCConversationListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="7" sectionFooterHeight="7" id="Z0H-E0-QzN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="cell" textLabel="Ne8-nZ-UuN" detailTextLabel="EOq-BM-5DV" style="IBUITableViewCellStyleSubtitle" id="NcC-rx-nud" customClass="BLCMessageTableViewCell">
@@ -46,7 +46,7 @@
                                             <rect key="frame" x="15" y="6" width="28" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EOq-BM-5DV">
@@ -68,12 +68,83 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="BlocTalk" id="AX2-Mo-Qj5">
-                        <barButtonItem key="rightBarButtonItem" image="add_icon" style="plain" id="dHa-ZK-EQm"/>
+                        <barButtonItem key="rightBarButtonItem" image="add_icon" style="plain" id="dHa-ZK-EQm">
+                            <connections>
+                                <segue destination="njs-z9-GZ5" kind="show" id="xJN-dt-phK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJD-0x-R5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2285" y="-25"/>
+        </scene>
+        <!--Available Contacts-->
+        <scene sceneID="XCR-Zn-1yh">
+            <objects>
+                <tableViewController id="njs-z9-GZ5" customClass="BLCAvailableContactsSelecterTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n3B-bB-gEE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="3j4-WH-kBO" style="IBUITableViewCellStyleDefault" id="xsg-aK-S81">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xsg-aK-S81" id="lai-Gq-uHm">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3j4-WH-kBO">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="njs-z9-GZ5" id="rK9-0C-4cb"/>
+                            <outlet property="delegate" destination="njs-z9-GZ5" id="P9F-bB-IoX"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Available Contacts" id="UU9-0g-yUg">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="checked_icon" id="DWE-TL-Zbz">
+                            <connections>
+                                <action selector="finishedChoosingPeersTapped:" destination="njs-z9-GZ5" id="a4T-7M-sKd"/>
+                                <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="finishedSelectingRecipientsButton" destination="DWE-TL-Zbz" id="130-Z2-lhu"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qOv-1R-i5y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3251" y="-25"/>
+        </scene>
+        <!--Conversation View Controller-->
+        <scene sceneID="rpT-T7-uJy">
+            <objects>
+                <viewController id="wZD-DH-qOI" customClass="BLCConversationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O3f-AT-GpT"/>
+                        <viewControllerLayoutGuide type="bottom" id="VKV-T6-q9G"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wb6-V9-raf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="aev-JV-THH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="urI-c8-jMn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4291" y="-25"/>
         </scene>
         <!--Messages Prototype-->
         <scene sceneID="UG6-ch-A3Y">
@@ -159,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsu-OI-uEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3501" y="-533"/>
+            <point key="canvasLocation" x="5137" y="-851"/>
         </scene>
         <!--Settings-->
         <scene sceneID="pYb-RP-NoP">
@@ -235,7 +306,7 @@
                                     <constraint firstAttribute="width" secondItem="sxd-tp-Lq5" secondAttribute="height" multiplier="21:3" id="4AE-oj-ynf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="24"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="21l-fA-ntu">
@@ -293,7 +364,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Connected To :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tx9-6e-8Go">
                                         <rect key="frame" x="244" y="10" width="112" height="21"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="16"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -387,6 +458,7 @@
     </scenes>
     <resources>
         <image name="add_icon" width="22" height="22"/>
+        <image name="checked_icon" width="25" height="25"/>
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
         <image name="speech-bubble_icon" width="25" height="25"/>
         <image name="users_icon" width="22" height="22"/>

@@ -6,11 +6,12 @@
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 
-#import "BLCMessageListTableViewController.h"
+#import "BLCConversationListViewController.h"
 #import "BLCMessageTableViewCell.h"
 #import <PureLayout/PureLayout.h>
+#import "BLCConversationViewController.h"
 
-@interface BLCMessageListTableViewController ()
+@interface BLCConversationListViewController ()
 
 @property (nonatomic, strong) NSArray *testData;
 @property (nonatomic, strong) UINib *messageCellViewNib;
@@ -18,7 +19,7 @@
 
 @end
 
-@implementation BLCMessageListTableViewController
+@implementation BLCConversationListViewController
 
 - (void)viewDidLoad {
     
@@ -49,6 +50,17 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
+
+
+//- (IBAction)startNewConversation:(id)sender {
+//    
+//    BLCConversationMessagesViewController *vc = [[BLCConversationMessagesViewController alloc] init];
+//    vc.senderId = @"Ini";
+//    vc.senderDisplayName = @"Ini.Atoyebi";
+//    
+//    [self.navigationController pushViewController:vc animated:YES];
+//    
+//}
 
 
 

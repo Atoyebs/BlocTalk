@@ -6,6 +6,7 @@
 target 'BlocTalk' do
    pod 'PureLayout'
    pod 'UICKeyChainStore'
+   pod 'JSQMessagesViewController'
 end
 
 target 'BlocTalkTests' do

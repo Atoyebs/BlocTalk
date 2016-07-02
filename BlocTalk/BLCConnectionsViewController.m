@@ -10,6 +10,7 @@
 #import "BLCConnectionsViewController.h"
 #import "BLCAppDelegate.h"
 #import "BLCMultiPeerConnector.h"
+#import "BLCDataSource.h"
 
 @interface BLCConnectionsViewController () <MCBrowserViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -32,12 +33,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopDistanceToView;
 
 
-#warning The properties below will only be used to get an intial test of sending messages going;
-
-
-
-
-@property (nonatomic, strong) NSMutableArray *connectedDevices;
+@property (nonatomic, strong) BLCDataSource *mainDataSource;
 
 @end
 
@@ -53,7 +49,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateWithNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
-    self.connectedDevices = [NSMutableArray new];
+    self.mainDataSource = [BLCDataSource sharedInstance];
     
     self.connectedDevicesTable.delegate = self;
     self.connectedDevicesTable.dataSource = self;
@@ -87,7 +83,7 @@
     
     [self.appDelegate.multiPeerManager.peerSession disconnect];
     
-    [self.connectedDevices removeAllObjects];
+    [[self.mainDataSource getConnectedDevices] removeAllObjects];
     [self.connectedDevicesTable reloadData];
 }
 
@@ -128,13 +124,13 @@
         
         //if the state is connected then add the display name to the arrayList
         if (state == MCSessionStateConnected) {
-            [self.connectedDevices addObject:peerDisplayName];
+            [[self.mainDataSource getConnectedDevices] addObject:peerDisplayName];
         }
         else if (state == MCSessionStateNotConnected){
             
-            if (self.connectedDevices.count > 0) {
-                NSInteger indexOfPeer = [self.connectedDevices indexOfObject:peerDisplayName];
-                [self.connectedDevices removeObjectAtIndex:indexOfPeer];
+            if ([self.mainDataSource getConnectedDevices].count > 0) {
+                NSInteger indexOfPeer = [[self.mainDataSource getConnectedDevices] indexOfObject:peerDisplayName];
+                [[self.mainDataSource getConnectedDevices] removeObjectAtIndex:indexOfPeer];
             }
             
         }
@@ -157,7 +153,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.connectedDevices.count;
+    return [self.mainDataSource getConnectedDevices].count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -168,7 +164,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentifier"];
     }
     
-    cell.textLabel.text = [self.connectedDevices objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPath.row];
     
     return cell;
 }
