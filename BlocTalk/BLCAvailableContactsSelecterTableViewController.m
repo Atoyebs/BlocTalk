@@ -8,6 +8,7 @@
 
 #import "BLCAvailableContactsSelecterTableViewController.h"
 #import "BLCDataSource.h"
+#import "BLCConversation.h"
 #import "BLCConversationViewController.h"
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
 
@@ -131,7 +132,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
+    if ([segue.identifier isEqualToString:@"pushToNewConversationVC"]) {
         
         BLCConversationViewController *convoVC = (BLCConversationViewController *)[segue destinationViewController];
         
@@ -160,9 +161,15 @@
         }
         
         if (selectedPeers.count > 0) {
-            convoVC.selectedRecipients = selectedPeers;
+            
+            BLCConversation *newConversation = [[BLCConversation alloc] init];
+            newConversation.recipients = selectedPeers;
+            
+            convoVC.conversation = newConversation;
+            
             convoVC.senderId = [self.mainDataSource getUserName];
             convoVC.senderDisplayName = [self.mainDataSource getUserName];
+            
         }
         
     }

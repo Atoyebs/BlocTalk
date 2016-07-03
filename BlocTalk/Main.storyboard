@@ -115,7 +115,7 @@
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="checked_icon" id="DWE-TL-Zbz">
                             <connections>
                                 <action selector="finishedChoosingPeersTapped:" destination="njs-z9-GZ5" id="a4T-7M-sKd"/>
-                                <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
+                                <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToNewConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

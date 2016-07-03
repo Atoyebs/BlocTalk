@@ -49,19 +49,21 @@
         
         self.noConversationsInfoLabel = [UILabel new];
         self.noConversationsInfoLabel.numberOfLines = 3;
-        self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:18.0f];
+        self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:20.0f];
         self.noConversationsInfoLabel.text = @"There's Nothing Here. Tap + To Start A New Chat";
         [self.tableView addSubview:self.noConversationsInfoLabel];
         
         [self.noConversationsInfoLabel autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
-        [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3.5];
+        [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3];
         
         NSMutableAttributedString *attributedLabelText = [[NSMutableAttributedString alloc] initWithAttributedString:self.noConversationsInfoLabel.attributedText];
         
         [attributedLabelText addAttribute:NSForegroundColorAttributeName value:self.tableView.tintColor range:NSMakeRange(26, 1)];
         self.noConversationsInfoLabel.attributedText = attributedLabelText;
         
-        [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.50)];
+        [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.60)];
+        
+        self.tableView.scrollEnabled = NO;
         
     }
     
@@ -91,7 +93,6 @@
     
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        
     }
     
     // Configure the cell...

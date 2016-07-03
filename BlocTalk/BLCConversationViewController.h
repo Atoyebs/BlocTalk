@@ -7,9 +7,10 @@
 //
 
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
+@class BLCConversation;
 
 @interface BLCConversationViewController : JSQMessagesViewController
 
-@property (nonatomic, strong) NSArray *selectedRecipients;
+@property (nonatomic, strong) BLCConversation *conversation;
 
 @end
