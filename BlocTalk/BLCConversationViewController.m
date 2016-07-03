@@ -40,6 +40,8 @@
         self.title = @"Unknown";
     }
     
+    self.collectionView.backgroundColor = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    
     
 }
 
@@ -56,12 +58,6 @@
 }
 
 #pragma mark - JSQMessagesCollectionViewDataSource
-
-//-(NSString *)senderDisplayName {
-//    
-//    return self.senderDisplayName;
-//}
-
 
 
 -(id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
