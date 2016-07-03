@@ -12,6 +12,9 @@
 #import <JSQMessage.h>
 #import <JSQMessagesViewController/JSQMessagesCollectionViewFlowLayoutInvalidationContext.h>
 #import <JSQMessagesBubbleImage.h>
+#import <JSQMessagesAvatarImage.h>
+#import <JSQMessagesViewController/JSQMessagesAvatarImageFactory.h>
+#import "UIColor+JSQMessages.h"
 
 
 
@@ -19,8 +22,10 @@
 
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
+@property (nonatomic, strong) JSQMessagesAvatarImage *avatarImage;
 
 @end
+
 
 @implementation BLCConversationViewController
 
@@ -45,6 +50,11 @@
     }
     
     self.collectionView.backgroundColor = self.appDelegate.appThemeColor;
+    
+    self.avatarImage = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromSenderDisplayName] backgroundColor:[UIColor jsq_messageBubblePurplePinkColor] textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+    
+    
+
     
     
 }
@@ -82,7 +92,8 @@
 
 
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    
+    return self.avatarImage;
 }
 
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -168,6 +179,32 @@
     return cell;
 }
 
+
+-(NSString *)getInitialsFromSenderDisplayName {
+    
+    NSMutableString *initials = [NSMutableString new];
+    
+    NSInteger firstTwoUpperCaseCharactersCount = 0;
+    
+    for (int i = 0; i < [self.senderDisplayName length]; i++) {
+        
+        if([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[self.senderDisplayName characterAtIndex:i]]){
+            
+            if (firstTwoUpperCaseCharactersCount > 2) {
+                break;
+            }
+            else {
+                NSString *charToAppend = [NSString stringWithFormat:@"%C", [self.senderDisplayName characterAtIndex:i]];
+                initials = [[initials stringByAppendingString: charToAppend] mutableCopy];
+            }
+            
+            firstTwoUpperCaseCharactersCount++;
+        }
+        
+    }
+    
+    return initials;
+}
 
 /*
 #pragma mark - Navigation
