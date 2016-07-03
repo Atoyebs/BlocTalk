@@ -8,6 +8,7 @@
 
 #import "BLCConversationViewController.h"
 #import "BLCConversation.h"
+#import "BLCAppDelegate.h"
 #import <JSQMessage.h>
 #import <JSQMessagesViewController/JSQMessagesCollectionViewFlowLayoutInvalidationContext.h>
 #import <JSQMessagesBubbleImage.h>
@@ -17,6 +18,7 @@
 @interface BLCConversationViewController ()
 
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
 @end
 
@@ -30,6 +32,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
     if (self.conversation.recipients.count > 1) {
         self.title = @"Multiple Recipients";
     }
@@ -40,7 +44,7 @@
         self.title = @"Unknown";
     }
     
-    self.collectionView.backgroundColor = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    self.collectionView.backgroundColor = self.appDelegate.appThemeColor;
     
     
 }

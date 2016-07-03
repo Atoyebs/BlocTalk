@@ -14,7 +14,6 @@
 
 @interface BLCAppDelegate ()
 
-
 @end
 
 @implementation BLCAppDelegate
@@ -24,6 +23,8 @@
     // Override point for customization after application launch.
     
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
+    
+    self.appThemeColor = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
     
     return YES;
 }

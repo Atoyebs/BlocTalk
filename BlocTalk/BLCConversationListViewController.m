@@ -8,6 +8,7 @@
 
 #import "BLCConversationListViewController.h"
 #import "BLCMessageTableViewCell.h"
+#import "BLCAppDelegate.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
 
@@ -15,9 +16,9 @@
 
 @property (nonatomic, strong) NSArray *testData;
 @property (nonatomic, strong) UINib *messageCellViewNib;
-@property (nonatomic, strong) UIColor *backgroundColorBlue;
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
 @property (nonatomic, strong) UIView *noConversationsMainView;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
 @end
 
@@ -31,9 +32,9 @@
     
     self.testData = [NSArray new];
     
-    self.backgroundColorBlue = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    self.tableView.backgroundColor = self.backgroundColorBlue;
+    self.tableView.backgroundColor = self.appDelegate.appThemeColor;
     
     [self setUpNoConversationsViewCheckingDataArray:self.testData];
     
@@ -101,7 +102,7 @@
     cell.textLabel.text = currentName;
     cell.imageView.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
     cell.contentView.backgroundColor = [UIColor whiteColor];
-    cell.backgroundColor = self.backgroundColorBlue;
+    cell.backgroundColor = self.appDelegate.appThemeColor;
     
     return cell;
 }
@@ -111,13 +112,13 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *view = [[UIView alloc] init];
-    view.backgroundColor = self.backgroundColorBlue;
+    view.backgroundColor = self.appDelegate.appThemeColor;
     return view;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
-    view.backgroundColor = self.backgroundColorBlue;
+    view.backgroundColor = self.appDelegate.appThemeColor;
     return view;
 }
 

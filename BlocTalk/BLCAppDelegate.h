@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) BLCMultiPeerConnector *multiPeerManager;
+@property (nonatomic, strong) UIColor *appThemeColor;
 
 @end
 
