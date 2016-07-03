@@ -203,6 +203,10 @@
         
     }
     
+    if ([initials isEqualToString:@""]) {
+        initials = [NSMutableString stringWithFormat:@"N/A"];
+    }
+    
     return initials;
 }
 
