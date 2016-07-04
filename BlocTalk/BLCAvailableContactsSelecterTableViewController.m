@@ -8,6 +8,7 @@
 
 #import "BLCAvailableContactsSelecterTableViewController.h"
 #import "BLCDataSource.h"
+#import "BLCUser.h"
 #import "BLCConversation.h"
 #import "BLCConversationViewController.h"
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
@@ -28,7 +29,7 @@
     self.mainDataSource = [BLCDataSource sharedInstance];
     
     
-    if ([self.mainDataSource getConnectedDevices].count <= 1) {
+    if ([self.mainDataSource getConnectedDevices].count < 1) {
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
         [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
@@ -165,10 +166,20 @@
             BLCConversation *newConversation = [[BLCConversation alloc] init];
             newConversation.recipients = selectedPeers;
             
-            convoVC.conversation = newConversation;
-            
             convoVC.senderId = [self.mainDataSource getUserName];
             convoVC.senderDisplayName = [self.mainDataSource getUserName];
+            
+            BLCUser *currentDeviceUser = [[BLCUser alloc] init];
+            currentDeviceUser.username = convoVC.senderDisplayName;
+            
+            newConversation.user = currentDeviceUser;
+            
+            
+            if (selectedPeers.count == 1) {
+                newConversation.isGroupConversation = NO;
+            }
+            
+            convoVC.conversation = newConversation;
             
         }
         

@@ -9,6 +9,8 @@
 #import "BLCConversationViewController.h"
 #import "BLCConversation.h"
 #import "BLCAppDelegate.h"
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import "BLCMultiPeerConnector.h"
 #import <JSQMessage.h>
 #import <JSQMessagesViewController/JSQMessagesCollectionViewFlowLayoutInvalidationContext.h>
 #import <JSQMessagesBubbleImage.h>
@@ -23,6 +25,7 @@
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) JSQMessagesAvatarImage *avatarImage;
+
 
 @end
 
@@ -53,7 +56,7 @@
     
     self.avatarImage = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromSenderDisplayName] backgroundColor:[UIColor jsq_messageBubblePurplePinkColor] textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
 
     
     
@@ -66,9 +69,19 @@
 }
 
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
     [self.navigationController setNavigationBarHidden:NO];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
 }
 
 #pragma mark - JSQMessagesCollectionViewDataSource
@@ -123,11 +136,56 @@
                                                           text:text];
     
     
-    [self.conversation.messages addObject:message];
-    [self finishSendingMessage];
+    NSError *sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text];
+    
+    if (!sendTextMessageError) {
+        
+        [self.conversation.messages addObject:message];
+        
+        NSDictionary *notificationInfo = @{@"text":text, @"conversation":self.conversation};
+        
+        //if this message is the first message in the conversation
+        if (self.conversation.messages.count == 1) {
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:BLCConversationUpdate object:nil userInfo:notificationInfo];
+        }
+        
+        [self finishSendingMessage];
+        
+    }
+    else {
+        UIAlertController *messageSendingErrorController = [UIAlertController alertControllerWithTitle:@"Message Send Error" message:sendTextMessageError.localizedRecoverySuggestion preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [messageSendingErrorController addAction:okAction];
+        
+        [self presentViewController:messageSendingErrorController animated:YES completion:nil];
+        
+    }
     
     
 }
+
+-(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage {
+    
+    NSData *dataToSend = [textMessage dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *allPeers = self.appDelegate.multiPeerManager.peerSession.connectedPeers;
+    NSError *error;
+    
+    [self.appDelegate.multiPeerManager.peerSession sendData:dataToSend
+                                                    toPeers:allPeers
+                                                   withMode:MCSessionSendDataReliable
+                                                      error:&error];
+    
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+ 
+    return error;
+}
+
+
 
 
 
@@ -209,6 +267,25 @@
     
     return initials;
 }
+
+
+
+-(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
+    
+    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    NSString *peerDisplayName = peerID.displayName;
+    
+    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+    NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+    
+//    [self.messageResponseTextView performSelectorOnMainThread:@selector(setText:) withObject:[self.messageResponseTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@ wrote:\n%@\n\n", peerDisplayName, receivedText]] waitUntilDone:NO];
+    
+    [self.conversation.messages addObject:receivedText];
+    [self.collectionView reloadData];
+    [self finishReceivingMessage];
+    
+}
+
 
 /*
 #pragma mark - Navigation

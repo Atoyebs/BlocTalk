@@ -10,6 +10,7 @@
 
 @class BLCMultiPeerConnector;
 
+
 @interface BLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

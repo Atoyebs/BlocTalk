@@ -9,6 +9,8 @@
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 @class BLCConversation;
 
+static NSString *const BLCConversationUpdate = @"ConversationUpdateNotification";
+
 @interface BLCConversationViewController : JSQMessagesViewController
 
 @property (nonatomic, strong) BLCConversation *conversation;

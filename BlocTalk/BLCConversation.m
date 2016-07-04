@@ -33,6 +33,7 @@
             
             self.messages = [NSMutableArray array];
             self.isEmpty = YES;
+            self.isGroupConversation = YES;
         }
         
         JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];

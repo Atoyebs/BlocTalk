@@ -65,9 +65,15 @@
     return self.userName;
 }
 
+
+
 -(void)changeUserName:(NSString *)userName {
     
     self.userName = userName;
+}
+
+-(void)addConversation:(BLCConversation *)conversation {
+    [self.conversations addObject:conversation];
 }
 
 

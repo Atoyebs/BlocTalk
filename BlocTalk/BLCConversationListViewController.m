@@ -7,18 +7,22 @@
 //
 
 #import "BLCConversationListViewController.h"
-#import "BLCMessageTableViewCell.h"
+#import "BLCConversationViewController.h"
+#import "BLCConversationCell.h"
+#import "BLCConversation.h"
+#import "BLCUser.h"
+#import "BLCDataSource.h"
 #import "BLCAppDelegate.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
+#import <JSQMessage.h>
 
 @interface BLCConversationListViewController ()
 
-@property (nonatomic, strong) NSArray *testData;
 @property (nonatomic, strong) UINib *messageCellViewNib;
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
-@property (nonatomic, strong) UIView *noConversationsMainView;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
+@property (nonatomic, strong) BLCDataSource *dataSource;
 
 @end
 
@@ -28,18 +32,43 @@
     
     [super viewDidLoad];
     
-//    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi"];
-    
-    self.testData = [NSArray new];
+    self.dataSource = [BLCDataSource sharedInstance];
     
     self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.tableView.backgroundColor = self.appDelegate.appThemeColor;
     
-    [self setUpNoConversationsViewCheckingDataArray:self.testData];
+    [self setUpNoConversationsViewCheckingDataArray:[self userConversations]];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveConversationUpdate:) name:BLCConversationUpdate object:nil];
+    
+    [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
     
 }
 
+-(NSMutableArray *)userConversations {
+    
+    self.dataSource = [BLCDataSource sharedInstance];
+    
+    return [self.dataSource getConversations];
+}
+
+
+-(void)didRecieveConversationUpdate:(NSNotification *)notification {
+    
+//    NSDictionary *notificationInfo = @{@"text":text, @"senderDisplayName":self.senderDisplayName, @"senderId":self.senderId};
+    
+    BLCConversation *updatedConversation = notification.userInfo[@"conversation"];
+    
+    if (updatedConversation) {
+        [self.dataSource addConversation:updatedConversation];
+    }
+    
+    self.noConversationsInfoLabel.hidden = YES;
+    self.tableView.scrollEnabled = YES;
+    
+    [self.tableView reloadData];
+}
 
 
 - (void)setUpNoConversationsViewCheckingDataArray:(NSArray *)conversationsArray {
@@ -79,7 +108,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.testData.count;
+    return [self userConversations].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -87,10 +116,14 @@
 }
 
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    BLCConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -98,10 +131,11 @@
     
     // Configure the cell...
     
-    NSString *currentName = [self.testData objectAtIndex:indexPath.section];
-    cell.textLabel.text = currentName;
-    cell.imageView.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
+    BLCConversation *currConversation = [[self userConversations] objectAtIndex:indexPath.section];
+    cell.conversation = currConversation;
+    
+    [cell setupCell];
+    
     cell.backgroundColor = self.appDelegate.appThemeColor;
     
     return cell;
@@ -122,6 +156,12 @@
     return view;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
+    
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -163,14 +203,30 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"pushExistingConversation"]) {
+        
+        BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
+        
+        NSIndexPath *selectedCellIndexPath = [self.tableView indexPathForSelectedRow];
+        
+        BLCConversation *conversation = [[self userConversations] objectAtIndex:selectedCellIndexPath.section];
+        
+        conversationViewController.conversation = conversation;
+        conversationViewController.senderDisplayName = conversation.user.username;
+        conversationViewController.senderId = conversation.user.username;
+        
+    }
+    
+    
 }
-*/
+
 
 @end

@@ -14,6 +14,6 @@
 @interface BLCUser : NSObject
 
 @property (nonatomic, strong) UIImage *profilePicture;
-@property (nonatomic, strong) MCPeerID *recipientPeerID;
+@property (nonatomic, strong) NSString *username;
 
 @end

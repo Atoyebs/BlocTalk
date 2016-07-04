@@ -8,13 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-@class JSQMessagesBubbleImage;
+@class JSQMessagesBubbleImage, BLCUser;
 
 @interface BLCConversation : NSObject
 
 @property (nonatomic, strong) NSMutableArray *messages;
 
 @property (nonatomic, strong) NSArray *recipients;
+
+@property (nonatomic, strong) BLCUser *user;
+
+@property (nonatomic, assign) BOOL isGroupConversation;
 
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageData;
 

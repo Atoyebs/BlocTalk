@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class BLCConversation;
+
 @interface BLCDataSource : NSObject
 
 + (instancetype) sharedInstance;
@@ -19,5 +21,7 @@
 - (void)changeUserName:(NSString *)userName;
 
 - (NSString *)getUserName;
+
+- (void)addConversation:(BLCConversation *)conversation;
 
 @end
