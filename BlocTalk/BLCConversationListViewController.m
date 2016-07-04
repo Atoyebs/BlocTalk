@@ -54,6 +54,19 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+   NSArray *visibleCells = [self.tableView visibleCells];
+    
+    for (BLCConversationCell *cell in visibleCells) {
+        [cell updateConversationCell];
+    }
+    
+    
+}
+
 -(void)didRecieveConversationUpdate:(NSNotification *)notification {
     
 //    NSDictionary *notificationInfo = @{@"text":text, @"senderDisplayName":self.senderDisplayName, @"senderId":self.senderId};
@@ -141,6 +154,15 @@
     return cell;
 }
 
+
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BLCConversationCell *convCell = (BLCConversationCell *)cell;
+    
+    [convCell updateConversationCell];
+    
+}
 
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -54,7 +54,7 @@
     
     if (self) {
         
-        self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-UltraLight" size:16.5];
+        self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:16.5];
         self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-UltraLight" size:12.5];
         
         [self.textLabel removeFromSuperview];
@@ -76,7 +76,11 @@
         //autoLayout
         CGSize cellSize = self.frame.size;
         
-        [self.contentView autoSetDimension:ALDimensionWidth toSize:0.90 * cellSize.width];
+//        [self.contentView autoSetDimension:ALDimensionWidth toSize:0.90 * cellSize.width];
+        
+        [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:cellSize.width * 0.04];
+        [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:cellSize.width * 0.04];
+        
         [self.contentView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
         [self.contentView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
         [self.contentView autoCenterInSuperview];
@@ -96,10 +100,13 @@
         [self.messagePreviewLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.usernameLabel withOffset:5];
         [self.messagePreviewLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.userProfilePicture withOffset:12];
         [self.messagePreviewLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
-        [self.messagePreviewLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:5];
+        [self.messagePreviewLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:(cellSize.width * 0.1)];
         
         [self.messagePreviewLabel sizeToFit];
-        self.messagePreviewLabel.numberOfLines = 3;
+        self.messagePreviewLabel.numberOfLines = 0;
+        
+        [self layoutIfNeeded];
+        
         
     }
     
@@ -123,10 +130,19 @@
 }
 
 
+-(void)updateConversationCell {
+
+    JSQMessage *mostRecentMessage = [self.conversation.messages lastObject];
+    
+    self.messagePreviewLabel.text = mostRecentMessage.text;
+}
+
+
 -(void)layoutSubviews {
     
     [super layoutSubviews];
     
+    self.userProfilePicture.clipsToBounds = YES;
     self.userProfilePicture.layer.masksToBounds = YES;
     self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
 }

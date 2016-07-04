@@ -16,4 +16,6 @@
 
 -(void)setupCell;
 
+-(void)updateConversationCell;
+
 @end
