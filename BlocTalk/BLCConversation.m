@@ -48,4 +48,17 @@
 }
 
 
+-(NSString *)conversationTitle {
+    
+    NSMutableString *convTitle = [[self.recipients firstObject] mutableCopy];
+    
+    if (self.isGroupConversation) {
+        [convTitle appendString:@" - (Group Conv)"];
+    }
+    
+    return convTitle;
+}
+
+
+
 @end

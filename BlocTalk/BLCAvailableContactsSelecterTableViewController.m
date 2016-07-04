@@ -133,59 +133,96 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if ([segue.identifier isEqualToString:@"pushToNewConversationVC"]) {
+    NSArray *selectedPeers = [self selectedRecipientsArray];
+    
+    BOOL conversationExists = [self.mainDataSource doesConversationAlreadyExistForRecipients:selectedPeers];
+    
+    if (conversationExists) {
         
-        BLCConversationViewController *convoVC = (BLCConversationViewController *)[segue destinationViewController];
+        NSLog(@"Conversation Already Exists!");
         
-        NSMutableArray *selectedPeers = [NSMutableArray new];
-        
-        NSArray *selectedIndexesArray = [self.tableView indexPathsForSelectedRows];
-        
-        for (id obj in selectedIndexesArray) {
+        if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
             
-            NSIndexPath *indexPath = (NSIndexPath *)obj;
+            BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
             
-            NSNumber *indexPathRow = [NSNumber numberWithInteger:indexPath.row];
+            BLCConversation *conv = [self.mainDataSource findExistingConversationWithRecipients:selectedPeers];
             
-            id retrievedObj = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPathRow.integerValue];
-            
-            if ([retrievedObj isKindOfClass:[NSString class]]) {
-                NSString *stringObj = (NSString *)retrievedObj;
-                [selectedPeers addObject:stringObj];
+            if (conv) {
+                
+                conversationViewController.conversation = conv;
+                conversationViewController.senderId = conv.user.username;
+                conversationViewController.senderDisplayName = conv.user.username;
+                
             }
-            else  {
-                MCPeerID *peerID = (MCPeerID *)retrievedObj;
-                [selectedPeers addObject:peerID];
-            }
+            
+        }
 
-            
-        }
-        
-        if (selectedPeers.count > 0) {
-            
-            BLCConversation *newConversation = [[BLCConversation alloc] init];
-            newConversation.recipients = selectedPeers;
-            
-            convoVC.senderId = [self.mainDataSource getUserName];
-            convoVC.senderDisplayName = [self.mainDataSource getUserName];
-            
-            BLCUser *currentDeviceUser = [[BLCUser alloc] init];
-            currentDeviceUser.username = convoVC.senderDisplayName;
-            
-            newConversation.user = currentDeviceUser;
-            
-            
-            if (selectedPeers.count == 1) {
-                newConversation.isGroupConversation = NO;
-            }
-            
-            convoVC.conversation = newConversation;
-            
-        }
         
     }
+    else if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
+        [self pushNewConversation:segue sender:sender recipients:selectedPeers];
+    }
+    
     
 }
 
+
+-(NSArray *)selectedRecipientsArray {
+    
+    NSMutableArray *selectedPeers = [NSMutableArray new];
+    
+    NSArray *selectedIndexesArray = [self.tableView indexPathsForSelectedRows];
+    
+    for (id obj in selectedIndexesArray) {
+        
+        NSIndexPath *indexPath = (NSIndexPath *)obj;
+        
+        NSNumber *indexPathRow = [NSNumber numberWithInteger:indexPath.row];
+        
+        id retrievedObj = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPathRow.integerValue];
+        
+        if ([retrievedObj isKindOfClass:[NSString class]]) {
+            NSString *stringObj = (NSString *)retrievedObj;
+            [selectedPeers addObject:stringObj];
+        }
+        else  {
+            MCPeerID *peerID = (MCPeerID *)retrievedObj;
+            [selectedPeers addObject:peerID];
+        }
+        
+        
+    }
+
+    return selectedPeers;
+    
+}
+
+
+-(void)pushNewConversation:(UIStoryboardSegue *)segue sender:(id)sender recipients:(NSArray *)selectedPeers {
+    
+    BLCConversationViewController *convoVC = (BLCConversationViewController *)[segue destinationViewController];
+    
+    if (selectedPeers.count > 0) {
+        
+        BLCConversation *newConversation = [[BLCConversation alloc] init];
+        newConversation.recipients = selectedPeers;
+        
+        convoVC.senderId = [self.mainDataSource getUserName];
+        convoVC.senderDisplayName = [self.mainDataSource getUserName];
+        
+        BLCUser *currentDeviceUser = [[BLCUser alloc] init];
+        currentDeviceUser.username = convoVC.senderDisplayName;
+        
+        newConversation.user = currentDeviceUser;
+        
+        
+        if (selectedPeers.count == 1) {
+            newConversation.isGroupConversation = NO;
+        }
+        
+        convoVC.conversation = newConversation;
+        
+    }
+}
 
 @end

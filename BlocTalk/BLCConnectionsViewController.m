@@ -45,7 +45,7 @@
     
     self.appDelegate = (BLCAppDelegate *)[[UIApplication sharedApplication] delegate];
     [self.appDelegate.multiPeerManager setupPeerAndSession];
-    [self.appDelegate.multiPeerManager advertisePeer:YES];
+    [self.appDelegate.multiPeerManager advertisePeer:self.makeDiscoverableSwitch.isOn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateWithNotification:) name:@"MCDidChangeStateNotification" object:nil];
     

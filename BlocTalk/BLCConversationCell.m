@@ -76,8 +76,6 @@
         //autoLayout
         CGSize cellSize = self.frame.size;
         
-//        [self.contentView autoSetDimension:ALDimensionWidth toSize:0.90 * cellSize.width];
-        
         [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:cellSize.width * 0.04];
         [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:cellSize.width * 0.04];
         
@@ -121,7 +119,8 @@
     
     self.userProfilePicture.image = self.conversation.user.profilePicture;
     
-    self.usernameLabel.text = self.conversation.user.username;
+    self.usernameLabel.text = self.conversation.conversationTitle;
+    
     JSQMessage *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewLabel.text = mostRecentMessage.text;
     
@@ -146,6 +145,7 @@
     self.userProfilePicture.layer.masksToBounds = YES;
     self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
 }
+
 
 
 

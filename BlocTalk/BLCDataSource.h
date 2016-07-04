@@ -24,4 +24,8 @@
 
 - (void)addConversation:(BLCConversation *)conversation;
 
+- (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients;
+
+- (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients;
+
 @end

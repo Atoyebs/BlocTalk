@@ -63,7 +63,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="3j4-WH-kBO" style="IBUITableViewCellStyleDefault" id="xsg-aK-S81">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="cell" textLabel="3j4-WH-kBO" style="IBUITableViewCellStyleDefault" id="xsg-aK-S81">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xsg-aK-S81" id="lai-Gq-uHm">
@@ -90,7 +90,7 @@
                         <barButtonItem key="rightBarButtonItem" enabled="NO" image="checked_icon" id="DWE-TL-Zbz">
                             <connections>
                                 <action selector="finishedChoosingPeersTapped:" destination="njs-z9-GZ5" id="a4T-7M-sKd"/>
-                                <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToNewConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
+                                <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -440,6 +440,6 @@
         <image name="wifi_icon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DUl-mI-ce5"/>
+        <segue reference="uv8-sq-z8F"/>
     </inferredMetricsTieBreakers>
 </document>

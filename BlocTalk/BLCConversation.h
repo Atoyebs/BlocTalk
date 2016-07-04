@@ -24,4 +24,8 @@
 
 @property (nonatomic, strong) JSQMessagesBubbleImage *outgoingBubbleImageData;
 
+@property (nonatomic, strong, readonly) NSString *conversationTitle;
+
+@property (nonatomic, assign) NSInteger conversationID;
+
 @end

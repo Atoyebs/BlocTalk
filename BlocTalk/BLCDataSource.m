@@ -7,6 +7,7 @@
 //
 
 #import "BLCDataSource.h"
+#import "BLCConversation.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <UIKit/UIKit.h>
 
@@ -73,8 +74,81 @@
 }
 
 -(void)addConversation:(BLCConversation *)conversation {
+    
+    if (self.conversations.count == 0) {
+        conversation.conversationID = self.conversations.count;
+    }
+    
     [self.conversations addObject:conversation];
 }
 
+- (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
+    
+    BOOL conversationWithRecipientsExists = NO;
+    
+    NSInteger numberOfUsersMatched = 0;
+    
+    for (BLCConversation *conv in self.conversations) {
+            
+        if (recipients.count == conv.recipients.count) {
+            
+            for (id selectedRecipient in recipients) {
+                
+                if ([conv.recipients containsObject:selectedRecipient]) {
+                    numberOfUsersMatched++;
+                }
+                
+            }
+            
+            if (numberOfUsersMatched == conv.recipients.count) {
+                conversationWithRecipientsExists = YES;
+                break;
+            }
+            else {
+                numberOfUsersMatched = 0;
+            }
+            
+        }
+        
+    }
+    
+    return conversationWithRecipientsExists;
+}
+
+
+- (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients {
+    
+    BLCConversation *foundConversation = nil;
+    
+    NSInteger numberOfUsersMatched = 0;
+    
+    for (BLCConversation *conv in self.conversations) {
+        
+        if (recipients.count == conv.recipients.count) {
+            
+            for (id selectedRecipient in recipients) {
+                
+                if ([conv.recipients containsObject:selectedRecipient]) {
+                    numberOfUsersMatched++;
+                }
+                
+            }
+            
+            if (numberOfUsersMatched == conv.recipients.count) {
+                foundConversation = conv;
+                break;
+            }
+            else {
+                numberOfUsersMatched = 0;
+            }
+            
+        }
+        
+    }
+
+    
+    return foundConversation;
+    
+}
 
 @end
