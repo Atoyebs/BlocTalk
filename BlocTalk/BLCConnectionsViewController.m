@@ -35,6 +35,8 @@
 
 @property (nonatomic, strong) BLCDataSource *mainDataSource;
 
+@property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesArray;
+
 @end
 
 @implementation BLCConnectionsViewController
@@ -43,16 +45,18 @@
     
     [super viewDidLoad];
     
+    self.mainDataSource = [BLCDataSource sharedInstance];
+    
     self.appDelegate = (BLCAppDelegate *)[[UIApplication sharedApplication] delegate];
     [self.appDelegate.multiPeerManager setupPeerAndSession];
     [self.appDelegate.multiPeerManager advertisePeer:self.makeDiscoverableSwitch.isOn];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateWithNotification:) name:@"MCDidChangeStateNotification" object:nil];
-    
-    self.mainDataSource = [BLCDataSource sharedInstance];
-    
     self.connectedDevicesTable.delegate = self;
     self.connectedDevicesTable.dataSource = self;
+    
+    self.kvoConnectedDevicesArray = [self.mainDataSource mutableArrayValueForKey:NSStringFromSelector(@selector(connectedDevices))];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateWithNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
 }
 
@@ -62,8 +66,19 @@
 }
 
 
-#pragma mark - IBActions
+-(void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.connectedDevicesTable reloadData];
+}
+
+
+#pragma mark - IBActions
 
 - (IBAction)browseWithDevices:(id)sender {
     
@@ -83,7 +98,8 @@
     
     [self.appDelegate.multiPeerManager.peerSession disconnect];
     
-    [[self.mainDataSource getConnectedDevices] removeAllObjects];
+    [self.kvoConnectedDevicesArray removeAllObjects];
+    
     [self.connectedDevicesTable reloadData];
 }
 
@@ -105,14 +121,17 @@
 
 -(void)browserViewControllerDidFinish:(MCBrowserViewController *)browserViewController{
     [self.appDelegate.multiPeerManager.browser dismissViewControllerAnimated:YES completion:nil];
+    [self.connectedDevicesTable reloadData];
 }
 
 
 -(void)browserViewControllerWasCancelled:(MCBrowserViewController *)browserViewController{
     [self.appDelegate.multiPeerManager.browser dismissViewControllerAnimated:YES completion:nil];
+     [self.connectedDevicesTable reloadData];
 }
 
 
+//this is called when the state of any peer changes in relation to this peer
 -(void)peerDidChangeStateWithNotification:(NSNotification *)notification {
     
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
@@ -124,25 +143,26 @@
         
         //if the state is connected then add the display name to the arrayList
         if (state == MCSessionStateConnected) {
-            [[self.mainDataSource getConnectedDevices] addObject:peerDisplayName];
+            [self.kvoConnectedDevicesArray insertObject:peerDisplayName atIndex:0];
         }
         else if (state == MCSessionStateNotConnected){
             
-            if ([self.mainDataSource getConnectedDevices].count > 0) {
-                NSInteger indexOfPeer = [[self.mainDataSource getConnectedDevices] indexOfObject:peerDisplayName];
-                [[self.mainDataSource getConnectedDevices] removeObjectAtIndex:indexOfPeer];
+            if ( [_kvoConnectedDevicesArray count] > 0) {
+                [self.kvoConnectedDevicesArray removeObject:peerDisplayName];
             }
             
         }
         
-        [self.connectedDevicesTable reloadData];
-        
         //does the number of connected peers = 0
-        BOOL connectedPeers = ([self.appDelegate.multiPeerManager.peerSession connectedPeers].count == 0);
+        BOOL connectedPeers = (self.appDelegate.multiPeerManager.peerSession.connectedPeers.count == 0);
         
         self.disconnectButton.enabled = !connectedPeers;
         
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.connectedDevicesTable reloadData];
+    });
     
 }
 
@@ -153,7 +173,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.mainDataSource getConnectedDevices].count;
+    return self.kvoConnectedDevicesArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -164,10 +184,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentifier"];
     }
     
-    cell.textLabel.text = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
     
     return cell;
 }
+
+
 
 
 //-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -10,15 +10,15 @@
 #import "BLCConversation.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <UIKit/UIKit.h>
+#import <MultiPeerConnectivity/MultipeerConnectivity.h>
 
 @interface BLCDataSource() {
     
     NSMutableArray <BLCConversation *> *_conversations;
+    NSMutableArray *_connectedDevices;
 }
 
 
-
-@property (nonatomic, strong) NSMutableArray *connectedDevices;
 @property (nonatomic, strong) NSString *userName;
 
 @end
@@ -43,7 +43,7 @@
     
     if (self) {
         
-        self.connectedDevices = [NSMutableArray new];
+        _connectedDevices = [NSMutableArray new];
         _conversations = [NSMutableArray new];
         
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
@@ -56,10 +56,6 @@
     
     return self;
     
-}
-
-- (NSMutableArray *)getConnectedDevices {
-    return self.connectedDevices;
 }
 
 - (NSString *)getUserName {
@@ -142,7 +138,7 @@
 }
 
 
-#pragma mark - KVO Compliance Methods
+#pragma mark - KVO Compliance Methods (Conversations)
 
 -(NSMutableArray *)conversations {
     return _conversations;
@@ -176,5 +172,44 @@
 -(void)replaceObjectInConversationsAtIndex:(NSUInteger)index withObject:(BLCConversation *)object {
     [_conversations replaceObjectAtIndex:index withObject:object];
 }
+
+
+
+#pragma mark - KVO Compliance Methods (Connected Devices)
+
+-(NSArray *)connectedDevicesAtIndexes:(NSIndexSet *)indexes {
+    return [_connectedDevices objectsAtIndexes:indexes];
+}
+
+-(NSUInteger)countOfConnectedDevices {
+    return _connectedDevices.count;
+}
+
+#warning you might want to leave the object type as id till you're done testing with Strings
+-(void)insertObject:(id)object inConnectedDevicesAtIndex:(NSUInteger)index {
+    [_connectedDevices addObject:object];
+}
+
+-(id)objectInConnectedDevicesAtIndex:(NSUInteger)index {
+    return [_connectedDevices objectAtIndex:index];
+}
+
+-(void)removeConnectedDevicesAtIndexes:(NSIndexSet *)indexes {
+    [_connectedDevices removeObjectsAtIndexes:indexes];
+}
+
+-(void)removeObjectFromConnectedDevicesAtIndex:(NSUInteger)index {
+    [_connectedDevices removeObjectAtIndex:index];
+}
+
+-(void)removeConnectedDevicesObject:(id )object {
+    [_connectedDevices removeObject:object];
+}
+
+-(void)replaceObjectInConnectedDevicesAtIndex:(NSUInteger)index withObject:(id)object {
+    [_connectedDevices replaceObjectAtIndex:index withObject:object];
+}
+
+
 
 @end

@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) BLCDataSource *mainDataSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *finishedSelectingRecipientsButton;
-
+@property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesArray;
 
 @end
 
@@ -28,14 +28,16 @@
     
     self.mainDataSource = [BLCDataSource sharedInstance];
     
+    self.kvoConnectedDevicesArray = [self.mainDataSource mutableArrayValueForKey:NSStringFromSelector(@selector(connectedDevices))];
     
-    if ([self.mainDataSource getConnectedDevices].count < 1) {
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 4"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 5"];
-    }
+#warning comment the below out for testing
+//    if (self.mainDataSource.connectedDevices.count < 1) {
+//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
+//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
+//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
+//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 4"];
+//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 5"];
+//    }
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -53,7 +55,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.mainDataSource getConnectedDevices].count;
+    return self.kvoConnectedDevicesArray.count;
 }
 
 
@@ -63,7 +65,7 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -179,7 +181,7 @@
         
         NSNumber *indexPathRow = [NSNumber numberWithInteger:indexPath.row];
         
-        id retrievedObj = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPathRow.integerValue];
+        id retrievedObj = [self.kvoConnectedDevicesArray objectAtIndex:indexPathRow.integerValue];
         
         if ([retrievedObj isKindOfClass:[NSString class]]) {
             NSString *stringObj = (NSString *)retrievedObj;

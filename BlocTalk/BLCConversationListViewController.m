@@ -103,9 +103,7 @@
     
     if (updatedConversation) {
         
-        NSMutableArray <BLCConversation *> *kvoConversationArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
-        
-        [kvoConversationArray insertObject:updatedConversation atIndex:0];
+        [self.kvoConversationsArray insertObject:updatedConversation atIndex:0];
     }
     
     self.noConversationsInfoLabel.hidden = YES;

@@ -25,8 +25,9 @@
 
 -(NSUInteger)countOfConversations;
 
-- (NSMutableArray *)getConnectedDevices;
 
-@property (nonatomic, strong, readonly) NSMutableArray *conversations;
+@property (nonatomic, strong, readonly) NSMutableArray <BLCConversation *> *conversations;
+
+@property (nonatomic, strong, readonly) NSMutableArray *connectedDevices;
 
 @end
