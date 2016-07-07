@@ -14,18 +14,19 @@
 
 + (instancetype) sharedInstance;
 
-- (NSMutableArray *)getConnectedDevices;
-
-- (NSMutableArray *)getConversations;
-
 - (void)changeUserName:(NSString *)userName;
 
 - (NSString *)getUserName;
 
-- (void)addConversation:(BLCConversation *)conversation;
-
 - (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients;
 
 - (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients;
+
+
+-(NSUInteger)countOfConversations;
+
+- (NSMutableArray *)getConnectedDevices;
+
+@property (nonatomic, strong, readonly) NSMutableArray *conversations;
 
 @end

@@ -278,9 +278,9 @@
     NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
     NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
     
-//    [self.messageResponseTextView performSelectorOnMainThread:@selector(setText:) withObject:[self.messageResponseTextView.text stringByAppendingString:[NSString stringWithFormat:@"%@ wrote:\n%@\n\n", peerDisplayName, receivedText]] waitUntilDone:NO];
+    NSLog(@"Recieved A Message: \n\n%@", receivedText);
     
-    [self.conversation.messages addObject:receivedText];
+//    [self.conversation.messages addObject:receivedText];
     [self.collectionView reloadData];
     [self finishReceivingMessage];
     

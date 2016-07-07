@@ -11,10 +11,14 @@
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <UIKit/UIKit.h>
 
-@interface BLCDataSource()
+@interface BLCDataSource() {
+    
+    NSMutableArray <BLCConversation *> *_conversations;
+}
+
+
 
 @property (nonatomic, strong) NSMutableArray *connectedDevices;
-@property (nonatomic, strong) NSMutableArray *conversations;
 @property (nonatomic, strong) NSString *userName;
 
 @end
@@ -40,7 +44,7 @@
     if (self) {
         
         self.connectedDevices = [NSMutableArray new];
-        self.conversations = [NSMutableArray new];
+        _conversations = [NSMutableArray new];
         
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
      
@@ -58,10 +62,6 @@
     return self.connectedDevices;
 }
 
-- (NSMutableArray *)getConversations {
-    return self.conversations;
-}
-
 - (NSString *)getUserName {
     return self.userName;
 }
@@ -71,15 +71,6 @@
 -(void)changeUserName:(NSString *)userName {
     
     self.userName = userName;
-}
-
--(void)addConversation:(BLCConversation *)conversation {
-    
-    if (self.conversations.count == 0) {
-        conversation.conversationID = self.conversations.count;
-    }
-    
-    [self.conversations addObject:conversation];
 }
 
 - (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
@@ -115,7 +106,6 @@
     return conversationWithRecipientsExists;
 }
 
-
 - (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients {
     
     BLCConversation *foundConversation = nil;
@@ -149,6 +139,42 @@
     
     return foundConversation;
     
+}
+
+
+#pragma mark - KVO Compliance Methods
+
+-(NSMutableArray *)conversations {
+    return _conversations;
+}
+
+-(NSUInteger)countOfConversations {
+    return _conversations.count;
+}
+
+-(id)objectInConversationsAtIndex:(NSUInteger)index {
+    return [_conversations objectAtIndex:index];
+}
+
+-(NSArray *)conversationsAtIndexes:(NSIndexSet *)indexes {
+    return [_conversations objectsAtIndexes:indexes];
+}
+
+-(void)removeConversationsAtIndexes:(NSIndexSet *)indexes {
+    [_conversations objectsAtIndexes:indexes];
+}
+
+-(void)insertConversations:(NSArray *)array atIndexes:(NSIndexSet *)indexes {
+    [_conversations insertObjects:array atIndexes:indexes];
+}
+
+-(void)insertObject:(BLCConversation *)object inConversationsAtIndex:(NSUInteger)index {
+    object.conversationID = _conversations.count;
+    [_conversations insertObject:object atIndex:_conversations.count];
+}
+
+-(void)replaceObjectInConversationsAtIndex:(NSUInteger)index withObject:(BLCConversation *)object {
+    [_conversations replaceObjectAtIndex:index withObject:object];
 }
 
 @end

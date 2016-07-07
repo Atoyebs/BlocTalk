@@ -101,7 +101,8 @@ static NSString *const ServiceType = @"bloctalk-chat";
 -(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID{
  
     NSDictionary *dict = @{@"data": data,
-                           @"peerID": peerID
+                           @"peerID": peerID,
+                           @"session":session
                            };
     
     

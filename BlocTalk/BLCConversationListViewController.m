@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) BLCDataSource *dataSource;
+@property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
 
 @end
 
@@ -38,19 +39,18 @@
     
     self.tableView.backgroundColor = self.appDelegate.appThemeColor;
     
-    [self setUpNoConversationsViewCheckingDataArray:[self userConversations]];
+    [self setUpNoConversationsViewCheckingDataArray:self.dataSource.conversations];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveConversationUpdate:) name:BLCConversationUpdate object:nil];
     
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
+    
+    [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
+    
     [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
     
-}
-
--(NSMutableArray *)userConversations {
+    self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
-    self.dataSource = [BLCDataSource sharedInstance];
-    
-    return [self.dataSource getConversations];
 }
 
 
@@ -67,6 +67,34 @@
     
 }
 
+
+/*
+-(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
+    
+    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    NSString *peerDisplayName = peerID.displayName;
+    
+    MCSession *session = [[notification userInfo] objectForKey:@"session"];
+    
+    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+    NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+    
+    BOOL foundConversation = [self.dataSource doesConversationAlreadyExistForRecipients:session.connectedPeers];
+    
+    BLCConversation *conversation = nil;
+    
+    if (foundConversation) {
+        
+        conversation = [self.dataSource findExistingConversationWithRecipients:session.connectedPeers];
+    }
+    
+    NSLog(@"Nothing");
+    
+}
+*/
+
+
+
 -(void)didRecieveConversationUpdate:(NSNotification *)notification {
     
 //    NSDictionary *notificationInfo = @{@"text":text, @"senderDisplayName":self.senderDisplayName, @"senderId":self.senderId};
@@ -74,13 +102,15 @@
     BLCConversation *updatedConversation = notification.userInfo[@"conversation"];
     
     if (updatedConversation) {
-        [self.dataSource addConversation:updatedConversation];
+        
+        NSMutableArray <BLCConversation *> *kvoConversationArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
+        
+        [kvoConversationArray insertObject:updatedConversation atIndex:0];
     }
     
     self.noConversationsInfoLabel.hidden = YES;
     self.tableView.scrollEnabled = YES;
     
-    [self.tableView reloadData];
 }
 
 
@@ -121,7 +151,8 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self userConversations].count;
+    
+    return [self.kvoConversationsArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -130,6 +161,7 @@
 
 
 -(void)dealloc {
+    [self.dataSource removeObserver:self forKeyPath:NSStringFromSelector(@selector(conversations))];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -144,7 +176,7 @@
     
     // Configure the cell...
     
-    BLCConversation *currConversation = [[self userConversations] objectAtIndex:indexPath.section];
+    BLCConversation *currConversation = [self.kvoConversationsArray objectAtIndex:indexPath.section];
     cell.conversation = currConversation;
     
     [cell setupCell];
@@ -226,6 +258,51 @@
 */
 
 
+#pragma mark - Key Value Compliance Logic
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    
+    if (object == self.dataSource && [keyPath isEqualToString:NSStringFromSelector(@selector(conversations))]) {
+        
+        // We know conversations changed.  Let's see what kind of change it is.
+        int kindOfChange = [change[NSKeyValueChangeKindKey] intValue];
+        
+        if (kindOfChange == NSKeyValueChangeSetting) {
+            // Someone set a brand new conversations array
+            [self.tableView reloadData];
+        }
+        else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
+            
+            // We have an incremental change: inserted, deleted, or replaced conversations
+            
+            // Get a list of the index (or indices) that changed
+            NSIndexSet *indexSetOfChanges = change[NSKeyValueChangeIndexesKey];
+            
+            // Call `beginUpdates` to tell the table view we're about to make changes
+            [self.tableView beginUpdates];
+            
+            // Tell the table view what the changes are
+            if (kindOfChange == NSKeyValueChangeInsertion) {
+                [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (kindOfChange == NSKeyValueChangeReplacement) {
+                [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            
+            // Tell the table view that we're done telling it about changes, and to complete the animation
+            [self.tableView endUpdates];
+            
+        }
+        
+        
+        [self.tableView reloadData];
+    }
+    
+}
+
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -235,11 +312,12 @@
     
     if ([segue.identifier isEqualToString:@"pushExistingConversation"]) {
         
+        
         BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
         
         NSIndexPath *selectedCellIndexPath = [self.tableView indexPathForSelectedRow];
         
-        BLCConversation *conversation = [[self userConversations] objectAtIndex:selectedCellIndexPath.section];
+        BLCConversation *conversation = [self.kvoConversationsArray objectAtIndex:selectedCellIndexPath.section];
         
         conversationViewController.conversation = conversation;
         conversationViewController.senderDisplayName = conversation.user.username;
