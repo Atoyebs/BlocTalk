@@ -22,6 +22,7 @@
 
 - (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients;
 
+- (void)addNewlyRecievedConversation:(BLCConversation *)conversation;
 
 -(NSUInteger)countOfConversations;
 

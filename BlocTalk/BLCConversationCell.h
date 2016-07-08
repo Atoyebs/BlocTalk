@@ -18,4 +18,10 @@
 
 -(void)updateConversationCell;
 
+@property (nonatomic, strong) UIImageView *userProfilePicture;
+
+@property (nonatomic, strong) UILabel *usernameLabel;
+
+@property (nonatomic, strong) UILabel *messagePreviewLabel;
+
 @end

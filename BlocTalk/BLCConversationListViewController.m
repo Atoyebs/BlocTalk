@@ -13,9 +13,11 @@
 #import "BLCUser.h"
 #import "BLCDataSource.h"
 #import "BLCAppDelegate.h"
+#import "MCSession+PeerDataManipulation.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
 #import <JSQMessage.h>
+
 
 @interface BLCConversationListViewController ()
 
@@ -43,7 +45,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveConversationUpdate:) name:BLCConversationUpdate object:nil];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
     
@@ -68,30 +70,58 @@
 }
 
 
-/*
+
 -(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
+       
+    dispatch_async(dispatch_get_main_queue(), ^{
     
-    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
-    NSString *peerDisplayName = peerID.displayName;
-    
-    MCSession *session = [[notification userInfo] objectForKey:@"session"];
-    
-    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
-    NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-    
-    BOOL foundConversation = [self.dataSource doesConversationAlreadyExistForRecipients:session.connectedPeers];
-    
-    BLCConversation *conversation = nil;
-    
-    if (foundConversation) {
+        //This is a notification so isn't done on the main thread
         
-        conversation = [self.dataSource findExistingConversationWithRecipients:session.connectedPeers];
-    }
-    
-    NSLog(@"Nothing");
+        MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+        
+        MCSession *session = [[notification userInfo] objectForKey:@"session"];
+        
+        NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+        NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+        
+        BLCConversation *conversation = nil;
+        
+        BOOL foundConversation = [self.dataSource doesConversationAlreadyExistForRecipients:[session connectedPeersDisplayNames]];
+        
+        if (foundConversation) {
+            
+            NSLog(@"Found the conversation! Yay!");
+            
+            conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeersDisplayNames]];
+        }
+        else {
+            
+            NSLog(@"Okay Chillout Its Just A new Conversation");
+            
+            BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
+            
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:peerID.displayName displayName:peerID.displayName text:receivedText];
+            
+            [brandNewConversation.messages addObject:recievedMessage];
+            brandNewConversation.recipients = [session connectedPeersDisplayNames];
+            
+            brandNewConversation.isGroupConversation = ([session connectedPeersDisplayNames].count > 1) ? YES : NO;
+            
+            BLCUser *user = [[BLCUser alloc] init];
+            user.username = [self.dataSource getUserName];
+            
+            brandNewConversation.user = user;
+            [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
+            
+            self.noConversationsInfoLabel.hidden = YES;
+            self.tableView.scrollEnabled = YES;
+            
+        }
+        
+    });
     
 }
-*/
+
 
 
 
@@ -272,30 +302,43 @@
         else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
             
             // We have an incremental change: inserted, deleted, or replaced conversations
+              
+               // Get a list of the index (or indices) that changed
+               NSIndexSet *indexSetOfChanges = change[NSKeyValueChangeIndexesKey];
+               
+               NSMutableArray *indexArrayOfChanges = [NSMutableArray array];
+               
+               [indexSetOfChanges enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                   
+                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:idx];
+                   [indexArrayOfChanges addObject:path];
+               }];
             
-            // Get a list of the index (or indices) that changed
-            NSIndexSet *indexSetOfChanges = change[NSKeyValueChangeIndexesKey];
             
-            // Call `beginUpdates` to tell the table view we're about to make changes
-            [self.tableView beginUpdates];
             
-            // Tell the table view what the changes are
-            if (kindOfChange == NSKeyValueChangeInsertion) {
-                [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (kindOfChange == NSKeyValueChangeRemoval) {
-                [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (kindOfChange == NSKeyValueChangeReplacement) {
-                [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            
-            // Tell the table view that we're done telling it about changes, and to complete the animation
-            [self.tableView endUpdates];
-            
+               // Call `beginUpdates` to tell the table view we're about to make changes
+               [self.tableView beginUpdates];
+               
+               // Tell the table view what the changes are
+               if (kindOfChange == NSKeyValueChangeInsertion) {
+                   
+                   [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                   [self.tableView insertRowsAtIndexPaths:indexArrayOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                   
+                   
+               } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                   [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+               } else if (kindOfChange == NSKeyValueChangeReplacement) {
+                   [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+               }
+               
+               // Tell the table view that we're done telling it about changes, and to complete the animation
+               [self.tableView endUpdates];
         }
         
-        
-        [self.tableView reloadData];
     }
+    
+    [self.tableView reloadData];
     
 }
 

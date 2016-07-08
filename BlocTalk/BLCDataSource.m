@@ -69,6 +69,7 @@
     self.userName = userName;
 }
 
+
 - (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
     
     BOOL conversationWithRecipientsExists = NO;
@@ -165,14 +166,27 @@
 }
 
 -(void)insertObject:(BLCConversation *)object inConversationsAtIndex:(NSUInteger)index {
+    
     object.conversationID = _conversations.count;
-    [_conversations insertObject:object atIndex:_conversations.count];
+    
+    if (index == -1) {
+        [_conversations insertObject:object atIndex:0];
+    }
+    else {
+        [_conversations insertObject:object atIndex:object.conversationID];
+    }
+    
 }
 
 -(void)replaceObjectInConversationsAtIndex:(NSUInteger)index withObject:(BLCConversation *)object {
     [_conversations replaceObjectAtIndex:index withObject:object];
 }
 
+
+-(void)addNewlyRecievedConversation:(BLCConversation *)conversation {
+    conversation.conversationID = _conversations.count;
+    [_conversations insertObject:conversation atIndex:0];
+}
 
 
 #pragma mark - KVO Compliance Methods (Connected Devices)
@@ -185,9 +199,9 @@
     return _connectedDevices.count;
 }
 
-#warning you might want to leave the object type as id till you're done testing with Strings
+
 -(void)insertObject:(id)object inConnectedDevicesAtIndex:(NSUInteger)index {
-    [_connectedDevices addObject:object];
+    [_connectedDevices insertObject:object atIndex:index];
 }
 
 -(id)objectInConnectedDevicesAtIndex:(NSUInteger)index {

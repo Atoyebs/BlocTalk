@@ -38,6 +38,7 @@
 		81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */; };
 		81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
+		81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
 		EB2D931AB8271C6E7A7B59B3 /* libPods-BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,8 @@
 		81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectionsViewController.m; sourceTree = "<group>"; };
 		81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCDissmissSegue.h; sourceTree = "<group>"; };
 		81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDissmissSegue.m; sourceTree = "<group>"; };
+		81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCSession+PeerDataManipulation.h"; sourceTree = "<group>"; };
+		81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MCSession+PeerDataManipulation.m"; sourceTree = "<group>"; };
 		E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,6 +179,8 @@
 				810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */,
 				814398201D288766007FC02A /* UIColor+JSQMessages.h */,
 				814398211D288766007FC02A /* UIColor+JSQMessages.m */,
+				81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */,
+				81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -554,6 +559,7 @@
 				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */,
+				81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */,
 				814398221D288766007FC02A /* UIColor+JSQMessages.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 				816345B31D26BF01004FFFA1 /* BLCConversation.m in Sources */,

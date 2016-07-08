@@ -129,5 +129,4 @@ static NSString *const ServiceType = @"bloctalk-chat";
 
 
 
-
 @end
