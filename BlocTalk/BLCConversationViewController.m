@@ -149,7 +149,7 @@
         
         [self.conversation.messages addObject:message];
         
-        NSDictionary *notificationInfo = @{@"text":text, @"conversation":self.conversation};
+//        NSDictionary *notificationInfo = @{@"text":text, @"conversation":self.conversation};
         
         //if this message is the first message in the conversation that means this conversation doesn't exist in the data source
         if (self.conversation.messages.count == 1) {
