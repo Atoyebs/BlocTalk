@@ -10,6 +10,7 @@
 #import "BLCDataSource.h"
 #import "BLCUser.h"
 #import "BLCConversation.h"
+#import "BLCAppDelegate.h"
 #import "BLCConversationViewController.h"
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
 
@@ -18,6 +19,7 @@
 @property (nonatomic, strong) BLCDataSource *mainDataSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *finishedSelectingRecipientsButton;
 @property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesArray;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
 @end
 
@@ -25,6 +27,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.mainDataSource = [BLCDataSource sharedInstance];
     
@@ -209,14 +213,8 @@
         BLCConversation *newConversation = [[BLCConversation alloc] init];
         newConversation.recipients = selectedPeers;
         
-        convoVC.senderId = [self.mainDataSource getUserName];
-        convoVC.senderDisplayName = [self.mainDataSource getUserName];
-        
-        BLCUser *currentDeviceUser = [[BLCUser alloc] init];
-        currentDeviceUser.username = convoVC.senderDisplayName;
-        
-        newConversation.user = currentDeviceUser;
-        
+        convoVC.senderId = newConversation.user.userID;
+        convoVC.senderDisplayName = newConversation.user.username;
         
         if (selectedPeers.count == 1) {
             newConversation.isGroupConversation = NO;

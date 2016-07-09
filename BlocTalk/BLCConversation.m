@@ -7,15 +7,17 @@
 //
 
 #import "BLCConversation.h"
+#import "BLCUser.h"
 #import "UIColor+JSQMessages.h"
 #import <JSQMessagesViewController/JSQMessage.h>
 #import <JSQMessagesViewController/JSQMessageBubbleImageDataSource.h>
 #import <JSQMessagesViewController/JSQMessagesBubbleImageFactory.h>
+#import "BLCAppDelegate.h"
 
 @interface BLCConversation()
 
 @property (nonatomic, assign) BOOL isEmpty;
-
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
 @end
 
@@ -29,12 +31,20 @@
     
     if (self) {
         
+        self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        
         if (!self.messages || self.messages.count == 0) {
             
-            self.messages = [NSMutableArray array];
             self.isEmpty = YES;
             self.isGroupConversation = YES;
+            self.messages = [NSMutableArray array];
         }
+        
+        BLCUser *thisUser = [[BLCUser alloc] init];
+        thisUser.username = self.appDelegate.userName;
+        thisUser.userID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+        
+        self.user = thisUser;
         
         JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
         

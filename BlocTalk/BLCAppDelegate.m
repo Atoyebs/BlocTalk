@@ -11,6 +11,7 @@
 #import "BLCConversationListViewController.h"
 #import "UIImage+UIImageExtensions.h"
 #import "BLCMultiPeerConnector.h"
+#import <UICKeyChainStore/UICKeyChainStore.h>
 
 @interface BLCAppDelegate ()
 
@@ -25,6 +26,14 @@
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     
     self.appThemeColor = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    
+    NSString *storedUsername = [UICKeyChainStore stringForKey:@"usernameKey"];
+    
+    self.userName = [[UIDevice currentDevice] name];
+    
+    if (storedUsername) {
+        self.userName = storedUsername;
+    }
     
     return YES;
 }

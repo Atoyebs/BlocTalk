@@ -86,13 +86,15 @@
         
         BLCConversation *conversation = nil;
         
-        BOOL foundConversation = [self.dataSource doesConversationAlreadyExistForRecipients:[session connectedPeersDisplayNames]];
+        conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeersDisplayNames]];
         
-        if (foundConversation) {
+        if (conversation) {
             
             NSLog(@"Found the conversation! Yay!");
             
-            conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeersDisplayNames]];
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:peerID.displayName displayName:peerID.displayName text:receivedText];
+            [conversation.messages addObject:recievedMessage];
+            
         }
         else {
             

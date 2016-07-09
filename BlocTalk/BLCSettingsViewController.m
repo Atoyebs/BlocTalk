@@ -11,6 +11,7 @@
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import "BLCDataSource.h"
+#import "BLCAppDelegate.h"
 
 @interface BLCSettingsViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -36,6 +37,7 @@
 
 @property (nonatomic, assign) BOOL imageChosenFromGallery;
 
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong)  BLCDataSource *mainDataSource;
 
 
@@ -54,11 +56,13 @@
     [super viewDidLoad];
     
     self.mainDataSource = [BLCDataSource sharedInstance];
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.hasSetupConstraints = NO;
     self.usernameKey = @"usernameKey";
     self.minimumUsernameLength = 5;
     
+    self.usernameTextField.placeholder = [UIDevice currentDevice].name;
     NSString *storedUsername = [UICKeyChainStore stringForKey:self.usernameKey];
     
     self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
@@ -70,6 +74,10 @@
     if (storedUsername) {
         self.userName = storedUsername;
         [self.usernameTextField setText:storedUsername];
+        self.appDelegate.userName = storedUsername;
+    }
+    else {
+        self.appDelegate.userName = self.usernameTextField.placeholder;
     }
     
     [self loadProfilePictureDataFromDisk];
@@ -308,7 +316,11 @@
     [self setUsernameTextfieldStateActive:NO];
     
     [UICKeyChainStore setString:self.usernameTextField.text forKey:self.usernameKey];
-    [self.mainDataSource changeUserName:self.usernameTextField.text];
+    self.appDelegate.userName = self.usernameTextField.text;
+//    [self.mainDataSource changeUserName:self.usernameTextField.text];
+    
+    #warning there might be a need to update the username for all existing conversations and messages;
+    
 }
 
 
