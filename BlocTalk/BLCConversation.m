@@ -70,5 +70,17 @@
 }
 
 
+-(void)insertObject:(JSQMessage *)object inMessagesAtIndex:(NSUInteger)index {
+    [self.messages insertObject:object atIndex:index];
+}
+
+-(void)removeObjectFromMessagesAtIndex:(NSUInteger)index {
+    [self.messages removeObjectAtIndex:index];
+}
+
+-(JSQMessage *)objectInMessagesAtIndex:(NSUInteger)index {
+    return [self.messages objectAtIndex:index];
+}
+
 
 @end

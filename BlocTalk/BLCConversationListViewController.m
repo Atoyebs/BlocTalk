@@ -43,7 +43,9 @@
     
     [self setUpNoConversationsViewCheckingDataArray:self.dataSource.conversations];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecieveConversationUpdate:) name:BLCConversationUpdate object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartNewConversationLocally:) name:BLCFirstMessageInConversationNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPostToExistingConversation:) name:BLCPostToExistingConversation object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
     
@@ -54,21 +56,6 @@
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
 }
-
-
--(void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-   NSArray *visibleCells = [self.tableView visibleCells];
-    
-    for (BLCConversationCell *cell in visibleCells) {
-        [cell updateConversationCell];
-    }
-    
-    
-}
-
 
 
 -(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
@@ -120,6 +107,12 @@
             
         }
         
+        for (BLCConversationCell *cell in [self.tableView visibleCells]) {
+            [cell updateConversationCell];
+        }
+        
+        [self.tableView reloadData];
+        
     });
     
 }
@@ -127,19 +120,19 @@
 
 
 
--(void)didRecieveConversationUpdate:(NSNotification *)notification {
-    
-//    NSDictionary *notificationInfo = @{@"text":text, @"senderDisplayName":self.senderDisplayName, @"senderId":self.senderId};
-    
-    BLCConversation *updatedConversation = notification.userInfo[@"conversation"];
-    
-    if (updatedConversation) {
-        
-        [self.kvoConversationsArray insertObject:updatedConversation atIndex:0];
-    }
+-(void)didStartNewConversationLocally:(NSNotification *)notification {
     
     self.noConversationsInfoLabel.hidden = YES;
     self.tableView.scrollEnabled = YES;
+    
+}
+
+
+-(void)didPostToExistingConversation:(NSNotification *)notification {
+    
+    for (BLCConversationCell *cell in [self.tableView visibleCells]) {
+        [cell updateConversationCell];
+    }
     
 }
 
@@ -315,7 +308,6 @@
                    NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:idx];
                    [indexArrayOfChanges addObject:path];
                }];
-            
             
             
                // Call `beginUpdates` to tell the table view we're about to make changes

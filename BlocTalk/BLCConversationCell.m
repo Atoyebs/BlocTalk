@@ -19,12 +19,6 @@
 
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
-//@property (nonatomic, strong) UIImageView *userProfilePicture;
-//
-//@property (nonatomic, strong) UILabel *usernameLabel;
-//
-//@property (nonatomic, strong) UILabel *messagePreviewLabel;
-
 @property (nonatomic, assign) BOOL hasSetupConstraints;
 
 @property (nonatomic, strong) UIFont *usernameFont;
@@ -53,7 +47,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-           
+        
         self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:16.5];
         self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-UltraLight" size:12.5];
         
@@ -81,6 +75,8 @@
     
     return self;
 }
+
+
 
 -(void)setupCell {
     

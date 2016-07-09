@@ -9,6 +9,7 @@
 #import "BLCConversationViewController.h"
 #import "BLCConversation.h"
 #import "BLCAppDelegate.h"
+#import "BLCDataSource.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import "BLCMultiPeerConnector.h"
 #import <JSQMessage.h>
@@ -24,7 +25,9 @@
 
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
+@property (nonatomic, strong) BLCDataSource *dataSource;
 @property (nonatomic, strong) JSQMessagesAvatarImage *avatarImage;
+@property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
 
 
 @end
@@ -51,6 +54,10 @@
     else {
         self.title = @"Unknown";
     }
+    
+    self.dataSource = [BLCDataSource sharedInstance];
+    
+    self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
     self.collectionView.backgroundColor = self.appDelegate.appThemeColor;
     
@@ -144,10 +151,14 @@
         
         NSDictionary *notificationInfo = @{@"text":text, @"conversation":self.conversation};
         
-        //if this message is the first message in the conversation
+        //if this message is the first message in the conversation that means this conversation doesn't exist in the data source
         if (self.conversation.messages.count == 1) {
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:BLCConversationUpdate object:nil userInfo:notificationInfo];
+            [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
+            [[NSNotificationCenter defaultCenter] postNotificationName:BLCFirstMessageInConversationNotification object:nil userInfo:nil];
+        }
+        else if (self.conversation.messages.count > 1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:BLCPostToExistingConversation object:nil userInfo:nil];
         }
         
         [self finishSendingMessage];

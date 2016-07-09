@@ -9,7 +9,8 @@
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 @class BLCConversation;
 
-static NSString *const BLCConversationUpdate = @"ConversationUpdateNotification";
+static NSString *const BLCPostToExistingConversation = @"PostToExistingConversationNotification";
+static NSString *const BLCFirstMessageInConversationNotification = @"FirstMessageInConvoNotification";
 
 @interface BLCConversationViewController : JSQMessagesViewController
 
