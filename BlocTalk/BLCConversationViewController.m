@@ -10,6 +10,7 @@
 #import "BLCConversation.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
+#import "BLCTextMessage.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import "BLCMultiPeerConnector.h"
 #import <JSQMessage.h>
@@ -26,7 +27,6 @@
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) BLCDataSource *dataSource;
-@property (nonatomic, strong) JSQMessagesAvatarImage *avatarImage;
 @property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
 
 
@@ -60,8 +60,6 @@
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
     self.collectionView.backgroundColor = self.appDelegate.appThemeColor;
-    
-    self.avatarImage = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromSenderDisplayName] backgroundColor:[UIColor jsq_messageBubblePurplePinkColor] textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
 
@@ -113,7 +111,11 @@
 
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return self.avatarImage;
+    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    
+    JSQMessagesAvatarImage*currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromDisplayName:message.senderDisplayName]backgroundColor:[UIColor jsq_messageBubblePurplePinkColor] textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+    
+    return currentAvatar;
 }
 
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -180,7 +182,10 @@
 
 -(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage {
     
-    NSData *dataToSend = [textMessage dataUsingEncoding:NSUTF8StringEncoding];
+    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage];
+    
+    NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
+    
     NSArray *allPeers = self.appDelegate.multiPeerManager.peerSession.connectedPeers;
     NSError *error;
     
@@ -249,21 +254,21 @@
 }
 
 
--(NSString *)getInitialsFromSenderDisplayName {
+-(NSString *)getInitialsFromDisplayName:(NSString *)displayName {
     
     NSMutableString *initials = [NSMutableString new];
     
     NSInteger firstTwoUpperCaseCharactersCount = 0;
     
-    for (int i = 0; i < [self.senderDisplayName length]; i++) {
+    for (int i = 0; i < [displayName length]; i++) {
         
-        if([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[self.senderDisplayName characterAtIndex:i]]){
+        if([[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:[displayName characterAtIndex:i]]){
             
             if (firstTwoUpperCaseCharactersCount > 2) {
                 break;
             }
             else {
-                NSString *charToAppend = [NSString stringWithFormat:@"%C", [self.senderDisplayName characterAtIndex:i]];
+                NSString *charToAppend = [NSString stringWithFormat:@"%C", [displayName characterAtIndex:i]];
                 initials = [[initials stringByAppendingString: charToAppend] mutableCopy];
             }
             
@@ -283,17 +288,12 @@
 
 -(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
     
-    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
-    NSString *peerDisplayName = peerID.displayName;
-    
-    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
-    NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"Recieved A Message: \n\n%@", receivedText);
-    
-//    [self.conversation.messages addObject:receivedText];
-    [self.collectionView reloadData];
-    [self finishReceivingMessage];
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        [self finishReceivingMessage];
+        [self.collectionView reloadData];
+        
+    });
     
 }
 

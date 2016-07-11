@@ -213,7 +213,13 @@
         BLCConversation *newConversation = [[BLCConversation alloc] init];
         newConversation.recipients = selectedPeers;
         
-        convoVC.senderId = newConversation.user.userID;
+        BLCUser *initialisingUser = [[BLCUser alloc] init];
+        initialisingUser.username = self.appDelegate.userName;
+        initialisingUser.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+        
+        newConversation.user = initialisingUser;
+        
+        convoVC.senderId = newConversation.user.initializingUserID;
         convoVC.senderDisplayName = newConversation.user.username;
         
         if (selectedPeers.count == 1) {

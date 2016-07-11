@@ -40,12 +40,6 @@
             self.messages = [NSMutableArray array];
         }
         
-        BLCUser *thisUser = [[BLCUser alloc] init];
-        thisUser.username = self.appDelegate.userName;
-        thisUser.userID = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-        
-        self.user = thisUser;
-        
         JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
         
         self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubblePurplePinkColor]];

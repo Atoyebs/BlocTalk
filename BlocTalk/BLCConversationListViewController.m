@@ -11,6 +11,7 @@
 #import "BLCConversationCell.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
+#import "BLCTextMessage.h"
 #import "BLCDataSource.h"
 #import "BLCAppDelegate.h"
 #import "MCSession+PeerDataManipulation.h"
@@ -69,7 +70,8 @@
         MCSession *session = [[notification userInfo] objectForKey:@"session"];
         
         NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
-        NSString *receivedText = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
+        
+        BLCTextMessage *receivedText = [NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
         
         BLCConversation *conversation = nil;
         
@@ -79,17 +81,17 @@
             
             NSLog(@"Found the conversation! Yay!");
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:peerID.displayName displayName:peerID.displayName text:receivedText];
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.senderID displayName:peerID.displayName text:receivedText.textMessage];
             [conversation.messages addObject:recievedMessage];
             
         }
         else {
             
-            NSLog(@"Okay Chillout Its Just A new Conversation");
+            NSLog(@"This is a new conversation");
             
             BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:peerID.displayName displayName:peerID.displayName text:receivedText];
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.senderID displayName:peerID.displayName text:receivedText.textMessage];
             
             [brandNewConversation.messages addObject:recievedMessage];
             brandNewConversation.recipients = [session connectedPeersDisplayNames];
@@ -98,6 +100,7 @@
             
             BLCUser *user = [[BLCUser alloc] init];
             user.username = [self.dataSource getUserName];
+            user.initializingUserID = receivedText.senderID;
             
             brandNewConversation.user = user;
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
