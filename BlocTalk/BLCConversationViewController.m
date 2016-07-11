@@ -8,6 +8,7 @@
 
 #import "BLCConversationViewController.h"
 #import "BLCConversation.h"
+#import "BLCUser.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
 #import "BLCTextMessage.h"
@@ -182,7 +183,7 @@
 
 -(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage {
     
-    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage];
+    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUser]];
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
     

@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class BLCUser;
+
 @interface BLCTextMessage : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString *textMessage;
-@property (nonatomic, strong) NSString *senderID;
+@property (nonatomic, strong) BLCUser *user;
 
--(instancetype)initWithTextMessage:(NSString *)message;
+-(instancetype)initWithTextMessage:(NSString *)message withUser:(BLCUser *)user;
 
 @end

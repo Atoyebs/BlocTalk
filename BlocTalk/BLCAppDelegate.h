@@ -17,7 +17,7 @@
 @property (nonatomic, strong) BLCMultiPeerConnector *multiPeerManager;
 @property (nonatomic, strong) UIColor *appThemeColor;
 @property (nonatomic, strong) NSString *userName;
-
+@property (nonatomic, strong) UIImage *userProfileImage;
 
 @end
 

@@ -81,7 +81,7 @@
             
             NSLog(@"Found the conversation! Yay!");
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.senderID displayName:peerID.displayName text:receivedText.textMessage];
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
             [conversation.messages addObject:recievedMessage];
             
         }
@@ -91,7 +91,7 @@
             
             BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.senderID displayName:peerID.displayName text:receivedText.textMessage];
+            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
             
             [brandNewConversation.messages addObject:recievedMessage];
             brandNewConversation.recipients = [session connectedPeersDisplayNames];
@@ -100,7 +100,7 @@
             
             BLCUser *user = [[BLCUser alloc] init];
             user.username = [self.dataSource getUserName];
-            user.initializingUserID = receivedText.senderID;
+            user.initializingUserID = receivedText.user.initializingUserID;
             
             brandNewConversation.user = user;
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
@@ -208,6 +208,7 @@
     [cell setupCell];
     
     cell.backgroundColor = self.appDelegate.appThemeColor;
+    cell.userProfilePicture.image = currConversation.user.profilePicture;
     
     return cell;
 }

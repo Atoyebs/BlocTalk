@@ -16,13 +16,13 @@
 
 @implementation BLCTextMessage
 
--(instancetype)initWithTextMessage:(NSString *)message {
+-(instancetype)initWithTextMessage:(NSString *)message withUser:(BLCUser *)user {
     
     self = [super init];
     
     if (self) {
         self.textMessage = message;
-        self.senderID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+        self.user = user;
     }
     
     return self;
@@ -38,7 +38,7 @@
     if (self) {
         
         self.textMessage = [coder decodeObjectForKey:NSStringFromSelector(@selector(textMessage))];
-        self.senderID = [coder decodeObjectForKey:NSStringFromSelector(@selector(senderID))];
+        self.user = [coder decodeObjectForKey:NSStringFromSelector(@selector(user))];
         
     }
     
@@ -49,7 +49,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     
     [aCoder encodeObject:self.textMessage forKey:NSStringFromSelector(@selector(textMessage))];
-    [aCoder encodeObject:self.senderID forKey:NSStringFromSelector(@selector(senderID))];
+    [aCoder encodeObject:self.user forKey:NSStringFromSelector(@selector(user))];
     
 }
 

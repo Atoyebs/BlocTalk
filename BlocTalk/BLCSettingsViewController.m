@@ -38,7 +38,7 @@
 @property (nonatomic, assign) BOOL imageChosenFromGallery;
 
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
-@property (nonatomic, strong)  BLCDataSource *mainDataSource;
+@property (nonatomic, strong) BLCDataSource *mainDataSource;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewDistanceFromTop;
@@ -298,6 +298,8 @@
              UIImageWriteToSavedPhotosAlbum(imageToUse, nil, nil, nil);
         }
         
+        self.appDelegate.userProfileImage = imageToUse;
+        
     }];
 }
 
@@ -317,7 +319,6 @@
     
     [UICKeyChainStore setString:self.usernameTextField.text forKey:self.usernameKey];
     self.appDelegate.userName = self.usernameTextField.text;
-//    [self.mainDataSource changeUserName:self.usernameTextField.text];
     
     #warning there might be a need to update the username for all existing conversations and messages;
     
@@ -371,6 +372,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (loadedImageView) {
+                self.appDelegate.userProfileImage = loadedImageView.profilePicImage;
                 self.profilePicture.image = loadedImageView.profilePicImage;
                 self.profilePicture.hideLabel = YES;
                 NSLog(@"ImageView succesfully loaded");

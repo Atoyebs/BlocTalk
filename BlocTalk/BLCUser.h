@@ -11,10 +11,12 @@
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
 
 
-@interface BLCUser : NSObject
+@interface BLCUser : NSObject <NSCoding>
 
 @property (nonatomic, strong) UIImage *profilePicture;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *initializingUserID;
+
++(instancetype)currentDeviceUser;
 
 @end
