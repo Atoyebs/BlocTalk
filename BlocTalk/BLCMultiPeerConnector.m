@@ -93,6 +93,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
     
     NSDictionary *dict = @{@"peerID": peerID, @"state" : [NSNumber numberWithInt:state] };
     
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidChangeStateNotification" object:nil userInfo:dict];
     
 }

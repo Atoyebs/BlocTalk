@@ -156,7 +156,7 @@
             if (conv) {
                 
                 conversationViewController.conversation = conv;
-                conversationViewController.senderId = conv.user.username;
+                conversationViewController.senderId = conv.user.initializingUserID;
                 conversationViewController.senderDisplayName = conv.user.username;
                 
             }

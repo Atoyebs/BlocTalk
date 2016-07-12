@@ -65,7 +65,7 @@
     self.usernameTextField.placeholder = [UIDevice currentDevice].name;
     NSString *storedUsername = [UICKeyChainStore stringForKey:self.usernameKey];
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
     
     self.textFieldLimit = 25;
     [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:17.0f]];

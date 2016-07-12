@@ -25,7 +25,7 @@
     
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     
-    self.appThemeColor = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    self.appThemeColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
     
     NSString *storedUsername = [UICKeyChainStore stringForKey:@"usernameKey"];
     
