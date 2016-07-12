@@ -88,6 +88,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     
+    [self.inputToolbar.contentView.textView becomeFirstResponder];
     [super viewDidAppear:animated];
     
 }
