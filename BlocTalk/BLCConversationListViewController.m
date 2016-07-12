@@ -77,7 +77,7 @@
         
         BLCConversation *conversation = nil;
         
-        conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeersDisplayNames]];
+        conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
         
         if (conversation) {
             
@@ -96,7 +96,7 @@
             JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
             
             [brandNewConversation.messages addObject:recievedMessage];
-            brandNewConversation.recipients = [session connectedPeersDisplayNames];
+            brandNewConversation.recipients = [session connectedPeers];
             
             brandNewConversation.isGroupConversation = ([session connectedPeersDisplayNames].count > 1) ? YES : NO;
             

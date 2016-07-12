@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationViewController.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
 #import "BLCAppDelegate.h"
@@ -188,10 +189,11 @@
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
     
-    NSArray *allPeers = self.appDelegate.multiPeerManager.peerSession.connectedPeers;
+    NSArray *allPeers = self.dataSource.connectedDevices;
+    
     NSError *error;
     
-    [self.appDelegate.multiPeerManager.peerSession sendData:dataToSend
+    [self.appDelegate.mpManager.session sendData:dataToSend
                                                     toPeers:allPeers
                                                    withMode:MCSessionSendDataReliable
                                                       error:&error];

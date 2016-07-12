@@ -22,6 +22,8 @@
 
 - (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients;
 
+- (NSArray *)getPeerIDsForSelectedRecipients:(NSArray *)recipients;
+
 - (void)addNewlyRecievedConversation:(BLCConversation *)conversation;
 
 -(NSUInteger)countOfConversations;

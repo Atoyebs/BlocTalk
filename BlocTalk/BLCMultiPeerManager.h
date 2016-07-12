@@ -15,6 +15,7 @@
 @property (nonatomic, strong) MCNearbyServiceBrowser *peerBrowser;
 @property (nonatomic, strong) MCNearbyServiceAdvertiser *peerAdvertiser;
 @property (nonatomic, strong, readonly) NSMutableDictionary *foundPeers;
+@property (nonatomic, strong) MCSession *session;
 
 
 - (void)advertisePeer:(BOOL)shouldAdvertise;

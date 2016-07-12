@@ -54,9 +54,9 @@
 
 -(NSString *)conversationTitle {
     
-    MCPeerID *peer = [self.recipients firstObject];
+    MCPeerID *peer = (MCPeerID *)[self.recipients firstObject];
     
-    NSMutableString *convTitle = [peer.displayName mutableCopy];
+    NSMutableString *convTitle = [NSMutableString stringWithFormat:@"%@", peer.displayName];
     
     if (self.isGroupConversation) {
         [convTitle appendString:@" - (Group Conv)"];

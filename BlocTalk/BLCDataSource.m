@@ -71,6 +71,8 @@
 }
 
 
+#pragma mark - Querying The Datasource
+
 - (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
     
     BOOL conversationWithRecipientsExists = NO;
@@ -136,6 +138,26 @@
 
     
     return foundConversation;
+    
+}
+
+-(NSArray *)getPeerIDsForSelectedRecipients:(NSArray *)recipients {
+
+    NSMutableArray *peerIDsToReturn = [NSMutableArray array];
+    
+    for (NSString *peer in recipients) {
+        
+        for (MCPeerID *peerID in self.connectedDevices) {
+            
+            if ([peer isEqualToString:peerID.displayName]) {
+                [peerIDsToReturn addObject:peerID];
+            }
+            
+        }
+        
+    }
+    
+    return peerIDsToReturn;
     
 }
 
@@ -224,6 +246,9 @@
 -(void)replaceObjectInConnectedDevicesAtIndex:(NSUInteger)index withObject:(id)object {
     [_connectedDevices replaceObjectAtIndex:index withObject:object];
 }
+
+
+
 
 
 

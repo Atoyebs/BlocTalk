@@ -20,7 +20,6 @@
 @property (nonatomic, strong) BLCDataSource *dataSource;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) MCPeerID *peerID;
-@property (nonatomic, strong) MCSession *session;
 @property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesMutableArray;
 
 @end
@@ -133,7 +132,15 @@ static NSString *const ServiceType = @"bloctalk-chat";
 
 -(void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     
+    NSDictionary *dict = @{@"data": data,
+                           @"peerID": peerID,
+                           @"session":session
+                           };
     
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
+                                                        object:nil
+                                                      userInfo:dict];
     
 }
 
