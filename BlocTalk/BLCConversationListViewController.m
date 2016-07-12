@@ -8,6 +8,7 @@
 
 #import "BLCConversationListViewController.h"
 #import "BLCConversationViewController.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCConversationCell.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
@@ -123,7 +124,11 @@
     
 }
 
-
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.appDelegate.mpManager startBrowsingForPeers];
+    
+}
 
 
 -(void)didSendNewMessage:(NSNotification *)notification {

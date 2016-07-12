@@ -38,6 +38,8 @@ static NSString *const notConnected = @"Not Connected";
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateWithNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLosePeerWithNotification:) name:@"MCDidLosePeer" object:nil];
+    
     self.kvoConnectedDevicesMutableArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(connectedDevices))];
     
     self.deviceConnectionStatusDictionary = [NSMutableDictionary new];
@@ -57,20 +59,10 @@ static NSString *const notConnected = @"Not Connected";
 }
 
 
--(void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-
-    //start browsing for peers on appearance
-    [self.appDelegate.mpManager startBrowsingForPeers];
-    
-}
-
 
 -(void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.appDelegate.mpManager stopBrowsingForPeers];
     
 }
 
@@ -148,6 +140,9 @@ static NSString *const notConnected = @"Not Connected";
         //does the number of connected peers = 0
         
     }
+    else {
+        NSLog(@"something else is going on here! I think its disconnected");
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //reload data here
@@ -156,6 +151,12 @@ static NSString *const notConnected = @"Not Connected";
     
 }
 
+
+-(void)didLosePeerWithNotification:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
 
 
 #pragma mark - UITableViewDelegate Methods

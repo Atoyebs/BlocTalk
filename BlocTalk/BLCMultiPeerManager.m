@@ -86,6 +86,8 @@ static NSString *const ServiceType = @"bloctalk-chat";
         [self.dataSource.unConnectedFoundDevices removeObject:peerID];
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidLosePeer" object:nil userInfo:nil];
+    
     
 }
 
