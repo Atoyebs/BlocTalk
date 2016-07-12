@@ -40,6 +40,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="BlocTalk" id="AX2-Mo-Qj5">
+                        <barButtonItem key="leftBarButtonItem" image="wifi" id="jth-dS-hR8"/>
                         <barButtonItem key="rightBarButtonItem" image="add_icon" style="plain" id="dHa-ZK-EQm">
                             <connections>
                                 <segue destination="njs-z9-GZ5" kind="show" id="xJN-dt-phK"/>
@@ -437,9 +438,10 @@
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
         <image name="speech-bubble_icon" width="25" height="25"/>
         <image name="users_icon" width="22" height="22"/>
+        <image name="wifi" width="25" height="25"/>
         <image name="wifi_icon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uv8-sq-z8F"/>
+        <segue reference="DUl-mI-ce5"/>
     </inferredMetricsTieBreakers>
 </document>
