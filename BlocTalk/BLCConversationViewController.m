@@ -50,7 +50,8 @@
         self.title = @"Multiple Recipients";
     }
     else if (self.conversation.recipients.count == 1) {
-        self.title = [self.conversation.recipients firstObject];
+        MCPeerID *peer = [self.conversation.recipients firstObject];
+        self.title = peer.displayName;
     }
     else {
         self.title = @"Unknown";

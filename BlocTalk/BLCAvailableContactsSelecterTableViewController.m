@@ -69,7 +69,9 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
+    MCPeerID *currentPeerID = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = currentPeerID.displayName;
     
     return cell;
 }
@@ -139,7 +141,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    NSArray *selectedPeers = [self selectedRecipientsArray];
+    NSArray <MCPeerID *> *selectedPeers = [self selectedRecipientsArray];
     
     BOOL conversationExists = [self.mainDataSource doesConversationAlreadyExistForRecipients:selectedPeers];
     
@@ -166,6 +168,9 @@
         
     }
     else if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
+        
+        NSLog(@"We are starting a brand new conversation");
+        
         [self pushNewConversation:segue sender:sender recipients:selectedPeers];
     }
     

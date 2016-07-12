@@ -7,6 +7,7 @@
 //
 
 #import "BLCAppDelegate.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCSettingsViewController.h"
 #import "BLCConversationListViewController.h"
 #import "UIImage+UIImageExtensions.h"
@@ -23,8 +24,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
-    
     self.appThemeColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
     
     NSString *storedUsername = [UICKeyChainStore stringForKey:@"usernameKey"];
@@ -34,6 +33,9 @@
     if (storedUsername) {
         self.userName = storedUsername;
     }
+    
+    self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
+    self.mpManager = [[BLCMultiPeerManager alloc] init];
     
     return YES;
 }

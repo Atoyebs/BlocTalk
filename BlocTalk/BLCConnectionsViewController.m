@@ -135,7 +135,6 @@
 -(void)peerDidChangeStateWithNotification:(NSNotification *)notification {
     
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
-    NSString *peerDisplayName = peerID.displayName;
     MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
     
     //if the session is NOT connecting
@@ -143,12 +142,12 @@
         
         //if the state is connected then add the display name to the arrayList
         if (state == MCSessionStateConnected) {
-            [self.kvoConnectedDevicesArray insertObject:peerDisplayName atIndex:0];
+            [self.kvoConnectedDevicesArray insertObject:peerID atIndex:0];
         }
         else if (state == MCSessionStateNotConnected){
             
             if ( [_kvoConnectedDevicesArray count] > 0) {
-                [self.kvoConnectedDevicesArray removeObject:peerDisplayName];
+                [self.kvoConnectedDevicesArray removeObject:peerID];
             }
             
         }
@@ -184,7 +183,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentifier"];
     }
     
-    cell.textLabel.text = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
+    MCPeerID *currentPeerID = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = currentPeerID.displayName;
     
     return cell;
 }

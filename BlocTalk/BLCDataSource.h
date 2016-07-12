@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BLCConversation;
+@class BLCConversation, MCPeerID;
 
 @interface BLCDataSource : NSObject
 
@@ -29,6 +29,10 @@
 
 @property (nonatomic, strong, readonly) NSMutableArray <BLCConversation *> *conversations;
 
-@property (nonatomic, strong, readonly) NSMutableArray *connectedDevices;
+@property (nonatomic, strong, readonly) NSMutableArray <MCPeerID *> *connectedDevices;
+
+@property (nonatomic, strong) NSMutableArray *unConnectedFoundDevices;
+
+@property (nonatomic, strong) NSMutableArray *historicallyConnectedPeers;
 
 @end

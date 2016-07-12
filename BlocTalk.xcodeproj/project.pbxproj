@@ -25,6 +25,9 @@
 		816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345BB1D26FA9F004FFFA1 /* BLCDataSource.m */; };
 		816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345BE1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m */; };
 		817121401D33D72300FB6717 /* BLCTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8171213F1D33D72300FB6717 /* BLCTextMessage.m */; };
+		817121431D350A6B00FB6717 /* BLCMCBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */; };
+		817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121461D35209200FB6717 /* BLCMultiPeerManager.m */; };
+		8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121491D35668B00FB6717 /* BLCConnectorCell.m */; };
 		81780F131D25B42F009DB3E2 /* BLCConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81780F121D25B42F009DB3E2 /* BLCConversationCell.m */; };
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
@@ -89,6 +92,12 @@
 		816345BE1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCAvailableContactsSelecterTableViewController.m; sourceTree = "<group>"; };
 		8171213E1D33D72300FB6717 /* BLCTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCTextMessage.h; sourceTree = "<group>"; };
 		8171213F1D33D72300FB6717 /* BLCTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCTextMessage.m; sourceTree = "<group>"; };
+		817121411D350A6B00FB6717 /* BLCMCBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMCBrowserViewController.h; sourceTree = "<group>"; };
+		817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMCBrowserViewController.m; sourceTree = "<group>"; };
+		817121451D35209200FB6717 /* BLCMultiPeerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMultiPeerManager.h; sourceTree = "<group>"; };
+		817121461D35209200FB6717 /* BLCMultiPeerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMultiPeerManager.m; sourceTree = "<group>"; };
+		817121481D35668B00FB6717 /* BLCConnectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConnectorCell.h; sourceTree = "<group>"; };
+		817121491D35668B00FB6717 /* BLCConnectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectorCell.m; sourceTree = "<group>"; };
 		81780F111D25B42F009DB3E2 /* BLCConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConversationCell.h; sourceTree = "<group>"; };
 		81780F121D25B42F009DB3E2 /* BLCConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversationCell.m; sourceTree = "<group>"; };
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +164,8 @@
 				81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */,
 				816345BA1D26FA9F004FFFA1 /* BLCDataSource.h */,
 				816345BB1D26FA9F004FFFA1 /* BLCDataSource.m */,
+				817121451D35209200FB6717 /* BLCMultiPeerManager.h */,
+				817121461D35209200FB6717 /* BLCMultiPeerManager.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -200,6 +211,7 @@
 		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				817121441D350A7A00FB6717 /* MultiPeer */,
 				81780F101D259517009DB3E2 /* Messaging */,
 				81780F0F1D25950D009DB3E2 /* Settings */,
 			);
@@ -213,6 +225,8 @@
 				81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */,
 				81780F111D25B42F009DB3E2 /* BLCConversationCell.h */,
 				81780F121D25B42F009DB3E2 /* BLCConversationCell.m */,
+				817121481D35668B00FB6717 /* BLCConnectorCell.h */,
+				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -248,6 +262,15 @@
 				8171213F1D33D72300FB6717 /* BLCTextMessage.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		817121441D350A7A00FB6717 /* MultiPeer */ = {
+			isa = PBXGroup;
+			children = (
+				817121411D350A6B00FB6717 /* BLCMCBrowserViewController.h */,
+				817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */,
+			);
+			name = MultiPeer;
 			sourceTree = "<group>";
 		};
 		81780F0F1D25950D009DB3E2 /* Settings */ = {
@@ -561,7 +584,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8104B6B71D27D26D00471675 /* BLCRemoveMiddleVCSegue.m in Sources */,
+				817121431D350A6B00FB6717 /* BLCMCBrowserViewController.m in Sources */,
 				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
+				817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */,
 				81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */,
@@ -573,6 +598,7 @@
 				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,
 				81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */,
 				8106387B1D24119E004BA1EC /* BLCMessageTestViewController.m in Sources */,
+				8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */,
 				81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */,
 				816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */,
 				81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */,

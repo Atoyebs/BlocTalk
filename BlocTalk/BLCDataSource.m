@@ -45,6 +45,7 @@
         
         _connectedDevices = [NSMutableArray new];
         _conversations = [NSMutableArray new];
+        self.unConnectedFoundDevices = [NSMutableArray new];
         
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
      
