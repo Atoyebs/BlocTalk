@@ -63,19 +63,30 @@
         <scene sceneID="QQ5-Hm-EIG">
             <objects>
                 <tableViewController id="FGx-JQ-smO" customClass="BLCMCBrowserViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JWH-WS-ho5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="JWH-WS-ho5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="FGx-JQ-smO" id="PVa-WO-yPF"/>
                             <outlet property="delegate" destination="FGx-JQ-smO" id="7zE-1i-ovV"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="62e-db-rQG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="QD5-JH-h4B">
+                            <connections>
+                                <action selector="refreshPeerBrowser:" destination="FGx-JQ-smO" id="8GM-yY-u2E"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Mq-Mo-Z6I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2285" y="924"/>
+            <point key="canvasLocation" x="2285" y="890"/>
         </scene>
         <!--Available Contacts-->
         <scene sceneID="XCR-Zn-1yh">
@@ -464,6 +475,6 @@
         <image name="wifi_icon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uv8-sq-z8F"/>
+        <segue reference="DUl-mI-ce5"/>
     </inferredMetricsTieBreakers>
 </document>

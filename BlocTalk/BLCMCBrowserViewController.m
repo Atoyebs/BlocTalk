@@ -140,9 +140,6 @@ static NSString *const notConnected = @"Not Connected";
         //does the number of connected peers = 0
         
     }
-    else {
-        NSLog(@"something else is going on here! I think its disconnected");
-    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         //reload data here
@@ -231,6 +228,13 @@ static NSString *const notConnected = @"Not Connected";
     NSString *headerForSection = [allValues objectAtIndex:section];
     
     return headerForSection;
+}
+
+
+#pragma mark - Actions
+
+- (IBAction)refreshPeerBrowser:(id)sender {
+    [self.appDelegate.mpManager refreshBrowsingForPeers]; 
 }
 
 

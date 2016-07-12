@@ -176,6 +176,15 @@ static NSString *const ServiceType = @"bloctalk-chat";
     [self.peerBrowser startBrowsingForPeers];
 }
 
+-(void)refreshBrowsingForPeers {
+    
+    [self.peerBrowser stopBrowsingForPeers];
+    self.peerBrowser = nil;
+    
+    self.peerBrowser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.peerID serviceType:ServiceType];
+    [self.peerBrowser startBrowsingForPeers];
+    
+}
 
 -(void)stopBrowsingForPeers {
     [self.peerBrowser stopBrowsingForPeers];

@@ -22,6 +22,8 @@
 
 - (void)startBrowsingForPeers;
 
+- (void)refreshBrowsingForPeers;
+
 - (void)stopBrowsingForPeers;
 
 - (void)invitePeer:(MCPeerID *)peer withUserInfo:(BLCUser *)myUserInfo;
