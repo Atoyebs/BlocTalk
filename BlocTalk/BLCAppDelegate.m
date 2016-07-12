@@ -37,6 +37,8 @@
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     self.mpManager = [[BLCMultiPeerManager alloc] init];
     
+    NSLog(@"Unique ID For %@ is = %@", self.userName, [[UIDevice currentDevice] identifierForVendor].UUIDString);
+    
     return YES;
 }
 

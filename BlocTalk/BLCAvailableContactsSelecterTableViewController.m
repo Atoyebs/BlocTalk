@@ -160,7 +160,7 @@
                 conversationViewController.conversation = conv;
                 conversationViewController.senderId = conv.user.initializingUserID;
                 conversationViewController.senderDisplayName = conv.user.username;
-                
+
             }
             
         }
@@ -219,11 +219,11 @@
         BLCConversation *newConversation = [[BLCConversation alloc] init];
         newConversation.recipients = selectedPeers;
         
-        BLCUser *initialisingUser = [[BLCUser alloc] init];
-        initialisingUser.username = self.appDelegate.userName;
-        initialisingUser.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+//        BLCUser *initialisingUser = [[BLCUser alloc] init];
+//        initialisingUser.username = self.appDelegate.userName;
+//        initialisingUser.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
         
-        newConversation.user = initialisingUser;
+        newConversation.user = [BLCUser currentDeviceUser];
         
         convoVC.senderId = newConversation.user.initializingUserID;
         convoVC.senderDisplayName = newConversation.user.username;

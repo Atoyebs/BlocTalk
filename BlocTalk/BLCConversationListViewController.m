@@ -44,9 +44,7 @@
     
     [self setUpNoConversationsViewCheckingDataArray:self.dataSource.conversations];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartNewConversationLocally:) name:BLCFirstMessageInConversationNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPostToExistingConversation:) name:BLCPostToExistingConversation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessage:) name:BLCFirstMessageInConversationNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
     
@@ -84,6 +82,7 @@
             NSLog(@"Found the conversation! Yay!");
             
             JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
+            
             [conversation.messages addObject:recievedMessage];
             
         }
@@ -98,13 +97,15 @@
             [brandNewConversation.messages addObject:recievedMessage];
             brandNewConversation.recipients = [session connectedPeers];
             
-            brandNewConversation.isGroupConversation = ([session connectedPeersDisplayNames].count > 1) ? YES : NO;
+            brandNewConversation.isGroupConversation = ([session connectedPeers].count > 1) ? YES : NO;
             
-            BLCUser *user = [[BLCUser alloc] init];
-            user.username = [self.dataSource getUserName];
-            user.initializingUserID = receivedText.user.initializingUserID;
+//            BLCUser *user = [[BLCUser alloc] init];
+//            user.username = receivedText.user.username;
+//            user.initializingUserID = receivedText.user.initializingUserID;
+//            brandNewConversation.user = user;
             
-            brandNewConversation.user = user;
+            brandNewConversation.user = [BLCUser currentDeviceUser];
+            
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
             
             self.noConversationsInfoLabel.hidden = YES;
@@ -125,21 +126,19 @@
 
 
 
--(void)didStartNewConversationLocally:(NSNotification *)notification {
+-(void)didSendNewMessage:(NSNotification *)notification {
     
     self.noConversationsInfoLabel.hidden = YES;
     self.tableView.scrollEnabled = YES;
     
-}
-
-
--(void)didPostToExistingConversation:(NSNotification *)notification {
-    
     for (BLCConversationCell *cell in [self.tableView visibleCells]) {
         [cell updateConversationCell];
     }
+
     
 }
+
+
 
 
 - (void)setUpNoConversationsViewCheckingDataArray:(NSArray *)conversationsArray {
@@ -362,7 +361,7 @@
         
         conversationViewController.conversation = conversation;
         conversationViewController.senderDisplayName = conversation.user.username;
-        conversationViewController.senderId = conversation.user.username;
+        conversationViewController.senderId = conversation.user.initializingUserID;
         
     }
     

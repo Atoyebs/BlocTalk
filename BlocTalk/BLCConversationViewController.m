@@ -115,8 +115,16 @@
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    UIColor *selectedColor;
     
-    JSQMessagesAvatarImage*currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromDisplayName:message.senderDisplayName]backgroundColor:[UIColor jsq_messageBubblePurplePinkColor] textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+    if ([message.senderId isEqualToString:self.senderId]) {
+        selectedColor = [UIColor jsq_messageBubblePurplePinkColor];
+    }
+    else {
+        selectedColor = [UIColor jsq_messageBubbleGreenColor];
+    }
+    
+    JSQMessagesAvatarImage*currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromDisplayName:message.senderDisplayName]backgroundColor:selectedColor textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
     return currentAvatar;
 }
@@ -132,11 +140,14 @@
     
     JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
+    JSQMessagesBubbleImage *bubbleImageToUse = self.conversation.incomingBubbleImageData;
+    
     if ([message.senderId isEqualToString:self.senderId]) {
-        return self.conversation.outgoingBubbleImageData;
+        bubbleImageToUse = self.conversation.outgoingBubbleImageData;
     }
     
-    return self.conversation.incomingBubbleImageData;
+   
+    return bubbleImageToUse;
 }
 
 
@@ -154,18 +165,12 @@
         
         [self.conversation.messages addObject:message];
         
-//        NSDictionary *notificationInfo = @{@"text":text, @"conversation":self.conversation};
-        
-        //if this message is the first message in the conversation that means this conversation doesn't exist in the data source
         if (self.conversation.messages.count == 1) {
-            
             [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
-            [[NSNotificationCenter defaultCenter] postNotificationName:BLCFirstMessageInConversationNotification object:nil userInfo:nil];
-        }
-        else if (self.conversation.messages.count > 1) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:BLCPostToExistingConversation object:nil userInfo:nil];
         }
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:BLCFirstMessageInConversationNotification object:nil userInfo:nil];
+    
         [self finishSendingMessage];
         
     }
