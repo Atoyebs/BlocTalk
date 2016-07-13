@@ -8,8 +8,10 @@
 
 #import "BLCAppDelegate.h"
 #import "BLCMultiPeerManager.h"
+#import "BLCProfilePictureImageView.h"
 #import "BLCSettingsViewController.h"
 #import "BLCConversationListViewController.h"
+#import "BLCPersistanceObject.h"
 #import "UIImage+UIImageExtensions.h"
 #import "BLCMultiPeerConnector.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
@@ -33,6 +35,13 @@
     if (storedUsername) {
         self.userName = storedUsername;
     }
+    
+    [BLCPersistanceObject loadProfilePictureDataFromDisk:^(BLCProfilePictureImageView *loadedImageView) {
+        self.userProfileImage = loadedImageView.profilePicImage;
+        NSLog(@"ImageView succesfully loaded");
+    } nothingFound:^{
+        self.userProfileImage = [UIImage imageNamed:@"profile-placeholder.jpg"];
+    }];
     
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     self.mpManager = [[BLCMultiPeerManager alloc] init];

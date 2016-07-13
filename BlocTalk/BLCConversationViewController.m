@@ -9,6 +9,7 @@
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversation.h"
+#import "BLCMessageData.h"
 #import "BLCUser.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
@@ -115,7 +116,7 @@
 
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCMessageData *message = [self.conversation.messages objectAtIndex:indexPath.item];
     UIColor *selectedColor;
     
     if ([message.senderId isEqualToString:self.senderId]) {
@@ -139,7 +140,7 @@
      *  Otherwise, return your previously created bubble image data objects.
      */
     
-    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCMessageData *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
     JSQMessagesBubbleImage *bubbleImageToUse = self.conversation.incomingBubbleImageData;
     
@@ -154,10 +155,10 @@
 
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     
-    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderId
+    BLCMessageData *message = [[BLCMessageData alloc] initWithSenderId:senderId
                                              senderDisplayName:senderDisplayName
                                                           date:date
-                                                          text:text];
+                                                          text:text image:[BLCUser currentDeviceUser].profilePicture];
     
     
     NSError *sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text];
@@ -245,7 +246,7 @@
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    JSQMessage *msg = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCMessageData *msg = [self.conversation.messages objectAtIndex:indexPath.item];
     
     if (!msg.isMediaMessage) {
         

@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationCell.h"
+#import "BLCMessageData.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
 #import "BLCAppDelegate.h"
@@ -80,16 +81,18 @@
 
 -(void)setupCell {
     
-    if (!self.conversation.user.profilePicture) {
-        self.conversation.user.profilePicture = [UIImage imageNamed:@"Landscape-Placeholder.png"];
+    BLCMessageData *mostRecentMessage = [self.conversation.messages lastObject];
+    
+    self.messagePreviewLabel.text = mostRecentMessage.text;
+    
+    if (!mostRecentMessage.image) {
+        self.userProfilePicture.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
+    }
+    else {
+        self.userProfilePicture.image = mostRecentMessage.image;
     }
     
-    self.userProfilePicture.image = self.conversation.user.profilePicture;
-    
     self.usernameLabel.text = self.conversation.conversationTitle;
-    
-    JSQMessage *mostRecentMessage = [self.conversation.messages lastObject];
-    self.messagePreviewLabel.text = mostRecentMessage.text;
     
     self.contentView.backgroundColor = [UIColor whiteColor];
 
@@ -98,9 +101,10 @@
 
 -(void)updateConversationCell {
 
-    JSQMessage *mostRecentMessage = [self.conversation.messages lastObject];
-    
+    BLCMessageData *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewLabel.text = mostRecentMessage.text;
+    self.userProfilePicture.image = mostRecentMessage.image;
+    
 }
 
 

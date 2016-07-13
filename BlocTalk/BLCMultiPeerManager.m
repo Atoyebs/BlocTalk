@@ -106,8 +106,6 @@ static NSString *const ServiceType = @"bloctalk-chat";
     
     //if the user has accepted this information before then go ahead and automatically accept the information
     
-//    NSArray *arrayInvitationHandler = [NSArray arrayWithObject:[invitationHandler copy]];
-    
     NSLog(@"You've just recieved an invitation from %@", peerID.displayName);
     
     invitationHandler(YES, self.session);

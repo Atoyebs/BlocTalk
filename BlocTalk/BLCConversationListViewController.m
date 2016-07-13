@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationListViewController.h"
+#import "BLCMessageData.h"
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversationCell.h"
@@ -76,13 +77,14 @@
         
         BLCConversation *conversation = nil;
         
+        #warning find existing conversation with recipients might have to have different recipients than for this session
         conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
         
         if (conversation) {
             
             NSLog(@"Found the conversation! Yay!");
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
+            BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
             
             [conversation.messages addObject:recievedMessage];
             
@@ -93,17 +95,14 @@
             
             BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
             
-            JSQMessage *recievedMessage = [JSQMessage messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage];
+            BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
             
             [brandNewConversation.messages addObject:recievedMessage];
+            
+            #warning find existing conversation with recipients might have to have different recipients than for this session
             brandNewConversation.recipients = [session connectedPeers];
             
             brandNewConversation.isGroupConversation = ([session connectedPeers].count > 1) ? YES : NO;
-            
-//            BLCUser *user = [[BLCUser alloc] init];
-//            user.username = receivedText.user.username;
-//            user.initializingUserID = receivedText.user.initializingUserID;
-//            brandNewConversation.user = user;
             
             brandNewConversation.user = [BLCUser currentDeviceUser];
             
@@ -133,8 +132,10 @@
 
 -(void)didSendNewMessage:(NSNotification *)notification {
     
-    self.noConversationsInfoLabel.hidden = YES;
-    self.tableView.scrollEnabled = YES;
+    if (!self.noConversationsInfoLabel.isHidden) {
+        self.noConversationsInfoLabel.hidden = YES;
+        self.tableView.scrollEnabled = YES;
+    }
     
     for (BLCConversationCell *cell in [self.tableView visibleCells]) {
         [cell updateConversationCell];
@@ -214,7 +215,6 @@
     [cell setupCell];
     
     cell.backgroundColor = self.appDelegate.appThemeColor;
-    cell.userProfilePicture.image = currConversation.user.profilePicture;
     
     return cell;
 }

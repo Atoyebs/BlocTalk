@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversation.h"
+#import "BLCMessageData.h"
 #import "BLCUser.h"
 #import "UIColor+JSQMessages.h"
 #import <JSQMessagesViewController/JSQMessage.h>
@@ -66,7 +67,7 @@
 }
 
 
--(void)insertObject:(JSQMessage *)object inMessagesAtIndex:(NSUInteger)index {
+-(void)insertObject:(BLCMessageData *)object inMessagesAtIndex:(NSUInteger)index {
     [self.messages insertObject:object atIndex:index];
 }
 
@@ -74,7 +75,7 @@
     [self.messages removeObjectAtIndex:index];
 }
 
--(JSQMessage *)objectInMessagesAtIndex:(NSUInteger)index {
+-(BLCMessageData *)objectInMessagesAtIndex:(NSUInteger)index {
     return [self.messages objectAtIndex:index];
 }
 
