@@ -62,63 +62,64 @@
 
 
 -(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
-       
-    dispatch_async(dispatch_get_main_queue(), ^{
     
-        //This is a notification so isn't done on the main thread
+    //This is a notification so isn't done on the main thread
         
-        MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    
+    MCSession *session = [[notification userInfo] objectForKey:@"session"];
+    
+    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+    
+    BLCTextMessage *receivedText = [NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
+    
+    BLCConversation *conversation = nil;
+    
+    #warning find existing conversation with recipients might have to have different recipients than for this session
+    conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
+    
+    if (conversation) {
         
-        MCSession *session = [[notification userInfo] objectForKey:@"session"];
+        NSLog(@"Found the conversation! Yay!");
         
-        NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
         
-        BLCTextMessage *receivedText = [NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [conversation.messages addObject:recievedMessage];
+        });
         
-        BLCConversation *conversation = nil;
+    }
+    else {
+        
+        NSLog(@"This is a new conversation");
+        
+        BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
+        
+        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
         
         #warning find existing conversation with recipients might have to have different recipients than for this session
-        conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
+        brandNewConversation.recipients = [session connectedPeers];
         
-        if (conversation) {
-            
-            NSLog(@"Found the conversation! Yay!");
-            
-            BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
-            
-            [conversation.messages addObject:recievedMessage];
-            
-        }
-        else {
-            
-            NSLog(@"This is a new conversation");
-            
-            BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
-            
-            BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
-            
+        brandNewConversation.isGroupConversation = ([session connectedPeers].count > 1) ? YES : NO;
+        
+        brandNewConversation.user = [BLCUser currentDeviceUser];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
             [brandNewConversation.messages addObject:recievedMessage];
-            
-            #warning find existing conversation with recipients might have to have different recipients than for this session
-            brandNewConversation.recipients = [session connectedPeers];
-            
-            brandNewConversation.isGroupConversation = ([session connectedPeers].count > 1) ? YES : NO;
-            
-            brandNewConversation.user = [BLCUser currentDeviceUser];
-            
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
-            
-            self.noConversationsInfoLabel.hidden = YES;
-            self.tableView.scrollEnabled = YES;
-            
-        }
+            if (!self.noConversationsInfoLabel.hidden) {
+                self.noConversationsInfoLabel.hidden = YES;
+                self.tableView.scrollEnabled = YES;
+            }
+        });
         
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
         for (BLCConversationCell *cell in [self.tableView visibleCells]) {
             [cell updateConversationCell];
         }
-        
         [self.tableView reloadData];
-        
     });
     
 }
