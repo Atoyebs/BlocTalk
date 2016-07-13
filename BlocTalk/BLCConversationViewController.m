@@ -161,7 +161,14 @@
                                                           text:text image:[BLCUser currentDeviceUser].profilePicture];
     
     
-    NSError *sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text];
+    NSError *sendTextMessageError;
+    
+    if (self.conversation.messages.count == 0) {
+        sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text asInitialMessage:YES];
+    }
+    else {
+        sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text asInitialMessage:NO];
+    }
     
     if (!sendTextMessageError) {
         
@@ -190,9 +197,10 @@
     
 }
 
--(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage {
+-(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage asInitialMessage:(BOOL)initialMessage {
     
     BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUser]];
+    message.isInitialMessageForChat = initialMessage;
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
     
@@ -204,6 +212,8 @@
                                                     toPeers:allPeers
                                                    withMode:MCSessionSendDataReliable
                                                       error:&error];
+    
+    
     
     if (error) {
         NSLog(@"%@", [error localizedDescription]);

@@ -134,6 +134,7 @@
 //this is called when the state of any peer changes in relation to this peer
 -(void)peerDidChangeStateWithNotification:(NSNotification *)notification {
     
+//    MCSession *session = [[notification userInfo] objectForKey:@"session"];
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
     MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
     

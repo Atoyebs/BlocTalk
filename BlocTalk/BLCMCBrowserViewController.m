@@ -122,6 +122,17 @@ static NSString *const notConnected = @"Not Connected";
                 [self.kvoConnectedDevicesMutableArray insertObject:peerID atIndex:0];
             }
             
+            /*
+            check if a BLCUser with the peerID exists
+            if the user with the peerID exists check if the user has a profilePicture associated with the BLCUser object
+            only do something if the user doesn't has a profile picture
+                + if the user doesn't have a profile picture associated with their BLCUser object then send data within this method to the other users
+             
+                + in the recieve data method in BLCMultiPeerManager implement adding the user WITH the profile picture to the datasource;
+            */
+            
+            
+            
         }
         else if (state == MCSessionStateNotConnected){
             

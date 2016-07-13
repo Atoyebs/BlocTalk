@@ -23,6 +23,7 @@
     if (self) {
         self.textMessage = message;
         self.user = user;
+        self.isInitialMessageForChat = NO;
     }
     
     return self;

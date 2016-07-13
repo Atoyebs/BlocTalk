@@ -7,6 +7,8 @@
 //
 
 #import "BLCMultiPeerManager.h"
+#import "BLCMessageData.h"
+#import "BLCTextMessage.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
@@ -123,7 +125,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
 
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
-    NSDictionary *dict = @{@"peerID": peerID, @"state" : [NSNumber numberWithInt:state] };
+    NSDictionary *dict = @{@"peerID": peerID, @"state" : [NSNumber numberWithInt:state], @"session" : session };
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidChangeStateNotification" object:nil userInfo:dict];
     
@@ -137,6 +139,23 @@ static NSString *const ServiceType = @"bloctalk-chat";
                            @"session":session
                            };
     
+    /*
+    id recievedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    //if i've recieved a first text message from someone
+    if ([recievedData isKindOfClass:[BLCTextMessage class]]) {
+        
+        BLCTextMessage *textMessage = (BLCTextMessage *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
+        if (textMessage.isInitialMessageForChat) {
+            
+            NSData *profilePictureImageData = UIImagePNGRepresentation(self.appDelegate.userProfileImage);
+            
+            
+        }
+        
+    }
+    */
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
                                                         object:nil

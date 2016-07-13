@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) NSString *textMessage;
 @property (nonatomic, strong) BLCUser *user;
+@property (nonatomic, assign) BOOL isInitialMessageForChat;
+
 
 -(instancetype)initWithTextMessage:(NSString *)message withUser:(BLCUser *)user;
 

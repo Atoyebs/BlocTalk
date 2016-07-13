@@ -85,12 +85,7 @@
     
     self.messagePreviewLabel.text = mostRecentMessage.text;
     
-    if (!mostRecentMessage.image) {
-        self.userProfilePicture.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
-    }
-    else {
-        self.userProfilePicture.image = mostRecentMessage.image;
-    }
+    self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
     
     self.usernameLabel.text = self.conversation.conversationTitle;
     
@@ -103,7 +98,10 @@
 
     BLCMessageData *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewLabel.text = mostRecentMessage.text;
-    self.userProfilePicture.image = mostRecentMessage.image;
+    
+    if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
+        self.userProfilePicture.image = mostRecentMessage.image;
+    }
     
 }
 
@@ -154,7 +152,7 @@
     
     NSLayoutConstraint *usernameLabelTopBorder, *usernameLabelLefBorder;
     
-    usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:0];
+    usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:1];
     
     usernameLabelLefBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:10];
     

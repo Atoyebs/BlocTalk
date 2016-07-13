@@ -130,7 +130,6 @@
     
 }
 
-
 -(void)didSendNewMessage:(NSNotification *)notification {
     
     if (!self.noConversationsInfoLabel.isHidden) {
