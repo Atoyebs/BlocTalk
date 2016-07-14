@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
-@property (nonatomic, assign) BOOL hasSetupConstraints;
-
 @property (nonatomic, strong) UIFont *usernameFont;
 
 @property (nonatomic, strong) UIFont *messagePreviewFont;
@@ -36,12 +34,6 @@
     [super awakeFromNib];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-//    [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
-}
-
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -52,7 +44,7 @@
         self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
         
         self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:16.5];
-        self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-UltraLight" size:12.5];
+        self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-Medium" size:12.5];
         
         [self.textLabel removeFromSuperview];
         [self.detailTextLabel removeFromSuperview];
@@ -61,14 +53,21 @@
         self.userProfilePicture = [UIImageView new];
         
         self.usernameLabel = [UILabel new];
-        self.messagePreviewLabel = [UILabel new];
+        self.messagePreviewTextView = [UITextView new];
+        
+        self.messagePreviewTextView.scrollEnabled = NO;
+        self.messagePreviewTextView.editable = NO;
+        self.messagePreviewTextView.selectable = NO;
+        self.messagePreviewTextView.userInteractionEnabled = NO;
+        
+        self.messagePreviewTextView.textAlignment = NSTextAlignmentLeft;
         
         self.usernameLabel.font = self.usernameFont;
-        self.messagePreviewLabel.font = self.messagePreviewFont;
+        self.messagePreviewTextView.font = self.messagePreviewFont;
         
         [self.contentView addSubview:self.userProfilePicture];
         [self.contentView addSubview:self.usernameLabel];
-        [self.contentView addSubview:self.messagePreviewLabel];
+        [self.contentView addSubview:self.messagePreviewTextView];
         
         [self layoutCell];
         
@@ -85,7 +84,7 @@
     
     BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
     
-    self.messagePreviewLabel.text = mostRecentMessage.text;
+    self.messagePreviewTextView.text = mostRecentMessage.text;
     
     self.userProfilePicture.image = mostRecentMessage.image;
     
@@ -104,7 +103,7 @@
 -(void)updateConversationCell {
 
     BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
-    self.messagePreviewLabel.text = mostRecentMessage.text;
+    self.messagePreviewTextView.text = mostRecentMessage.text;
     
     if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
         self.userProfilePicture.image = mostRecentMessage.image;
@@ -124,7 +123,7 @@
         self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
     }
     
-    self.messagePreviewLabel.text = mostRecentMessage.text;
+    self.messagePreviewTextView.text = mostRecentMessage.text;
     
 }
 
@@ -149,7 +148,7 @@
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.userProfilePicture.translatesAutoresizingMaskIntoConstraints = NO;
     self.usernameLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.messagePreviewLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    self.messagePreviewTextView.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSLayoutConstraint *contentViewLeftBorder, *contentViewRightBorder, *contentViewTopBorder, *contentViewBottomBorder;
     
@@ -177,23 +176,19 @@
     
     usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:0];
     
-    usernameLabelLefBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:10];
+    usernameLabelLefBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:12];
     
     
-    NSLayoutConstraint *messagePreviewLabelTopBorder, *messagePreviewLabelLeftBorder, *messagePreviewLabelBottomBorder, *messagePreviewLabelRightBorder;
+     NSLayoutConstraint *messagePreviewTextViewTopBorder, *messagePreviewTextViewLeftBorder, *messagePreviewTextViewBottomBorder, *messagePreviewTextViewRightBorder;
     
+    messagePreviewTextViewTopBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:2];
     
-    messagePreviewLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:5];
+    messagePreviewTextViewLeftBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-3];
     
-    messagePreviewLabelLeftBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:12];
+    messagePreviewTextViewBottomBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-5];
     
-    messagePreviewLabelBottomBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-5];
-    
-    messagePreviewLabelRightBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-(cellSize.width * 0.1)];
-    
-    
-    [self.messagePreviewLabel sizeToFit];
-    self.messagePreviewLabel.numberOfLines = 0;
+    messagePreviewTextViewRightBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-(cellSize.width * 0.1)];
+
     
     
     [self addConstraints:@[contentViewTopBorder, contentViewBottomBorder, contentViewLeftBorder, contentViewRightBorder]];
@@ -202,37 +197,9 @@
     
     [self addConstraints:@[usernameLabelTopBorder, usernameLabelLefBorder]];
     
-    [self addConstraints:@[messagePreviewLabelTopBorder, messagePreviewLabelBottomBorder, messagePreviewLabelLeftBorder, messagePreviewLabelRightBorder]];
+    [self addConstraints:@[messagePreviewTextViewTopBorder, messagePreviewTextViewBottomBorder, messagePreviewTextViewLeftBorder, messagePreviewTextViewRightBorder]];
 
 }
-
-
-/*
- [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:cellSize.width * 0.04];
- [self.contentView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:cellSize.width * 0.04];
- 
- [self.contentView autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self];
- [self.contentView autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self];
- [self.contentView autoCenterInSuperview];
- 
- [self.userProfilePicture autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:10];
- 
- [self.userProfilePicture autoSetDimension:ALDimensionWidth toSize:cellSize.width * 0.23];
- 
- [self.userProfilePicture autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:10];
- [self.userProfilePicture autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:10];
- 
- [self.usernameLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.userProfilePicture];
- [self.usernameLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.userProfilePicture withOffset:10];
- 
- [self.messagePreviewLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.usernameLabel withOffset:5];
- [self.messagePreviewLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.userProfilePicture withOffset:12];
- 
- [self.messagePreviewLabel autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:5];
- [self.messagePreviewLabel autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:(cellSize.width * 0.1)];
- 
- */
-
 
 
 @end

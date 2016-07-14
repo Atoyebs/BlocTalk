@@ -24,6 +24,6 @@
 
 @property (nonatomic, strong) UILabel *usernameLabel;
 
-@property (nonatomic, strong) UILabel *messagePreviewLabel;
+@property (nonatomic, strong) UITextView *messagePreviewTextView;
 
 @end

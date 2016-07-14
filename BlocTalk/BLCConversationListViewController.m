@@ -279,8 +279,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
+    BLCConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
+    [cell.messagePreviewTextView becomeFirstResponder];
+    
+    [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
