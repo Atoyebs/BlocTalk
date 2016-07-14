@@ -49,6 +49,8 @@
     
     if (self) {
         
+        self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        
         self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:16.5];
         self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-UltraLight" size:12.5];
         
@@ -85,7 +87,12 @@
     
     self.messagePreviewLabel.text = mostRecentMessage.text;
     
-    self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
+    self.userProfilePicture.image = mostRecentMessage.image;
+    
+    if (!mostRecentMessage.image) {
+        self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
+
+    }
     
     self.usernameLabel.text = self.conversation.conversationTitle;
     
@@ -101,6 +108,18 @@
     
     if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
         self.userProfilePicture.image = mostRecentMessage.image;
+    }
+    
+}
+
+
+-(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user {
+    
+    if (user) {
+        self.userProfilePicture.image = user.profilePicture;
+    }
+    else {
+        self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
     }
     
 }
@@ -152,7 +171,7 @@
     
     NSLayoutConstraint *usernameLabelTopBorder, *usernameLabelLefBorder;
     
-    usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:1];
+    usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:0];
     
     usernameLabelLefBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:10];
     

@@ -46,7 +46,9 @@
     
     [self setUpNoConversationsViewCheckingDataArray:self.dataSource.conversations];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessage:) name:BLCFirstMessageInConversationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessageToIndividual:) name:PostToIndividualConversation object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessageToGroup:) name:PostToGroupConversation object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
     
@@ -71,18 +73,20 @@
     
     NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
     
-    BLCTextMessage *receivedText = [NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
+    BLCTextMessage *receivedText = (BLCTextMessage *)[NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
     
     BLCConversation *conversation = nil;
     
     #warning find existing conversation with recipients might have to have different recipients than for this session
     conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
     
+    BLCUser *userWhoSentMessage = [self.dataSource.knownUsersDictionary objectForKey:receivedText.user.initializingUserID];
+    
     if (conversation) {
         
         NSLog(@"Found the conversation! Yay!");
         
-        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
+        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [conversation.messages addObject:recievedMessage];
@@ -95,7 +99,7 @@
         
         BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
         
-        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:receivedText.user.initializingUserID displayName:peerID.displayName text:receivedText.textMessage image:receivedText.user.profilePicture];
+        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
         
         #warning find existing conversation with recipients might have to have different recipients than for this session
         brandNewConversation.recipients = [session connectedPeers];
@@ -130,21 +134,39 @@
     
 }
 
--(void)didSendNewMessage:(NSNotification *)notification {
+-(void)didSendNewMessageToIndividual:(NSNotification *)notification {
+    
+    MCPeerID *recipientPeerID = [[notification userInfo] objectForKey:@"recipient"];
+    
+    BLCConversation *conversation = [[notification userInfo] objectForKey:@"conversation"];
+    
+    BLCUser *user = [self.dataSource findUserObjectWithPeerID:recipientPeerID];
     
     if (!self.noConversationsInfoLabel.isHidden) {
         self.noConversationsInfoLabel.hidden = YES;
         self.tableView.scrollEnabled = YES;
     }
     
-    for (BLCConversationCell *cell in [self.tableView visibleCells]) {
-        [cell updateConversationCell];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        NSIndexPath *indexPath = [self.dataSource getIndexPathForConversation:conversation];
+        
+        BLCConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        [cell updateConversationCellWithProfilePictureFromUser:user];
+        
+    });
 
+    
     
 }
 
 
+-(void)didSendNewMessageToGroup:(NSNotification *)notification {
+    
+    NSArray <MCPeerID *> *recipients = [[notification userInfo] objectForKey:@"recipients"];
+    
+}
 
 
 - (void)setUpNoConversationsViewCheckingDataArray:(NSArray *)conversationsArray {
@@ -208,11 +230,12 @@
     }
     
     // Configure the cell...
-    
     BLCConversation *currConversation = [self.kvoConversationsArray objectAtIndex:indexPath.section];
     cell.conversation = currConversation;
     
     [cell setupCell];
+    
+    cell.tag = currConversation.conversationID;
     
     cell.backgroundColor = self.appDelegate.appThemeColor;
     

@@ -83,16 +83,11 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:NO];
+    [super viewWillAppear:animated];
+    [self.inputToolbar.contentView.textView becomeFirstResponder];
     [self.navigationController setNavigationBarHidden:NO];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    
-    [self.inputToolbar.contentView.textView becomeFirstResponder];
-    [super viewDidAppear:animated];
-    
-}
 
 #pragma mark - JSQMessagesCollectionViewDataSource
 
@@ -158,16 +153,16 @@
     BLCMessageData *message = [[BLCMessageData alloc] initWithSenderId:senderId
                                              senderDisplayName:senderDisplayName
                                                           date:date
-                                                          text:text image:[BLCUser currentDeviceUser].profilePicture];
+                                                          text:text image:nil];
     
     
     NSError *sendTextMessageError;
     
     if (self.conversation.messages.count == 0) {
-        sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text asInitialMessage:YES];
+        sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:YES];
     }
     else {
-        sendTextMessageError = [self sendTextMessageToAllConnectedPeers:text asInitialMessage:NO];
+        sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:NO];
     }
     
     if (!sendTextMessageError) {
@@ -178,7 +173,18 @@
             [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:BLCFirstMessageInConversationNotification object:nil userInfo:nil];
+        if (self.conversation.recipients.count == 1) {
+            
+            NSDictionary *dictionary = @{@"recipient" : [self.conversation.recipients firstObject], @"conversation" : self.conversation };
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PostToIndividualConversation object:nil userInfo:dictionary];
+        }
+        else {
+            
+            NSDictionary *recipientsDictionary = @{@"recipients" : self.conversation.recipients};
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:PostToGroupConversation object:nil userInfo:recipientsDictionary];
+        }
     
         [self finishSendingMessage];
         
@@ -197,22 +203,19 @@
     
 }
 
--(NSError *)sendTextMessageToAllConnectedPeers:(NSString *)textMessage asInitialMessage:(BOOL)initialMessage {
+-(NSError *)sendTextMessageToRecipients:(NSString *)textMessage asInitialMessage:(BOOL)initialMessage {
     
     BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUser]];
     message.isInitialMessageForChat = initialMessage;
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
     
-    NSArray *allPeers = self.dataSource.connectedDevices;
-    
     NSError *error;
     
     [self.appDelegate.mpManager.session sendData:dataToSend
-                                                    toPeers:allPeers
+                                                    toPeers:self.conversation.recipients
                                                    withMode:MCSessionSendDataReliable
                                                       error:&error];
-    
     
     
     if (error) {

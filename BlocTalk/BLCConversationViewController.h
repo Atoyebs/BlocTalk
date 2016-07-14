@@ -10,7 +10,8 @@
 @class BLCConversation;
 
 static NSString *const BLCPostToExistingConversation = @"PostToExistingConversationNotification";
-static NSString *const BLCFirstMessageInConversationNotification = @"FirstMessageInConvoNotification";
+static NSString *const PostToIndividualConversation = @"DidPostToIndividualConversaiton";
+static NSString *const PostToGroupConversation = @"DidPostToGroupConversation";
 
 @interface BLCConversationViewController : JSQMessagesViewController
 

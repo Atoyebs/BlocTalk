@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class BLCConversation;
+@class BLCConversation, BLCUser;
 
 @interface BLCConversationCell : UITableViewCell
 
@@ -17,6 +17,8 @@
 -(void)setupCell;
 
 -(void)updateConversationCell;
+
+-(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user;
 
 @property (nonatomic, strong) UIImageView *userProfilePicture;
 

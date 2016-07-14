@@ -8,6 +8,7 @@
 
 #import "BLCMultiPeerManager.h"
 #import "BLCMessageData.h"
+#import "BLCUser.h"
 #import "BLCTextMessage.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
@@ -139,9 +140,9 @@ static NSString *const ServiceType = @"bloctalk-chat";
                            @"session":session
                            };
     
-    /*
-    id recievedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    id receivedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
+    /*
     //if i've recieved a first text message from someone
     if ([recievedData isKindOfClass:[BLCTextMessage class]]) {
         
@@ -157,9 +158,26 @@ static NSString *const ServiceType = @"bloctalk-chat";
     }
     */
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
-                                                        object:nil
-                                                      userInfo:dict];
+    if ([receivedData isKindOfClass:[BLCUser class]]) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            BLCUser *receivedUserObject = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            
+            if (![self.dataSource.knownUsersDictionary objectForKey:receivedUserObject.initializingUserID]) {
+                [self.dataSource.knownUsersDictionary setObject:receivedUserObject forKey:receivedUserObject.initializingUserID];
+                NSLog(@"Just recived initial information from user: %@", receivedUserObject.username);
+            }
+            
+        });
+   
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
+                                                            object:nil
+                                                          userInfo:dict];
+    }
+    
     
 }
 

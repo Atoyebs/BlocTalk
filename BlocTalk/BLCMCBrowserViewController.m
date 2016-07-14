@@ -78,8 +78,11 @@ static NSString *const notConnected = @"Not Connected";
 
 -(void)peerDidChangeStateWithNotification:(NSNotification *)notification {
     
+    MCSession *session = [[notification userInfo] objectForKey:@"session"];
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
     MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
+    
+    BOOL didConnect = NO;
     
     NSIndexPath *indexPathForPeerID;
     NSArray *allValuesForConnectionDictionary, *allKeysForConnectionDictionary;
@@ -122,16 +125,7 @@ static NSString *const notConnected = @"Not Connected";
                 [self.kvoConnectedDevicesMutableArray insertObject:peerID atIndex:0];
             }
             
-            /*
-            check if a BLCUser with the peerID exists
-            if the user with the peerID exists check if the user has a profilePicture associated with the BLCUser object
-            only do something if the user doesn't has a profile picture
-                + if the user doesn't have a profile picture associated with their BLCUser object then send data within this method to the other users
-             
-                + in the recieve data method in BLCMultiPeerManager implement adding the user WITH the profile picture to the datasource;
-            */
-            
-            
+            didConnect = YES;
             
         }
         else if (state == MCSessionStateNotConnected){
@@ -156,6 +150,17 @@ static NSString *const notConnected = @"Not Connected";
         //reload data here
         [self.tableView reloadData];
     });
+    
+    if (didConnect) {
+        //send the user you've just connected to your information;
+        NSData *myUserInfoToSend = [BLCUser currentDeviceUserInDataFormat];
+        
+        NSLog(@"Just about to send initial data for user");
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil]; 
+        });
+    }
     
 }
 

@@ -19,4 +19,6 @@
 
 +(instancetype)currentDeviceUser;
 
++(NSData *)currentDeviceUserInDataFormat;
+
 @end

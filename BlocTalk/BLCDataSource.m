@@ -7,6 +7,7 @@
 //
 
 #import "BLCDataSource.h"
+#import "BLCUser.h"
 #import "BLCConversation.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <UIKit/UIKit.h>
@@ -46,6 +47,7 @@
         _connectedDevices = [NSMutableArray new];
         _conversations = [NSMutableArray new];
         self.unConnectedFoundDevices = [NSMutableArray new];
+        self.knownUsersDictionary = [NSMutableDictionary new];
         
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
      
@@ -106,7 +108,7 @@
     return conversationWithRecipientsExists;
 }
 
-- (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients {
+-(BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients {
     
     BLCConversation *foundConversation = nil;
     
@@ -158,6 +160,42 @@
     }
     
     return peerIDsToReturn;
+    
+}
+
+-(BLCUser *)findUserObjectWithPeerID:(MCPeerID *)peerID {
+    
+    BLCUser *userObject = nil;
+    
+    for (BLCUser *user in self.knownUsersDictionary.allValues) {
+        
+        if ([user.username isEqualToString:peerID.displayName]) {
+            userObject = user;
+            break;
+        }
+        
+    }
+    
+    return userObject;
+}
+
+
+-(NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation {
+    
+    NSIndexPath *indexPath = nil;
+    
+    for (BLCConversation *conv in self.conversations) {
+        
+        if ([conversation isEqual:conv]) {
+            
+            NSInteger section = [self.conversations indexOfObject:conv];
+            indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+            break;
+        }
+        
+    }
+    
+    return indexPath;
     
 }
 
