@@ -58,6 +58,16 @@ static NSString *const notConnected = @"Not Connected";
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    self.dataSource.unConnectedFoundDevices = nil;
+    self.dataSource.unConnectedFoundDevices = [NSMutableArray array];
+    
+    [self.deviceConnectionStatusDictionary setValue:self.dataSource.unConnectedFoundDevices forKey:notConnected];
+    
+}
 
 
 -(void)dealloc {
@@ -158,7 +168,7 @@ static NSString *const notConnected = @"Not Connected";
         NSLog(@"Just about to send initial data for user");
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil]; 
+           [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil];
         });
     }
     
