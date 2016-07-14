@@ -7,7 +7,7 @@
 //
 
 #import "BLCMultiPeerManager.h"
-#import "BLCMessageData.h"
+#import "BLCJSQMessageWrapper.h"
 #import "BLCUser.h"
 #import "BLCTextMessage.h"
 #import "BLCAppDelegate.h"
@@ -160,7 +160,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
     
     if ([receivedData isKindOfClass:[BLCUser class]]) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        NSBlockOperation *receiveInitialUserData = [NSBlockOperation blockOperationWithBlock:^{
            
             BLCUser *receivedUserObject = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
@@ -169,8 +169,12 @@ static NSString *const ServiceType = @"bloctalk-chat";
                 NSLog(@"Just recived initial information from user: %@", receivedUserObject.username);
             }
             
-        });
-   
+        }];
+        receiveInitialUserData.qualityOfService = NSQualityOfServiceUtility;
+        receiveInitialUserData.queuePriority = NSOperationQueuePriorityVeryHigh;
+        
+        [self.appDelegate.multiPeerOperationQueue addOperation:receiveInitialUserData];
+        
     }
     else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"

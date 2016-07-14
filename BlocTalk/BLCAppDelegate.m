@@ -26,6 +26,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    self.multiPeerOperationQueue = [[NSOperationQueue alloc] init];
+    self.multiPeerOperationQueue.maxConcurrentOperationCount = 2;
+    
+    self.profilePicturePlaceholderImage = [UIImage imageNamed:@"profile-placeholder.jpg"];
     self.appThemeColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
     
     NSString *storedUsername = [UICKeyChainStore stringForKey:@"usernameKey"];
@@ -38,9 +42,9 @@
     
     [BLCPersistanceObject loadProfilePictureDataFromDisk:^(BLCProfilePictureImageView *loadedImageView) {
         self.userProfileImage = loadedImageView.profilePicImage;
-        NSLog(@"ImageView succesfully loaded");
+        NSLog(@"ImageView succesfully loaded in BLCAppDelegate");
     } nothingFound:^{
-        self.userProfileImage = [UIImage imageNamed:@"profile-placeholder.jpg"];
+        self.userProfileImage = self.profilePicturePlaceholderImage;
     }];
     
     self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];

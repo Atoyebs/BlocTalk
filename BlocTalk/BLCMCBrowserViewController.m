@@ -112,7 +112,6 @@ static NSString *const notConnected = @"Not Connected";
         
     }
     
-    
     //if the session is NOT connecting
     if (state != MCSessionStateConnecting) {
         
@@ -161,17 +160,29 @@ static NSString *const notConnected = @"Not Connected";
         [self.tableView reloadData];
     });
     
-    if (didConnect) {
-        //send the user you've just connected to your information;
-        NSData *myUserInfoToSend = [BLCUser currentDeviceUserInDataFormat];
-        
-        NSLog(@"Just about to send initial data for user");
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil];
-        });
-    }
     
+    if (didConnect) {
+    
+        NSBlockOperation *sendFoundInitialUserDataOperation = [NSBlockOperation blockOperationWithBlock:^{
+           
+            
+                //send the user you've just connected to your information;
+                NSData *myUserInfoToSend = [BLCUser currentDeviceUserInDataFormat];
+                
+                NSLog(@"Just about to send initial data for user");
+                
+                [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil];
+            
+            
+        }];
+        
+        sendFoundInitialUserDataOperation.qualityOfService = NSQualityOfServiceUtility;
+        sendFoundInitialUserDataOperation.queuePriority = NSOperationQueuePriorityNormal;
+        
+        [self.appDelegate.multiPeerOperationQueue addOperation:sendFoundInitialUserDataOperation];
+    
+    }
+        
 }
 
 

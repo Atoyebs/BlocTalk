@@ -9,7 +9,7 @@
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversation.h"
-#import "BLCMessageData.h"
+#import "BLCJSQMessageWrapper.h"
 #import "BLCUser.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
@@ -111,7 +111,7 @@
 
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCMessageData *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCJSQMessageWrapper *message = [self.conversation.messages objectAtIndex:indexPath.item];
     UIColor *selectedColor;
     
     if ([message.senderId isEqualToString:self.senderId]) {
@@ -135,7 +135,7 @@
      *  Otherwise, return your previously created bubble image data objects.
      */
     
-    BLCMessageData *message = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCJSQMessageWrapper *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
     JSQMessagesBubbleImage *bubbleImageToUse = self.conversation.incomingBubbleImageData;
     
@@ -150,62 +150,76 @@
 
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     
-    BLCMessageData *message = [[BLCMessageData alloc] initWithSenderId:senderId
+    BLCJSQMessageWrapper *message = [[BLCJSQMessageWrapper alloc] initWithSenderId:senderId
                                              senderDisplayName:senderDisplayName
                                                           date:date
                                                           text:text image:nil];
     
-    
-    NSError *sendTextMessageError;
-    
-    if (self.conversation.messages.count == 0) {
-        sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:YES];
-    }
-    else {
-        sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:NO];
-    }
-    
-    if (!sendTextMessageError) {
+    NSBlockOperation *sendTextMessageOperation = [NSBlockOperation blockOperationWithBlock:^{
+       
+        NSError *sendTextMessageError;
         
-        [self.conversation.messages addObject:message];
-        
-        if (self.conversation.messages.count == 1) {
-            [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
+        if (self.conversation.messages.count == 0) {
+            sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:YES];
+        }
+        else {
+            sendTextMessageError = [self sendTextMessageToRecipients:text asInitialMessage:NO];
         }
         
-        if (self.conversation.recipients.count == 1) {
+        if (!sendTextMessageError) {
             
-            NSDictionary *dictionary = @{@"recipient" : [self.conversation.recipients firstObject], @"conversation" : self.conversation };
+           [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+              
+               [self.conversation.messages addObject:message];
+               
+               if (self.conversation.messages.count == 1) {
+                   [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
+               }
+               
+               if (self.conversation.recipients.count == 1) {
+                   
+                   NSDictionary *dictionary = @{@"recipient" : [self.conversation.recipients firstObject], @"conversation" : self.conversation };
+                   
+                   [[NSNotificationCenter defaultCenter] postNotificationName:PostToIndividualConversation object:nil userInfo:dictionary];
+               }
+               else {
+                   
+                   NSDictionary *recipientsDictionary = @{@"recipients" : self.conversation.recipients};
+                   
+                   [[NSNotificationCenter defaultCenter] postNotificationName:PostToGroupConversation object:nil userInfo:recipientsDictionary];
+               }
+               
+               [self finishSendingMessage];
+               
+           }];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PostToIndividualConversation object:nil userInfo:dictionary];
         }
         else {
             
-            NSDictionary *recipientsDictionary = @{@"recipients" : self.conversation.recipients};
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+               
+                UIAlertController *messageSendingErrorController = [UIAlertController alertControllerWithTitle:@"Message Send Error" message:sendTextMessageError.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                
+                [messageSendingErrorController addAction:okAction];
+                
+                [self presentViewController:messageSendingErrorController animated:YES completion:nil];
+                
+            }];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:PostToGroupConversation object:nil userInfo:recipientsDictionary];
         }
-    
-        [self finishSendingMessage];
+
         
-    }
-    else {
-        UIAlertController *messageSendingErrorController = [UIAlertController alertControllerWithTitle:@"Message Send Error" message:sendTextMessageError.localizedRecoverySuggestion preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [messageSendingErrorController addAction:okAction];
-        
-        [self presentViewController:messageSendingErrorController animated:YES completion:nil];
-        
-    }
-    
+    }];
+    sendTextMessageOperation.queuePriority = NSOperationQueuePriorityNormal;
+    [self.appDelegate.multiPeerOperationQueue addOperation:sendTextMessageOperation];
     
 }
 
 -(NSError *)sendTextMessageToRecipients:(NSString *)textMessage asInitialMessage:(BOOL)initialMessage {
     
-    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUser]];
+    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUserNoProfilePic]];
     message.isInitialMessageForChat = initialMessage;
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
@@ -216,7 +230,6 @@
                                                     toPeers:self.conversation.recipients
                                                    withMode:MCSessionSendDataReliable
                                                       error:&error];
-    
     
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
@@ -259,7 +272,7 @@
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    BLCMessageData *msg = [self.conversation.messages objectAtIndex:indexPath.item];
+    BLCJSQMessageWrapper *msg = [self.conversation.messages objectAtIndex:indexPath.item];
     
     if (!msg.isMediaMessage) {
         

@@ -21,4 +21,8 @@
 
 +(NSData *)currentDeviceUserInDataFormat;
 
++(instancetype)currentDeviceUserNoProfilePic;
+
++(NSData *)currentDeviceUserInDataFormatNoProfilePic;
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "BLCConversationCell.h"
-#import "BLCMessageData.h"
+#import "BLCJSQMessageWrapper.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
 #import "BLCAppDelegate.h"
@@ -83,14 +83,14 @@
 
 -(void)setupCell {
     
-    BLCMessageData *mostRecentMessage = [self.conversation.messages lastObject];
+    BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
     
     self.messagePreviewLabel.text = mostRecentMessage.text;
     
     self.userProfilePicture.image = mostRecentMessage.image;
     
     if (!mostRecentMessage.image) {
-        self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
+        self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
 
     }
     
@@ -103,7 +103,7 @@
 
 -(void)updateConversationCell {
 
-    BLCMessageData *mostRecentMessage = [self.conversation.messages lastObject];
+    BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewLabel.text = mostRecentMessage.text;
     
     if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
@@ -115,12 +115,16 @@
 
 -(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user {
     
+    BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
+    
     if (user) {
         self.userProfilePicture.image = user.profilePicture;
     }
     else {
-        self.userProfilePicture.image = [UIImage imageNamed:@"profile-placeholder.jpg"];
+        self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
     }
+    
+    self.messagePreviewLabel.text = mostRecentMessage.text;
     
 }
 

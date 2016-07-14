@@ -31,6 +31,20 @@
 }
 
 
++(instancetype)currentDeviceUserNoProfilePic {
+    
+    BLCAppDelegate *appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    BLCUser *user = [[BLCUser alloc] init];
+    user.profilePicture = nil;
+    user.username = appDelegate.userName;
+    user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    
+    return user;
+    
+}
+
+
 +(NSData *)currentDeviceUserInDataFormat {
     
     BLCAppDelegate *appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -41,6 +55,20 @@
     user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
     
     return [NSKeyedArchiver archivedDataWithRootObject:user];
+}
+
+
++(NSData *)currentDeviceUserInDataFormatNoProfilePic {
+    
+    BLCAppDelegate *appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    BLCUser *user = [[BLCUser alloc] init];
+    user.profilePicture = nil;
+    user.username = appDelegate.userName;
+    user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+ 
+    return [NSKeyedArchiver archivedDataWithRootObject:user];
+    
 }
 
 

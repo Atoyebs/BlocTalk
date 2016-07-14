@@ -7,7 +7,7 @@
 //
 
 #import "BLCConversationListViewController.h"
-#import "BLCMessageData.h"
+#import "BLCJSQMessageWrapper.h"
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversationCell.h"
@@ -86,10 +86,15 @@
         
         NSLog(@"Found the conversation! Yay!");
         
-        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
+        
+        if (userWhoSentMessage) {
+            receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        }
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [conversation.messages addObject:recievedMessage];
+            [conversation.messages addObject:receivedMessage];
         });
         
     }
@@ -99,7 +104,12 @@
         
         BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
         
-        BLCMessageData *recievedMessage = [BLCMessageData messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
+        
+        if (userWhoSentMessage) {
+            receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        }
+        
         
         #warning find existing conversation with recipients might have to have different recipients than for this session
         brandNewConversation.recipients = [session connectedPeers];
@@ -109,7 +119,7 @@
         brandNewConversation.user = [BLCUser currentDeviceUser];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [brandNewConversation.messages addObject:recievedMessage];
+            [brandNewConversation.messages addObject:receivedMessage];
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
             if (!self.noConversationsInfoLabel.hidden) {
                 self.noConversationsInfoLabel.hidden = YES;
