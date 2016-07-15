@@ -92,13 +92,8 @@ static NSString *const notConnected = @"Not Connected";
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
     MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
     
-    BOOL didConnect = NO;
-    
-    NSIndexPath *indexPathForPeerID;
-    NSArray *allValuesForConnectionDictionary, *allKeysForConnectionDictionary;
-    
-    allValuesForConnectionDictionary = [self.deviceConnectionStatusDictionary allValues];
-    allKeysForConnectionDictionary = [self.deviceConnectionStatusDictionary allKeys];
+    NSIndexPath *indexPathForPeerID = nil;
+    NSArray *allValuesForConnectionDictionary = [self.deviceConnectionStatusDictionary allValues];
     
     for (NSArray *array in allValuesForConnectionDictionary) {
         
@@ -112,67 +107,28 @@ static NSString *const notConnected = @"Not Connected";
         
     }
     
-    //if the session is NOT connecting
-    if (state != MCSessionStateConnecting) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+        //if the session is NOT connecting
+        if (state != MCSessionStateConnecting) {
             BLCConnectorCell *cellToUpdate = [self.tableView cellForRowAtIndexPath:indexPathForPeerID];
             [cellToUpdate stopAnimatingConnectionIndicator];
-        });
-        
-        //if the state is connected then add the display name to the arrayList
-        if (state == MCSessionStateConnected) {
-            
-            NSLog(@"Peer %@ Just Got Connected", peerID.displayName);
-            
-            if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
-                [self.dataSource.unConnectedFoundDevices removeObject:peerID];
-            }
-            
-            
-            if (![self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
-                [self.kvoConnectedDevicesMutableArray insertObject:peerID atIndex:0];
-            }
-            
-            didConnect = YES;
-            
-        }
-        else if (state == MCSessionStateNotConnected){
-            
-            NSLog(@"Peer %@ was disconnected", peerID.displayName);
-            
-            if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
-                [self.dataSource.unConnectedFoundDevices removeObject:peerID];
-            }
-            
-            if ([self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
-                [self.kvoConnectedDevicesMutableArray removeObject:peerID];
-            }
-            
         }
         
-        //does the number of connected peers = 0
-        
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
         //reload data here
         [self.tableView reloadData];
     });
     
-    
-    if (didConnect) {
+    if (state == MCSessionStateConnected) {
     
         NSBlockOperation *sendFoundInitialUserDataOperation = [NSBlockOperation blockOperationWithBlock:^{
            
+            //send the user you've just connected to your information;
+            NSData *myUserInfoToSend = [BLCUser currentDeviceUserInDataFormat];
             
-                //send the user you've just connected to your information;
-                NSData *myUserInfoToSend = [BLCUser currentDeviceUserInDataFormat];
-                
-                NSLog(@"Just about to send initial data for user");
-                
-                [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil];
+            NSLog(@"Just about to send initial data for user");
             
+            [session sendData:myUserInfoToSend toPeers:[NSArray arrayWithObject:peerID] withMode:MCSessionSendDataReliable error:nil];
             
         }];
         
@@ -180,7 +136,6 @@ static NSString *const notConnected = @"Not Connected";
         sendFoundInitialUserDataOperation.queuePriority = NSOperationQueuePriorityNormal;
         
         [self.appDelegate.multiPeerOperationQueue addOperation:sendFoundInitialUserDataOperation];
-    
     }
         
 }

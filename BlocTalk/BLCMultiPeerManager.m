@@ -81,23 +81,25 @@ static NSString *const ServiceType = @"bloctalk-chat";
 -(void)browser:(MCNearbyServiceBrowser *)browser lostPeer:(MCPeerID *)peerID {
     
     //called when a peer has been lost
-    
-    if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
-        [self.dataSource.unConnectedFoundDevices removeObject:peerID];
-    }
-    if ([self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
-        [self.dataSource.unConnectedFoundDevices removeObject:peerID];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidLosePeer" object:nil userInfo:nil];
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
+            [self.dataSource.unConnectedFoundDevices removeObject:peerID];
+        }
+        if ([self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
+            [self.dataSource.unConnectedFoundDevices removeObject:peerID];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidLosePeer" object:nil userInfo:nil];
+
+    });
     
 }
 
 
 -(void)browser:(MCNearbyServiceBrowser *)browser didNotStartBrowsingForPeers:(NSError *)error {
     
-    NSLog(@"\nError -> %@", error.localizedDescription);
+    NSLog(@"\Did Not Start Browsing For Peers Error -> %@", error.localizedDescription);
 }
 
 
@@ -116,19 +118,59 @@ static NSString *const ServiceType = @"bloctalk-chat";
 }
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didNotStartAdvertisingPeer:(NSError *)error {
-    
+    NSLog(@"Did not start advertising this peer -> %@", error.localizedDescription);
 }
-
 
 
 
 #pragma mark - MCSessionDelegate Methods
 
 -(void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
-    
-    NSDictionary *dict = @{@"peerID": peerID, @"state" : [NSNumber numberWithInt:state], @"session" : session };
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidChangeStateNotification" object:nil userInfo:dict];
+   
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSDictionary *dict = @{@"peerID": peerID, @"state" : [NSNumber numberWithInt:state], @"session" : session };
+        
+        //if the session is NOT connecting
+        if (state != MCSessionStateConnecting) {
+            
+            
+            //if the state is connected then
+            if (state == MCSessionStateConnected) {
+                
+                //if the found devices contain the peer id that has just changed state remove it from the unconnected found devices
+                if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
+                    [self.dataSource.unConnectedFoundDevices removeObject:peerID];
+                }
+                
+                //if the connected devices array DOESN'T contain the peerID then add the name to the arrayList
+                if (![self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
+                    [self.kvoConnectedDevicesMutableArray insertObject:peerID atIndex:0];
+                }
+                
+                NSLog(@"Peer %@ Just Got Connected", peerID.displayName);
+                
+            }
+            else if (state == MCSessionStateNotConnected){
+                    
+                NSLog(@"Peer %@ was disconnected", peerID.displayName);
+                
+                if ([self.dataSource.unConnectedFoundDevices containsObject:peerID]) {
+                    [self.dataSource.unConnectedFoundDevices removeObject:peerID];
+                }
+                
+                if ([self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
+                    [self.kvoConnectedDevicesMutableArray removeObject:peerID];
+                }
+                
+            }
+            
+            
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidChangeStateNotification" object:nil userInfo:dict];
+
+    });
     
 }
 

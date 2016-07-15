@@ -179,7 +179,6 @@
     return userObject;
 }
 
-
 -(NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation {
     
     NSIndexPath *indexPath = nil;
@@ -197,6 +196,13 @@
     
     return indexPath;
     
+}
+
+-(BOOL)isPeerConnected:(MCPeerID *)peerID {
+    
+    BOOL isPeerConnected = [self.connectedDevices containsObject:peerID];
+    
+    return isPeerConnected;
 }
 
 

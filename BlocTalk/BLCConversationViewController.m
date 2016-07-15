@@ -63,11 +63,11 @@
     
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
-    self.collectionView.backgroundColor = self.appDelegate.appThemeColor;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
 
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
 }
 
@@ -86,6 +86,45 @@
     [super viewWillAppear:animated];
     [self.inputToolbar.contentView.textView becomeFirstResponder];
     [self.navigationController setNavigationBarHidden:NO];
+    
+    if (!self.conversation.isGroupConversation && ![self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+    }
+    
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+    
+}
+
+-(void)peerDidChangeStateNotification:(NSNotification *)notification {
+    
+//    MCSession *session = [[notification userInfo] objectForKey:@"session"];
+    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
+    
+    if (state == MCSessionStateConnected) {
+        
+        if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
+            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+        }
+        
+    }
+    else if(state == MCSessionStateNotConnected) {
+        
+        //if it is an individual conversation and the recipient is the same as the peerID just sent then ...
+        if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
+            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+        }
+        
+    }
+    
+    
 }
 
 

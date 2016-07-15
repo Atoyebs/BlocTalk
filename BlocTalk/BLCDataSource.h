@@ -24,6 +24,8 @@
 
 - (NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation;
 
+- (BOOL)isPeerConnected:(MCPeerID *)peerID;
+
 - (NSUInteger)countOfConversations;
 
 
