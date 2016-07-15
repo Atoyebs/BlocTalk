@@ -86,7 +86,7 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:UIImagePNGRepresentation(self.profilePicture) forKey:NSStringFromSelector(@selector(profilePicture))];
+    [aCoder encodeObject:UIImageJPEGRepresentation(self.profilePicture, 0.2) forKey:NSStringFromSelector(@selector(profilePicture))];
     [aCoder encodeObject:self.username forKey:NSStringFromSelector(@selector(username))];
     [aCoder encodeObject:self.initializingUserID forKey:NSStringFromSelector(@selector(initializingUserID))];
 }

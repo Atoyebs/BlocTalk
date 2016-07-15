@@ -94,7 +94,10 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             [conversation.messages addObject:receivedMessage];
+            
+            [self sendMessageReceivedNotification:receivedMessage];
         });
         
     }
@@ -119,12 +122,17 @@
         brandNewConversation.user = [BLCUser currentDeviceUser];
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
             [brandNewConversation.messages addObject:receivedMessage];
             [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
+            
+            [self sendMessageReceivedNotification:receivedMessage];
+            
             if (!self.noConversationsInfoLabel.hidden) {
                 self.noConversationsInfoLabel.hidden = YES;
                 self.tableView.scrollEnabled = YES;
             }
+            
         });
         
     }
@@ -407,6 +415,23 @@
     }
     
     
+}
+
+
+#pragma mark - Custom Actions
+
+-(void)sendMessageReceivedNotification:(BLCJSQMessageWrapper *)receivedMessage {
+
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    NSDate *dateToFire = [NSDate dateWithTimeIntervalSinceNow:2.5];
+    localNotification.fireDate = dateToFire;
+    localNotification.alertBody = [NSString stringWithFormat:@"%@\n%@", receivedMessage.senderDisplayName, receivedMessage.text];
+    localNotification.alertTitle = receivedMessage.senderDisplayName;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+//    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+
 }
 
 

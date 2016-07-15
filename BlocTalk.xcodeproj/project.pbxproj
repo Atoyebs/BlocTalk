@@ -448,6 +448,11 @@
 					818C1A001D18946000130F5B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C84Y8645XV;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					818C1A191D18946100130F5B = {
 						CreatedOnToolsVersion = 7.3;

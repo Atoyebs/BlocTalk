@@ -163,6 +163,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
                     [self.kvoConnectedDevicesMutableArray removeObject:peerID];
                 }
                 
+                
             }
             
             
