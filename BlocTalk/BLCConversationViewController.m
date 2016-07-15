@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationViewController.h"
+#import "BLCNavBarConversationTitleView.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversation.h"
 #import "BLCJSQMessageWrapper.h"
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) BLCDataSource *dataSource;
 @property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
-
+@property (nonatomic, strong) BLCNavBarConversationTitleView *titleView;
 
 @end
 
@@ -46,17 +47,22 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    self.titleView = [[BLCNavBarConversationTitleView alloc] init];
+    self.navigationItem.titleView = self.titleView;
     self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     if (self.conversation.recipients.count > 1) {
-        self.title = @"Multiple Recipients";
+//        self.title = @"Multiple Recipients";
+        self.titleView.conversationUserNameLabel.text = @"Multiple Recipients";
     }
     else if (self.conversation.recipients.count == 1) {
         MCPeerID *peer = [self.conversation.recipients firstObject];
-        self.title = peer.displayName;
+//        self.title = peer.displayName;
+        self.titleView.conversationUserNameLabel.text = peer.displayName;
     }
     else {
-        self.title = @"Unknown";
+//        self.title = @"Unknown";
+        self.titleView.conversationUserNameLabel.text = @"Unknown";
     }
     
     self.dataSource = [BLCDataSource sharedInstance];
@@ -88,7 +94,11 @@
     [self.navigationController setNavigationBarHidden:NO];
     
     if (!self.conversation.isGroupConversation && ![self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
-        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+//        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+        [self.titleView animateConnectionStatusLabelToShowDisconnected];
+    }
+    else {
+        [self.titleView animateConnectionStatusLabelToShowConnected];
     }
     
 }
@@ -98,7 +108,7 @@
     
     [super viewWillDisappear:animated];
     
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
     
 }
 
@@ -111,7 +121,8 @@
     if (state == MCSessionStateConnected) {
         
         if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
-            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+//            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
+            [self.titleView animateConnectionStatusLabelToShowConnected];
         }
         
     }
@@ -119,7 +130,9 @@
         
         //if it is an individual conversation and the recipient is the same as the peerID just sent then ...
         if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
-            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+//            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
+            [self.titleView animateConnectionStatusLabelToShowDisconnected];
+            
         }
         
     }

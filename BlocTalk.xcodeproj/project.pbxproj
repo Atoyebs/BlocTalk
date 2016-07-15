@@ -45,6 +45,7 @@
 		81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
 		81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */; };
+		81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
 		EB2D931AB8271C6E7A7B59B3 /* libPods-BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */; };
 /* End PBXBuildFile section */
@@ -131,6 +132,8 @@
 		81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDissmissSegue.m; sourceTree = "<group>"; };
 		81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCSession+PeerDataManipulation.h"; sourceTree = "<group>"; };
 		81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MCSession+PeerDataManipulation.m"; sourceTree = "<group>"; };
+		81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNavBarConversationTitleView.h; sourceTree = "<group>"; };
+		81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCNavBarConversationTitleView.m; sourceTree = "<group>"; };
 		E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -234,6 +237,8 @@
 				81780F121D25B42F009DB3E2 /* BLCConversationCell.m */,
 				817121481D35668B00FB6717 /* BLCConnectorCell.h */,
 				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
+				81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */,
+				81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -626,6 +631,7 @@
 				81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */,
 				816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */,
 				81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */,
+				81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */,
 				8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */,
 				816345B91D26C49D004FFFA1 /* BLCConversationViewController.m in Sources */,
 				81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */,
