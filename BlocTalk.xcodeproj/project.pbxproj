@@ -46,6 +46,10 @@
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
 		81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */; };
 		81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */; };
+		81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFACFF1D39B06A00EA046E /* disconnected_icon.png */; };
+		81DFAD021D39B06A00EA046E /* connected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD001D39B06A00EA046E /* connected_icon.png */; };
+		81DFAD041D39B93F00EA046E /* disconnected-chains.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD031D39B93F00EA046E /* disconnected-chains.png */; };
+		81DFAD061D39B94700EA046E /* link.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD051D39B94700EA046E /* link.png */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
 		EB2D931AB8271C6E7A7B59B3 /* libPods-BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */; };
 /* End PBXBuildFile section */
@@ -134,6 +138,10 @@
 		81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MCSession+PeerDataManipulation.m"; sourceTree = "<group>"; };
 		81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNavBarConversationTitleView.h; sourceTree = "<group>"; };
 		81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCNavBarConversationTitleView.m; sourceTree = "<group>"; };
+		81DFACFF1D39B06A00EA046E /* disconnected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disconnected_icon.png; sourceTree = "<group>"; };
+		81DFAD001D39B06A00EA046E /* connected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connected_icon.png; sourceTree = "<group>"; };
+		81DFAD031D39B93F00EA046E /* disconnected-chains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disconnected-chains.png"; sourceTree = "<group>"; };
+		81DFAD051D39B94700EA046E /* link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = link.png; sourceTree = "<group>"; };
 		E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -185,6 +193,10 @@
 				814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */,
 				814275DC1D1AEE3100F95162 /* take-photo.png */,
 				814275D61D1AD04000F95162 /* Cancel-100.png */,
+				81DFAD031D39B93F00EA046E /* disconnected-chains.png */,
+				81DFAD051D39B94700EA046E /* link.png */,
+				81DFACFF1D39B06A00EA046E /* disconnected_icon.png */,
+				81DFAD001D39B06A00EA046E /* connected_icon.png */,
 				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
 				814275D11D1AACD400F95162 /* profile-icon.png */,
 				814275CF1D1AAC7400F95162 /* messages-icon.png */,
@@ -493,14 +505,18 @@
 				814275D91D1AD04000F95162 /* Cancel-100.png in Resources */,
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */,
+				81DFAD021D39B06A00EA046E /* connected_icon.png in Resources */,
 				814275D21D1AACD400F95162 /* profile-icon.png in Resources */,
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
 				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
 				814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */,
+				81DFAD061D39B94700EA046E /* link.png in Resources */,
 				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
 				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,
+				81DFAD041D39B93F00EA046E /* disconnected-chains.png in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
+				81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,6 +783,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -781,6 +798,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

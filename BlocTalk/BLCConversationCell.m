@@ -7,6 +7,8 @@
 //
 
 #import "BLCConversationCell.h"
+#import "BLCDataSource.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCJSQMessageWrapper.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
@@ -16,13 +18,17 @@
 #import <JSQMessage.h>
 
 
-@interface BLCConversationCell()
+@interface BLCConversationCell() <BLCMultiPeerManagerDelegate>
 
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
+
+@property (nonatomic, strong) BLCDataSource *dataSource;
 
 @property (nonatomic, strong) UIFont *usernameFont;
 
 @property (nonatomic, strong) UIFont *messagePreviewFont;
+
+@property (nonatomic, strong) UIImageView *connectionIconImageView;
 
 @end
 
@@ -42,9 +48,14 @@
     if (self) {
         
         self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+        self.dataSource = [BLCDataSource sharedInstance];
         
         self.usernameFont = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:16.5];
         self.messagePreviewFont = [UIFont fontWithName:@"AppleSDGothicNeo-Medium" size:12.5];
+        
+        self.connectionIconImageView = [[UIImageView alloc] init];
+        self.connectionIconImageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.connectionIconImageView.alpha = 0;
         
         [self.textLabel removeFromSuperview];
         [self.detailTextLabel removeFromSuperview];
@@ -68,6 +79,10 @@
         [self.contentView addSubview:self.userProfilePicture];
         [self.contentView addSubview:self.usernameLabel];
         [self.contentView addSubview:self.messagePreviewTextView];
+        [self.contentView addSubview:self.connectionIconImageView];
+        
+        
+        self.appDelegate.mpManager.delegate = self;
         
         [self layoutCell];
         
@@ -109,7 +124,15 @@
         self.userProfilePicture.image = mostRecentMessage.image;
     }
     
+    if (!self.conversation.isGroupConversation && [self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
+        [self animateConnectedToRecipientOfConversation];
+    }
+    else if (!self.conversation.isGroupConversation && ![self.dataSource isPeerConnected:self.conversation.recipients.firstObject]){
+        [self animateDisconnectedFromRecipientOfConversation];
+    }
+    
 }
+
 
 
 -(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user {
@@ -149,6 +172,7 @@
     self.userProfilePicture.translatesAutoresizingMaskIntoConstraints = NO;
     self.usernameLabel.translatesAutoresizingMaskIntoConstraints = NO;
     self.messagePreviewTextView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.connectionIconImageView.translatesAutoresizingMaskIntoConstraints = NO;
     
     NSLayoutConstraint *contentViewLeftBorder, *contentViewRightBorder, *contentViewTopBorder, *contentViewBottomBorder;
     
@@ -190,6 +214,16 @@
     messagePreviewTextViewRightBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-(cellSize.width * 0.1)];
 
     
+    NSLayoutConstraint *connectionIconPositionX, *connectionIconPositionY, *connectionIconWidth, *connectionIconHeight;
+    
+    
+    connectionIconPositionX = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeRight multiplier:1 constant:10];
+    
+    connectionIconPositionY = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeCenterY multiplier:0.95 constant:0];
+    
+    connectionIconHeight = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeHeight multiplier:0.4 constant:0];
+    
+    connectionIconWidth = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
     
     [self addConstraints:@[contentViewTopBorder, contentViewBottomBorder, contentViewLeftBorder, contentViewRightBorder]];
     
@@ -198,8 +232,53 @@
     [self addConstraints:@[usernameLabelTopBorder, usernameLabelLefBorder]];
     
     [self addConstraints:@[messagePreviewTextViewTopBorder, messagePreviewTextViewBottomBorder, messagePreviewTextViewLeftBorder, messagePreviewTextViewRightBorder]];
+    
+    [self addConstraints:@[connectionIconPositionX, connectionIconPositionY, connectionIconWidth, connectionIconHeight]];
 
 }
 
+
+-(void)animateConnectedToRecipientOfConversation {
+    
+    self.connectionIconImageView.alpha = 0;
+    
+    [UIView transitionWithView:self.connectionIconImageView duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        
+        self.connectionIconImageView.image = [UIImage imageNamed:@"link.png"];
+        self.connectionIconImageView.alpha = 1;
+        
+    } completion:nil];
+    
+}
+
+-(void)animateDisconnectedFromRecipientOfConversation {
+    
+    self.connectionIconImageView.alpha = 0;
+    
+    [UIView transitionWithView:self.connectionIconImageView duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        
+        self.connectionIconImageView.image = [UIImage imageNamed:@"disconnected-chains.png"];
+        self.connectionIconImageView.alpha = 1;
+        
+    } completion:nil];
+    
+}
+
+
+-(void)peerDidGetDisconnectedWithID:(MCPeerID *)peerID {
+    
+    if ([self.conversation.recipients containsObject:peerID]) {
+        [self animateDisconnectedFromRecipientOfConversation];
+    }
+    
+}
+
+-(void)peerDidGetConnectedWithID:(MCPeerID *)peerID {
+    
+    if ([self.conversation.recipients containsObject:peerID]) {
+        [self animateDisconnectedFromRecipientOfConversation];
+    }
+    
+}
 
 @end

@@ -75,7 +75,7 @@
 
 #pragma mark - Querying The Datasource
 
-- (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
+-(BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients {
     
     BOOL conversationWithRecipientsExists = NO;
     

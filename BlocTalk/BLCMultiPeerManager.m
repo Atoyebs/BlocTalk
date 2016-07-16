@@ -150,6 +150,8 @@ static NSString *const ServiceType = @"bloctalk-chat";
                 
                 NSLog(@"Peer %@ Just Got Connected", peerID.displayName);
                 
+                [self.delegate peerDidGetConnectedWithID:peerID];
+                
             }
             else if (state == MCSessionStateNotConnected){
                     
@@ -163,6 +165,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
                     [self.kvoConnectedDevicesMutableArray removeObject:peerID];
                 }
                 
+                [self.delegate peerDidGetDisconnectedWithID:peerID];
                 
             }
             

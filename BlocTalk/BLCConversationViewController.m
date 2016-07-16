@@ -52,16 +52,13 @@
     self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     if (self.conversation.recipients.count > 1) {
-//        self.title = @"Multiple Recipients";
         self.titleView.conversationUserNameLabel.text = @"Multiple Recipients";
     }
     else if (self.conversation.recipients.count == 1) {
         MCPeerID *peer = [self.conversation.recipients firstObject];
-//        self.title = peer.displayName;
         self.titleView.conversationUserNameLabel.text = peer.displayName;
     }
     else {
-//        self.title = @"Unknown";
         self.titleView.conversationUserNameLabel.text = @"Unknown";
     }
     
@@ -94,7 +91,6 @@
     [self.navigationController setNavigationBarHidden:NO];
     
     if (!self.conversation.isGroupConversation && ![self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
-//        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
         [self.titleView animateConnectionStatusLabelToShowDisconnected];
     }
     else {
@@ -104,24 +100,14 @@
 }
 
 
--(void)viewWillDisappear:(BOOL)animated {
-    
-    [super viewWillDisappear:animated];
-    
-//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
-    
-}
-
 -(void)peerDidChangeStateNotification:(NSNotification *)notification {
     
-//    MCSession *session = [[notification userInfo] objectForKey:@"session"];
     MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
     MCSessionState state = [[[notification userInfo] objectForKey:@"state"] intValue];
     
     if (state == MCSessionStateConnected) {
         
         if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
-//            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor]};
             [self.titleView animateConnectionStatusLabelToShowConnected];
         }
         
@@ -130,7 +116,6 @@
         
         //if it is an individual conversation and the recipient is the same as the peerID just sent then ...
         if (!self.conversation.isGroupConversation && [self.conversation.recipients containsObject:peerID]) {
-//            self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor redColor]};
             [self.titleView animateConnectionStatusLabelToShowDisconnected];
             
         }

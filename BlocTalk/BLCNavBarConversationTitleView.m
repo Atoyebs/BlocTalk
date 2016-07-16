@@ -60,24 +60,6 @@
 
 -(void)animateConnectionStatusLabelToShowConnected {
     
-//    self.connectionStatusLabel.text = @"Connected";
-    
-    /*
-    [UIView animateWithDuration:2.0 animations:^{
-     
-        self.connectionStatusLabel.alpha = 1;
-        self.connectionStatusLabel.textColor = [UIColor colorWithRed:0.11 green:0.75 blue:0.14 alpha:1.0];
-        
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:2.0 delay:2.0 options:UIViewAnimationOptionTransitionNone animations:^{
-            self.connectionStatusLabel.textColor = [UIColor lightGrayColor];
-        } completion:nil];
-        
-    }];
-    */
-    
     [UIView transitionWithView:self.connectionStatusLabel duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         
         self.connectionStatusLabel.text = @"Connected";
@@ -95,8 +77,6 @@
 }
 
 -(void)animateConnectionStatusLabelToShowDisconnected {
-    
-    
     
     [UIView transitionWithView:self.connectionStatusLabel duration:0.8 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         self.connectionStatusLabel.text = @"Not Connected";

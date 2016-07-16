@@ -20,6 +20,10 @@
 
 -(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user;
 
+-(void)animateConnectedToRecipientOfConversation;
+
+-(void)animateDisconnectedFromRecipientOfConversation;
+
 @property (nonatomic, strong) UIImageView *userProfilePicture;
 
 @property (nonatomic, strong) UILabel *usernameLabel;

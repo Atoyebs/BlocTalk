@@ -52,6 +52,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
     
+    
+    
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
     
     [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
@@ -146,6 +148,7 @@
     
 }
 
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.appDelegate.mpManager startBrowsingForPeers];
@@ -181,8 +184,6 @@
 
 
 -(void)didSendNewMessageToGroup:(NSNotification *)notification {
-    
-    NSArray <MCPeerID *> *recipients = [[notification userInfo] objectForKey:@"recipients"];
     
 }
 

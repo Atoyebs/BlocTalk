@@ -60,15 +60,6 @@
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
     }
     
-    if([[UIDevice currentDevice] respondsToSelector:@selector(isMultitaskingSupported)])
-    {
-        NSLog(@"Multitasking Supported");
-    }
-    else
-    {
-        NSLog(@"Multitasking Not Supported");
-    }
-    
     return YES;
 }
 
