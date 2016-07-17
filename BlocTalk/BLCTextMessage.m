@@ -16,7 +16,7 @@
 
 @implementation BLCTextMessage
 
--(instancetype)initWithTextMessage:(NSString *)message withUser:(BLCUser *)user {
+-(instancetype)initWithTextMessage:(NSString *)message withUser:(BLCUser *)user peersInConversation:(NSArray *)conversationPeers {
     
     self = [super init];
     
@@ -24,6 +24,7 @@
         self.textMessage = message;
         self.user = user;
         self.isInitialMessageForChat = NO;
+        self.peersInConversation = conversationPeers;
     }
     
     return self;
@@ -40,7 +41,7 @@
         
         self.textMessage = [coder decodeObjectForKey:NSStringFromSelector(@selector(textMessage))];
         self.user = [coder decodeObjectForKey:NSStringFromSelector(@selector(user))];
-        
+        self.peersInConversation = [coder decodeObjectForKey:NSStringFromSelector(@selector(peersInConversation))];
     }
     
     return self;
@@ -51,6 +52,7 @@
     
     [aCoder encodeObject:self.textMessage forKey:NSStringFromSelector(@selector(textMessage))];
     [aCoder encodeObject:self.user forKey:NSStringFromSelector(@selector(user))];
+    [aCoder encodeObject:self.peersInConversation forKey:NSStringFromSelector(@selector(peersInConversation))];
     
 }
 

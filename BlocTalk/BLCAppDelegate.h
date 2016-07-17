@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class BLCMultiPeerConnector, BLCMultiPeerManager;
+@class BLCMultiPeerConnector, BLCMultiPeerManager, MCSession, MCPeerID;
 
 
 @interface BLCAppDelegate : UIResponder <UIApplicationDelegate>

@@ -16,10 +16,12 @@
 #import "BLCTextMessage.h"
 #import "BLCDataSource.h"
 #import "BLCAppDelegate.h"
+#import "HDNotificationView.h"
 #import "MCSession+PeerDataManipulation.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
 #import <JSQMessage.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 
 
 @interface BLCConversationListViewController ()
@@ -77,10 +79,19 @@
     
     BLCTextMessage *receivedText = (BLCTextMessage *)[NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
     
+    NSMutableArray *peerRecipientsWithoutMe = [receivedText.peersInConversation mutableCopy];
+    
+    //get all the recipients in this conversation and exclude me from it.
+    if ([peerRecipientsWithoutMe containsObject:session.myPeerID]) {
+        [peerRecipientsWithoutMe removeObject:session.myPeerID];
+    }
+    
+    receivedText.peersInConversation = peerRecipientsWithoutMe;
+    
     BLCConversation *conversation = nil;
     
     #warning find existing conversation with recipients might have to have different recipients than for this session
-    conversation = [self.dataSource findExistingConversationWithRecipients:[session connectedPeers]];
+    conversation = [self.dataSource findExistingConversationWithRecipients:receivedText.peersInConversation];
     
     BLCUser *userWhoSentMessage = [self.dataSource.knownUsersDictionary objectForKey:receivedText.user.initializingUserID];
     
@@ -94,13 +105,13 @@
             receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
         }
         
+        //update the recipients of the conversation in case someone else has been added
+        conversation.recipients = receivedText.peersInConversation;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [conversation.messages addObject:receivedMessage];
             
-            [conversation.messages addObject:receivedMessage];
-            
-            [self sendMessageReceivedNotification:receivedMessage];
-        });
+        [self sendMessageReceivedNotification:receivedMessage];
+        
         
     }
     else {
@@ -117,34 +128,33 @@
         
         
         #warning find existing conversation with recipients might have to have different recipients than for this session
-        brandNewConversation.recipients = [session connectedPeers];
+        brandNewConversation.recipients = peerRecipientsWithoutMe;
         
-        brandNewConversation.isGroupConversation = ([session connectedPeers].count > 1) ? YES : NO;
+        brandNewConversation.isGroupConversation = (peerRecipientsWithoutMe.count > 1) ? YES : NO;
         
         brandNewConversation.user = [BLCUser currentDeviceUser];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [brandNewConversation.messages addObject:receivedMessage];
-            [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
-            
-            [self sendMessageReceivedNotification:receivedMessage];
-            
-            if (!self.noConversationsInfoLabel.hidden) {
-                self.noConversationsInfoLabel.hidden = YES;
-                self.tableView.scrollEnabled = YES;
-            }
-            
-        });
+//        if (!brandNewConversation.isGroupConversation) {
+//            [HDNotificationView showNotificationViewWithImage:receivedMessage.image title:[NSString stringWithFormat:@"%@", receivedMessage.senderDisplayName] message:receivedMessage.text ];
+//        }
+        
+        [brandNewConversation.messages addObject:receivedMessage];
+        [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
+        
+        [self sendMessageReceivedNotification:receivedMessage];
+        
+        if (!self.noConversationsInfoLabel.hidden) {
+            self.noConversationsInfoLabel.hidden = YES;
+            self.tableView.scrollEnabled = YES;
+        }
+        
         
     }
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        for (BLCConversationCell *cell in [self.tableView visibleCells]) {
-            [cell updateConversationCell];
-        }
-        [self.tableView reloadData];
-    });
+    for (BLCConversationCell *cell in [self.tableView visibleCells]) {
+        [cell updateConversationCell];
+    }
+    [self.tableView reloadData];
     
 }
 
@@ -371,8 +381,12 @@
                // Tell the table view what the changes are
                if (kindOfChange == NSKeyValueChangeInsertion) {
                    
-                   [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationLeft];
-                   [self.tableView insertRowsAtIndexPaths:indexArrayOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                   [UIView transitionWithView:self.tableView duration:0.7 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                       
+                       [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                       [self.tableView insertRowsAtIndexPaths:indexArrayOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                       
+                   } completion:nil];
                    
                    
                } else if (kindOfChange == NSKeyValueChangeRemoval) {
@@ -429,7 +443,6 @@
     localNotification.alertBody = [NSString stringWithFormat:@"%@\n%@", receivedMessage.senderDisplayName, receivedMessage.text];
     localNotification.alertTitle = receivedMessage.senderDisplayName;
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
-//    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 

@@ -7,9 +7,11 @@
 //
 
 #import "BLCProfilePictureImageView.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 #import "BLCDataSource.h"
 #import "BLCAppDelegate.h"
 

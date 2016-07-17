@@ -18,7 +18,7 @@
 #import <JSQMessage.h>
 
 
-@interface BLCConversationCell() <BLCMultiPeerManagerDelegate>
+@interface BLCConversationCell() <BLCMultiPeerSessionMonitorDelegate>
 
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
@@ -196,16 +196,19 @@
     profilePictureBottomBorder = [NSLayoutConstraint constraintWithItem:self.userProfilePicture attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:-10];
     
     
-    NSLayoutConstraint *usernameLabelTopBorder, *usernameLabelLefBorder;
+    NSLayoutConstraint *usernameLabelTopBorder, *usernameLabelLefBorder, *usernameLabelHeight;
     
     usernameLabelTopBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeTop multiplier:1 constant:0];
     
     usernameLabelLefBorder = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.userProfilePicture attribute:NSLayoutAttributeRight multiplier:1 constant:12];
+
+    usernameLabelHeight = [NSLayoutConstraint constraintWithItem:self.usernameLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:0.25 constant:0];
+    
     
     
      NSLayoutConstraint *messagePreviewTextViewTopBorder, *messagePreviewTextViewLeftBorder, *messagePreviewTextViewBottomBorder, *messagePreviewTextViewRightBorder;
     
-    messagePreviewTextViewTopBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:2];
+    messagePreviewTextViewTopBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
     
     messagePreviewTextViewLeftBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeLeft multiplier:1 constant:-3];
     
@@ -214,6 +217,7 @@
     messagePreviewTextViewRightBorder = [NSLayoutConstraint constraintWithItem:self.messagePreviewTextView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeRight multiplier:1 constant:-(cellSize.width * 0.1)];
 
     
+    
     NSLayoutConstraint *connectionIconPositionX, *connectionIconPositionY, *connectionIconWidth, *connectionIconHeight;
     
     
@@ -221,7 +225,7 @@
     
     connectionIconPositionY = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeCenterY multiplier:0.95 constant:0];
     
-    connectionIconHeight = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeHeight multiplier:0.4 constant:0];
+    connectionIconHeight = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeHeight multiplier:0.7 constant:0];
     
     connectionIconWidth = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
     
@@ -229,7 +233,7 @@
     
     [self addConstraints:@[profilePictureTopBorder, profilePictureBottomBorder, profilePictureLeftBorder, profilePictureWidth]];
     
-    [self addConstraints:@[usernameLabelTopBorder, usernameLabelLefBorder]];
+    [self addConstraints:@[usernameLabelTopBorder, usernameLabelLefBorder, usernameLabelHeight]];
     
     [self addConstraints:@[messagePreviewTextViewTopBorder, messagePreviewTextViewBottomBorder, messagePreviewTextViewLeftBorder, messagePreviewTextViewRightBorder]];
     

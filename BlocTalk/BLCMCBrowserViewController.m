@@ -13,6 +13,7 @@
 #import "BLCAppDelegate.h"
 #import "BLCMultiPeerManager.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 
 @interface BLCMCBrowserViewController()
 
@@ -55,7 +56,6 @@ static NSString *const notConnected = @"Not Connected";
     #warning There should be a switch UI element implementing this
     [self.appDelegate.mpManager advertisePeer:YES];
     
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -68,6 +68,7 @@ static NSString *const notConnected = @"Not Connected";
     [self.deviceConnectionStatusDictionary setValue:self.dataSource.unConnectedFoundDevices forKey:notConnected];
     
 }
+
 
 
 -(void)dealloc {
@@ -191,11 +192,6 @@ static NSString *const notConnected = @"Not Connected";
     
 }
 
-//-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//    
-//    
-//}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -228,7 +224,5 @@ static NSString *const notConnected = @"Not Connected";
 - (IBAction)refreshPeerBrowser:(id)sender {
     [self.appDelegate.mpManager refreshBrowsingForPeers]; 
 }
-
-
 
 @end

@@ -44,6 +44,9 @@
 		81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */; };
 		81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
+		81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */; };
+		81D3404D1D3BE20400A2F3F7 /* checked_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */; };
+		81D3404F1D3BE50F00A2F3F7 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D3404E1D3BE50F00A2F3F7 /* warning.png */; };
 		81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */; };
 		81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */; };
 		81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFACFF1D39B06A00EA046E /* disconnected_icon.png */; };
@@ -134,6 +137,10 @@
 		81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectionsViewController.m; sourceTree = "<group>"; };
 		81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCDissmissSegue.h; sourceTree = "<group>"; };
 		81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDissmissSegue.m; sourceTree = "<group>"; };
+		81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNotificationView.h; sourceTree = "<group>"; };
+		81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNotificationView.m; sourceTree = "<group>"; };
+		81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_icon2.png; sourceTree = "<group>"; };
+		81D3404E1D3BE50F00A2F3F7 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCSession+PeerDataManipulation.h"; sourceTree = "<group>"; };
 		81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MCSession+PeerDataManipulation.m"; sourceTree = "<group>"; };
 		81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNavBarConversationTitleView.h; sourceTree = "<group>"; };
@@ -195,10 +202,12 @@
 				814275D61D1AD04000F95162 /* Cancel-100.png */,
 				81DFAD031D39B93F00EA046E /* disconnected-chains.png */,
 				81DFAD051D39B94700EA046E /* link.png */,
+				81D3404E1D3BE50F00A2F3F7 /* warning.png */,
 				81DFACFF1D39B06A00EA046E /* disconnected_icon.png */,
 				81DFAD001D39B06A00EA046E /* connected_icon.png */,
 				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
 				814275D11D1AACD400F95162 /* profile-icon.png */,
+				81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */,
 				814275CF1D1AAC7400F95162 /* messages-icon.png */,
 				819504A21D19A4170031EFB9 /* edit-textbox.png */,
 				819504A01D199E5D0031EFB9 /* Ok-icon.png */,
@@ -251,6 +260,8 @@
 				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
 				81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */,
 				81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */,
+				81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */,
+				81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -501,11 +512,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81D3404D1D3BE20400A2F3F7 /* checked_icon2.png in Resources */,
 				819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */,
 				814275D91D1AD04000F95162 /* Cancel-100.png in Resources */,
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */,
 				81DFAD021D39B06A00EA046E /* connected_icon.png in Resources */,
+				81D3404F1D3BE50F00A2F3F7 /* warning.png in Resources */,
 				814275D21D1AACD400F95162 /* profile-icon.png in Resources */,
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
 				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
@@ -633,6 +646,7 @@
 				817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */,
+				81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */,
 				81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */,
 				814398221D288766007FC02A /* UIColor+JSQMessages.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,

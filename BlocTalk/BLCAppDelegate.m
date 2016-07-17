@@ -15,10 +15,13 @@
 #import "UIImage+UIImageExtensions.h"
 #import "BLCMultiPeerConnector.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface BLCAppDelegate ()
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
+@property (nonatomic, strong) AFDropdownNotification *ddNotification;
 
 @end
 
@@ -102,6 +105,5 @@
     }
     
 }
-
 
 @end

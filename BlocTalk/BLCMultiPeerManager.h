@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class MCNearbyServiceAdvertiser, MCNearbyServiceBrowser, MCSession, MCPeerID, BLCUser, BLCMultiPeerManagerDelegate;
+@class MCNearbyServiceAdvertiser, MCNearbyServiceBrowser, MCSession, MCPeerID, BLCUser, BLCMultiPeerSessionMonitorDelegate, BLCMultiPeerTextMessageDelegate, BLCTextMessage;
 
-@protocol BLCMultiPeerManagerDelegate <NSObject>
+
+@protocol BLCMultiPeerSessionMonitorDelegate <NSObject>
 
 @optional
 -(void)peerDidGetDisconnectedWithID:(MCPeerID *)peerID;
@@ -18,6 +19,13 @@
 
 @end
 
+
+@protocol BLCMultiPeerTextMessageDelegate <NSObject>
+
+@required
+-(void)didReceiveTextMessage:(BLCTextMessage *)message withPeerID:(MCPeerID *)peerID;
+
+@end
 
 
 @interface BLCMultiPeerManager : NSObject
@@ -28,8 +36,8 @@
 @property (nonatomic, strong) MCSession *session;
 
 
-@property (nonatomic, weak) id <BLCMultiPeerManagerDelegate> delegate;
-
+@property (nonatomic, weak) id <BLCMultiPeerSessionMonitorDelegate> delegate;
+@property (nonatomic, weak) id <BLCMultiPeerTextMessageDelegate> txtMssgDelegate;
 
 
 - (void)advertisePeer:(BOOL)shouldAdvertise;

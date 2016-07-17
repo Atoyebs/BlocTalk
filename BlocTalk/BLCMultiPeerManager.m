@@ -6,15 +6,18 @@
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 
+#import "HDNotificationView.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCJSQMessageWrapper.h"
+#import "BLCConversationListViewController.h"
 #import "BLCUser.h"
 #import "BLCTextMessage.h"
 #import "BLCAppDelegate.h"
 #import "BLCDataSource.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 
-@interface BLCMultiPeerManager() <MCNearbyServiceBrowserDelegate, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate> {
+@interface BLCMultiPeerManager() <MCNearbyServiceBrowserDelegate, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate, AFDropdownNotificationDelegate> {
     
     NSMutableDictionary *_foundPeers;
     
@@ -24,6 +27,7 @@
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesMutableArray;
+@property (nonatomic, strong) AFDropdownNotification *ddNotification;
 
 @end
 
@@ -99,7 +103,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
 
 -(void)browser:(MCNearbyServiceBrowser *)browser didNotStartBrowsingForPeers:(NSError *)error {
     
-    NSLog(@"\Did Not Start Browsing For Peers Error -> %@", error.localizedDescription);
+    NSLog(@"\nDid Not Start Browsing For Peers Error -> %@", error.localizedDescription);
 }
 
 
@@ -110,10 +114,44 @@ static NSString *const ServiceType = @"bloctalk-chat";
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void (^)(BOOL, MCSession * _Nonnull))invitationHandler {
     
     //if the user has accepted this information before then go ahead and automatically accept the information
-    
     NSLog(@"You've just recieved an invitation from %@", peerID.displayName);
     
-    invitationHandler(YES, self.session);
+    self.ddNotification = [[AFDropdownNotification alloc] init];
+    self.ddNotification.titleText = @"Peer Request";
+    self.ddNotification.subtitleText = [NSString stringWithFormat:@"%@ has requested to connect!", peerID.displayName];
+    self.ddNotification.image = [UIImage imageNamed:@"handshake.png"];
+    self.ddNotification.topButtonText = @"Yes";
+    self.ddNotification.bottomButtonText = @"No";
+    self.ddNotification.dismissOnTap = YES;
+    
+    [self.ddNotification presentInView:[self topViewController].view withGravityAnimation:YES];
+    
+    [self.ddNotification listenEventsWithBlock:^(AFDropdownNotificationEvent event) {
+        
+        switch (event) {
+            case AFDropdownNotificationEventTopButton:
+                // Top button
+                invitationHandler(YES, self.session);
+                [self.ddNotification dismissWithGravityAnimation:YES];
+                break;
+                
+            case AFDropdownNotificationEventBottomButton:
+                // Bottom button
+                invitationHandler(NO, self.session);
+                [self.ddNotification dismissWithGravityAnimation:YES];
+                break;
+                
+            case AFDropdownNotificationEventTap:
+                // Tap
+                invitationHandler(NO, self.session);
+                [self.ddNotification dismissWithGravityAnimation:YES];
+                break;
+                
+            default: invitationHandler(NO, self.session);
+                [self.ddNotification dismissWithGravityAnimation:YES];
+                break;
+        }
+    }];
     
 }
 
@@ -148,7 +186,7 @@ static NSString *const ServiceType = @"bloctalk-chat";
                     [self.kvoConnectedDevicesMutableArray insertObject:peerID atIndex:0];
                 }
                 
-                NSLog(@"Peer %@ Just Got Connected", peerID.displayName);
+                [HDNotificationView showNotificationViewWithImage:[UIImage imageNamed:@"checked_icon2.png"] title:@"Succesful Connection" message:[NSString stringWithFormat:@"Made Succesful Connection To %@", peerID.displayName] ];
                 
                 [self.delegate peerDidGetConnectedWithID:peerID];
                 
@@ -164,6 +202,8 @@ static NSString *const ServiceType = @"bloctalk-chat";
                 if ([self.kvoConnectedDevicesMutableArray containsObject:peerID]) {
                     [self.kvoConnectedDevicesMutableArray removeObject:peerID];
                 }
+                
+                [HDNotificationView showNotificationViewWithImage:[UIImage imageNamed:@"warning.png"] title:@"Broken Connection" message:[NSString stringWithFormat:@"Oops! Connection with %@ Is broken", peerID.displayName] ];
                 
                 [self.delegate peerDidGetDisconnectedWithID:peerID];
                 
@@ -188,22 +228,6 @@ static NSString *const ServiceType = @"bloctalk-chat";
     
     id receivedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    /*
-    //if i've recieved a first text message from someone
-    if ([recievedData isKindOfClass:[BLCTextMessage class]]) {
-        
-        BLCTextMessage *textMessage = (BLCTextMessage *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
-        
-        if (textMessage.isInitialMessageForChat) {
-            
-            NSData *profilePictureImageData = UIImagePNGRepresentation(self.appDelegate.userProfileImage);
-            
-            
-        }
-        
-    }
-    */
-    
     if ([receivedData isKindOfClass:[BLCUser class]]) {
         
         NSBlockOperation *receiveInitialUserData = [NSBlockOperation blockOperationWithBlock:^{
@@ -222,10 +246,20 @@ static NSString *const ServiceType = @"bloctalk-chat";
         [self.appDelegate.multiPeerOperationQueue addOperation:receiveInitialUserData];
         
     }
-    else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
+    else if([receivedData isKindOfClass:[BLCTextMessage class]]){
+        
+        BLCTextMessage *receivedTextMessage = (BLCTextMessage *)receivedData;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+        
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
                                                             object:nil
                                                           userInfo:dict];
+            
+            [self.txtMssgDelegate didReceiveTextMessage:receivedTextMessage withPeerID:peerID];
+            
+        });
+        
     }
     
     
@@ -288,6 +322,27 @@ static NSString *const ServiceType = @"bloctalk-chat";
     //Use [NSKeyedUnarchiver unarchiveObjectWithData:receivedData] to decode the data information
     
     [self.peerBrowser invitePeer:peer toSession:self.session withContext:dataToSend timeout:30.0];
+    
+}
+
+
+- (UIViewController *)topViewController{
+    return [self topViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
+- (UIViewController *)topViewController:(UIViewController *)rootViewController {
+    if (rootViewController.presentedViewController == nil) {
+        return rootViewController;
+    }
+    
+    if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationController = (UINavigationController *)rootViewController.presentedViewController;
+        UIViewController *lastViewController = [[navigationController viewControllers] lastObject];
+        return [self topViewController:lastViewController];
+    }
+    
+    UIViewController *presentedViewController = (UIViewController *)rootViewController.presentedViewController;
+    return [self topViewController:presentedViewController];
     
 }
 

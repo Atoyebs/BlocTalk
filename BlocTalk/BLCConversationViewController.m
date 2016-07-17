@@ -22,11 +22,12 @@
 #import <JSQMessagesBubbleImage.h>
 #import <JSQMessagesAvatarImage.h>
 #import <JSQMessagesViewController/JSQMessagesAvatarImageFactory.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 #import "UIColor+JSQMessages.h"
 
 
 
-@interface BLCConversationViewController ()
+@interface BLCConversationViewController () <BLCMultiPeerTextMessageDelegate>
 
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
@@ -67,8 +68,6 @@
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
@@ -86,9 +85,12 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     [self.inputToolbar.contentView.textView becomeFirstResponder];
     [self.navigationController setNavigationBarHidden:NO];
+    
+    self.appDelegate.mpManager.txtMssgDelegate = self;
     
     if (!self.conversation.isGroupConversation && ![self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
         [self.titleView animateConnectionStatusLabelToShowDisconnected];
@@ -134,6 +136,7 @@
     return [self.conversation.messages objectAtIndex:indexPath.item];
 }
 
+
 -(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"Tapped A Message!");
 }
@@ -163,8 +166,7 @@
     return currentAvatar;
 }
 
-- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     /**
      *  You may return nil here if you do not want bubbles.
      *  In this case, you should set the background color of your collection view cell's textView.
@@ -256,7 +258,10 @@
 
 -(NSError *)sendTextMessageToRecipients:(NSString *)textMessage asInitialMessage:(BOOL)initialMessage {
     
-    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUserNoProfilePic]];
+    NSMutableArray *recipientsToSend = [self.conversation.recipients mutableCopy];
+    [recipientsToSend addObject:self.appDelegate.mpManager.session.myPeerID];
+    
+    BLCTextMessage *message = [[BLCTextMessage alloc] initWithTextMessage:textMessage withUser:[BLCUser currentDeviceUserNoProfilePic] peersInConversation:recipientsToSend];
     message.isInitialMessageForChat = initialMessage;
     
     NSData *dataToSend = [NSKeyedArchiver archivedDataWithRootObject:message];
@@ -274,9 +279,6 @@
  
     return error;
 }
-
-
-
 
 
 
@@ -359,18 +361,12 @@
 }
 
 
-
--(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
+-(void)didReceiveTextMessage:(BLCTextMessage *)message withPeerID:(MCPeerID *)peerID {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self finishReceivingMessage];
-        [self.collectionView reloadData];
-        
-    });
+    [self finishReceivingMessage];
+    [self.collectionView reloadData];
     
 }
-
 
 /*
 #pragma mark - Navigation
