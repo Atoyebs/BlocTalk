@@ -8,6 +8,7 @@ target 'BlocTalk' do
    pod 'UICKeyChainStore'
    pod 'JSQMessagesViewController'
    pod 'AFDropdownNotification', '~> 1.0'
+   pod 'JFMinimalNotifications', '~> 0.0.7'
 end
 
 target 'BlocTalkTests' do
