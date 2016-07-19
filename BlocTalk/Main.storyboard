@@ -91,8 +91,8 @@
         <!--Available Contacts-->
         <scene sceneID="XCR-Zn-1yh">
             <objects>
-                <tableViewController id="njs-z9-GZ5" customClass="BLCAvailableContactsSelecterTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n3B-bB-gEE">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="njs-z9-GZ5" customClass="BLCAvailableContactsSelecterTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n3B-bB-gEE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,13 +121,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Available Contacts" id="UU9-0g-yUg">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="checked_icon" id="DWE-TL-Zbz">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="DWE-TL-Zbz">
                             <connections>
                                 <action selector="finishedChoosingPeersTapped:" destination="njs-z9-GZ5" id="a4T-7M-sKd"/>
                                 <segue destination="wZD-DH-qOI" kind="custom" identifier="pushToConversationVC" customClass="BLCRemoveMiddleVCSegue" id="uv8-sq-z8F"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="tyU-z9-xvj">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="finishedSelectingRecipientsButton" destination="DWE-TL-Zbz" id="130-Z2-lhu"/>
                     </connections>
@@ -337,13 +340,12 @@
     </scenes>
     <resources>
         <image name="add_icon" width="22" height="22"/>
-        <image name="checked_icon" width="25" height="25"/>
         <image name="profile-placeholder.jpg" width="1024" height="1024"/>
         <image name="speech-bubble_icon" width="25" height="25"/>
         <image name="users_icon" width="22" height="22"/>
         <image name="wifi" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DUl-mI-ce5"/>
+        <segue reference="uv8-sq-z8F"/>
     </inferredMetricsTieBreakers>
 </document>

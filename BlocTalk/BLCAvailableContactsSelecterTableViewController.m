@@ -33,16 +33,7 @@
     self.mainDataSource = [BLCDataSource sharedInstance];
     
     self.kvoConnectedDevicesArray = [self.mainDataSource mutableArrayValueForKey:NSStringFromSelector(@selector(connectedDevices))];
-    
-#warning comment the below out for testing
-//    if (self.mainDataSource.connectedDevices.count < 1) {
-//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
-//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
-//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
-//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 4"];
-//        [[self.mainDataSource getConnectedDevices] addObject:@"Number 5"];
-//    }
-    
+        
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
