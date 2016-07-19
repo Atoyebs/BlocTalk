@@ -80,9 +80,7 @@ static NSString *const notConnected = @"Not Connected";
 
 -(void)didFindPeerWithNotification:(NSNotification *)notification {
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [self.tableView reloadData];
     
 }
 

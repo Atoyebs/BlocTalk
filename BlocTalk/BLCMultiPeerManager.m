@@ -74,11 +74,17 @@ static NSString *const ServiceType = @"bloctalk-chat";
     
     //HERE YOU WILL WANT TO IMPLEMENT AUTOMATICALLY REQUESTING A CONNECTION IF THEY'VE CONNECTED TO THE PERSON BEFORE
     
-    if (![self.dataSource.unConnectedFoundDevices containsObject:peerID] && ![self.kvoConnectedDevicesMutableArray containsObject:peerID]){
-        [self.dataSource.unConnectedFoundDevices addObject:peerID];
-    }
+    NSLog(@"We have found a peer");
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidFindPeerNotification" object:nil userInfo:info];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (![self.dataSource.unConnectedFoundDevices containsObject:peerID] && ![self.kvoConnectedDevicesMutableArray containsObject:peerID]){
+            [self.dataSource.unConnectedFoundDevices addObject:peerID];
+        }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidFindPeerNotification" object:nil userInfo:info];
+
+    });
     
 }
 
@@ -297,16 +303,12 @@ static NSString *const ServiceType = @"bloctalk-chat";
 
 -(void)refreshBrowsingForPeers {
     
-    self.peerAdvertiser = nil;
-    
-    [self advertisePeer:YES];
-    
+    [self.peerAdvertiser stopAdvertisingPeer];
     [self.peerBrowser stopBrowsingForPeers];
-    self.peerBrowser = nil;
+        
     
-    self.peerBrowser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.peerID serviceType:ServiceType];
+    [self.peerAdvertiser startAdvertisingPeer];
     [self.peerBrowser startBrowsingForPeers];
-    
     
 }
 
