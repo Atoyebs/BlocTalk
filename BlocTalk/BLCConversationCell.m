@@ -223,7 +223,7 @@
     
     connectionIconPositionX = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeRight multiplier:1 constant:10];
     
-    connectionIconPositionY = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeCenterY multiplier:0.95 constant:0];
+    connectionIconPositionY = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeCenterY multiplier:0.9 constant:0];
     
     connectionIconHeight = [NSLayoutConstraint constraintWithItem:self.connectionIconImageView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.usernameLabel attribute:NSLayoutAttributeHeight multiplier:0.7 constant:0];
     
