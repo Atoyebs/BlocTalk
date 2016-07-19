@@ -85,11 +85,18 @@
             
         if (recipients.count == conv.recipients.count) {
             
-            for (id selectedRecipient in recipients) {
+            for (MCPeerID *selectedRecipient in recipients) {
                 
-                if ([conv.recipients containsObject:selectedRecipient]) {
-                    numberOfUsersMatched++;
+                for (MCPeerID *currRecipient in conv.recipients) {
+                    
+                    if ([currRecipient.displayName isEqualToString:selectedRecipient.displayName]) {
+                        numberOfUsersMatched++;
+                        break;
+                    }
+                    
+                    
                 }
+
                 
             }
             
@@ -118,12 +125,17 @@
         
         if (recipients.count == conv.recipients.count) {
             
-            for (id selectedRecipient in recipients) {
+            for (MCPeerID *selectedRecipient in recipients) {
                 
-                if ([conv.recipients containsObject:selectedRecipient]) {
-                    numberOfUsersMatched++;
+                for (MCPeerID *currRecipient in conv.recipients) {
+                    
+                    if ([currRecipient.displayName isEqualToString:selectedRecipient.displayName]) {
+                        numberOfUsersMatched++;
+                        break;
+                    }
+
+                    
                 }
-                
             }
             
             if (numberOfUsersMatched == conv.recipients.count) {
