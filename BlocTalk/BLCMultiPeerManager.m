@@ -272,6 +272,18 @@ static NSString *const ServiceType = @"bloctalk-chat";
 }
 
 
+-(void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if ([streamName isEqualToString:@"typing"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCPeerIsTypingNotification" object:nil];
+        }
+        
+
+    });
+}
+
 
 #pragma mark - BLCManager Methods
 

@@ -71,10 +71,12 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(peerDidChangeStateNotification:) name:@"MCDidChangeStateNotification" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPeerIsTypingNotification) name:@"MCPeerIsTypingNotification" object:nil];
+    
 }
 
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -127,6 +129,10 @@
     
 }
 
+-(void)receivedPeerIsTypingNotification {
+    [self setShowTypingIndicator:YES];
+    [self scrollToBottomAnimated:YES];
+}
 
 #pragma mark - JSQMessagesCollectionViewDataSource
 
@@ -152,16 +158,23 @@
 -(id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     BLCJSQMessageWrapper *message = [self.conversation.messages objectAtIndex:indexPath.item];
-    UIColor *selectedColor;
+    UIImage *imageToUse = nil;
     
+    //if the person who sent the message was me
     if ([message.senderId isEqualToString:self.senderId]) {
-        selectedColor = [UIColor jsq_messageBubblePurplePinkColor];
+        #warning consider putting this method into a UIImage category
+        imageToUse = self.appDelegate.userProfileImage;
     }
     else {
-        selectedColor = [UIColor jsq_messageBubbleGreenColor];
+        imageToUse = message.image;
     }
     
-    JSQMessagesAvatarImage*currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromDisplayName:message.senderDisplayName]backgroundColor:selectedColor textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
+    
+    
+   
+    JSQMessagesAvatarImage *currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithImage:imageToUse diameter:23];
+    
+//    JSQMessagesAvatarImage*currentAvatar = [JSQMessagesAvatarImageFactory avatarImageWithUserInitials:[self getInitialsFromDisplayName:message.senderDisplayName]backgroundColor:selectedColor textColor:[UIColor whiteColor] font:[UIFont systemFontOfSize:10.0f] diameter:kJSQMessagesCollectionViewAvatarSizeDefault];
     
     return currentAvatar;
 }
@@ -185,6 +198,7 @@
    
     return bubbleImageToUse;
 }
+
 
 
 -(void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
@@ -319,7 +333,7 @@
             cell.textView.textColor = [UIColor whiteColor];
         }
         else {
-            cell.textView.textColor = [UIColor whiteColor];
+            cell.textView.textColor = [UIColor blackColor];
         }
         
         cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
@@ -364,9 +378,23 @@
 -(void)didReceiveTextMessage:(BLCTextMessage *)message withPeerID:(MCPeerID *)peerID {
     
     [self finishReceivingMessage];
+    self.showTypingIndicator = NO;
     [self.collectionView reloadData];
     
 }
+
+
+-(void)textViewDidChange:(UITextView *)textView {
+    
+    [super textViewDidChange:textView];
+    
+    NSError *error;
+        
+    [self.appDelegate.mpManager.session startStreamWithName:@"typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    
+}
+
+
 
 /*
 #pragma mark - Navigation

@@ -46,13 +46,14 @@
     
     [super layoutSubviews];
     
-    [self.conversationUserNameLabel sizeToFit];
-    [self.connectionStatusLabel sizeToFit];
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    
+    self.conversationUserNameLabel.adjustsFontSizeToFitWidth = YES;
     
     [self.conversationUserNameLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:-5];
     [self.conversationUserNameLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     
-    [self.connectionStatusLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self.conversationUserNameLabel];
+    [self.connectionStatusLabel autoAlignAxis:ALAxisVertical toSameAxisOfView:self];
     [self.connectionStatusLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.conversationUserNameLabel withOffset:0];
     
 }

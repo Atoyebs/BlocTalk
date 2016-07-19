@@ -24,7 +24,6 @@
 
 @required
 -(void)didReceiveTextMessage:(BLCTextMessage *)message withPeerID:(MCPeerID *)peerID;
-
 @end
 
 

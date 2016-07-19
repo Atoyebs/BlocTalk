@@ -52,7 +52,6 @@
         self.userProfileImage = self.profilePicturePlaceholderImage;
     }];
     
-    self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
     self.mpManager = [[BLCMultiPeerManager alloc] init];
     
     NSLog(@"Unique ID For %@ is = %@", self.userName, [[UIDevice currentDevice] identifierForVendor].UUIDString);
@@ -104,6 +103,15 @@
         NSLog(@"Notification fired with message state unknown: %@", notification.alertBody);
     }
     
+}
+
+
+-(UIImage *)compressedUserProfileImage:(CGFloat)compressionRatio {
+    
+    NSData *compressedUserImage = UIImageJPEGRepresentation(self.userProfileImage, compressionRatio);
+    UIImage *imageToReturn = [UIImage imageWithData:compressedUserImage];
+    
+    return imageToReturn;
 }
 
 @end
