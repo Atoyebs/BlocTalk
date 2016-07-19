@@ -248,7 +248,7 @@
     
     [UIView transitionWithView:self.connectionIconImageView duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         
-        self.connectionIconImageView.image = [UIImage imageNamed:@"link.png"];
+        self.connectionIconImageView.image = [UIImage imageNamed:@"connected_icon.png"];
         self.connectionIconImageView.alpha = 1;
         
     } completion:nil];
@@ -261,7 +261,7 @@
     
     [UIView transitionWithView:self.connectionIconImageView duration:1.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         
-        self.connectionIconImageView.image = [UIImage imageNamed:@"disconnected-chains.png"];
+        self.connectionIconImageView.image = [UIImage imageNamed:@"disconnected_icon.png"];
         self.connectionIconImageView.alpha = 1;
         
     } completion:nil];

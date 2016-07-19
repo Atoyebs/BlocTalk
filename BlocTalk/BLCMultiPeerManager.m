@@ -16,7 +16,6 @@
 #import "BLCDataSource.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 #import <AFDropdownNotification/AFDropdownNotification.h>
-#import <JFMinimalNotifications/JFMinimalNotification.h>
 
 @interface BLCMultiPeerManager() <MCNearbyServiceBrowserDelegate, MCSessionDelegate, MCNearbyServiceAdvertiserDelegate, AFDropdownNotificationDelegate> {
     
@@ -210,7 +209,8 @@ static NSString *const ServiceType = @"bloctalk-chat";
                     [self.kvoConnectedDevicesMutableArray removeObject:peerID];
                 }
                 
-               
+                [self.delegate peerDidGetDisconnectedWithID:peerID];
+                
                 [HDNotificationView showNotificationViewWithImage:[UIImage imageNamed:@"disconnected_icon.png"] title:@"Warning" message:[NSString stringWithFormat:@"Disconnected From Peer: %@", peerID.displayName] ];
                 
             }
