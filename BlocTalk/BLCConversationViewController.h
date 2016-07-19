@@ -7,9 +7,14 @@
 //
 
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
+@class BLCConversation;
+
+static NSString *const BLCPostToExistingConversation = @"PostToExistingConversationNotification";
+static NSString *const PostToIndividualConversation = @"DidPostToIndividualConversaiton";
+static NSString *const PostToGroupConversation = @"DidPostToGroupConversation";
 
 @interface BLCConversationViewController : JSQMessagesViewController
 
-@property (nonatomic, strong) NSArray *selectedRecipients;
+@property (nonatomic, strong) BLCConversation *conversation;
 
 @end

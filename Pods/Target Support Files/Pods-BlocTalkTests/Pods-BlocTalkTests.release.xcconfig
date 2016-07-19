@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" "${PODS_ROOT}/Headers/Public/PureLayout" "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFDropdownNotification" "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" "${PODS_ROOT}/Headers/Public/PureLayout" "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
 LIBRARY_SEARCH_PATHS = $(inherited) "$CONFIGURATION_BUILD_DIR/PureLayout"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" -isystem "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" -isystem "${PODS_ROOT}/Headers/Public/PureLayout" -isystem "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFDropdownNotification" -isystem "${PODS_ROOT}/Headers/Public/JSQMessagesViewController" -isystem "${PODS_ROOT}/Headers/Public/JSQSystemSoundPlayer" -isystem "${PODS_ROOT}/Headers/Public/PureLayout" -isystem "${PODS_ROOT}/Headers/Public/UICKeyChainStore"
 OTHER_LDFLAGS = $(inherited) -ObjC -l"PureLayout"
 PODS_ROOT = ${SRCROOT}/Pods

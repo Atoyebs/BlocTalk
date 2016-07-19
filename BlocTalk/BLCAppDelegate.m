@@ -7,13 +7,21 @@
 //
 
 #import "BLCAppDelegate.h"
+#import "BLCMultiPeerManager.h"
+#import "BLCProfilePictureImageView.h"
 #import "BLCSettingsViewController.h"
 #import "BLCConversationListViewController.h"
+#import "BLCPersistanceObject.h"
 #import "UIImage+UIImageExtensions.h"
 #import "BLCMultiPeerConnector.h"
+#import <UICKeyChainStore/UICKeyChainStore.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
+#import <MultipeerConnectivity/MultipeerConnectivity.h>
 
 @interface BLCAppDelegate ()
 
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
+@property (nonatomic, strong) AFDropdownNotification *ddNotification;
 
 @end
 
@@ -23,7 +31,36 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    self.multiPeerManager = [[BLCMultiPeerConnector alloc] init];
+    self.multiPeerOperationQueue = [[NSOperationQueue alloc] init];
+    self.multiPeerOperationQueue.maxConcurrentOperationCount = 2;
+    
+    self.profilePicturePlaceholderImage = [UIImage imageNamed:@"profile-placeholder.jpg"];
+    self.appThemeColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
+    
+    NSString *storedUsername = [UICKeyChainStore stringForKey:@"usernameKey"];
+    
+    self.userName = [[UIDevice currentDevice] name];
+    
+    if (storedUsername) {
+        self.userName = storedUsername;
+    }
+    
+    [BLCPersistanceObject loadProfilePictureDataFromDisk:^(BLCProfilePictureImageView *loadedImageView) {
+        self.userProfileImage = loadedImageView.profilePicImage;
+        NSLog(@"ImageView succesfully loaded in BLCAppDelegate");
+    } nothingFound:^{
+        self.userProfileImage = self.profilePicturePlaceholderImage;
+    }];
+    
+    self.mpManager = [[BLCMultiPeerManager alloc] init];
+    
+    NSLog(@"Unique ID For %@ is = %@", self.userName, [[UIDevice currentDevice] identifierForVendor].UUIDString);
+    
+    application.applicationIconBadgeNumber = 0;
+    
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
     
     return YES;
 }
@@ -36,6 +73,8 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    // Schedule the notification
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -44,6 +83,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    application.applicationIconBadgeNumber = 0;
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -51,5 +92,26 @@
 }
 
 
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    UIApplicationState state = [application applicationState];
+    if (!(state == UIApplicationStateActive)) {
+        notification.applicationIconBadgeNumber = (application.applicationIconBadgeNumber + 1);
+        NSLog(@"Notification fired with message while in background: %@", notification.alertBody);
+    }
+    else {
+        NSLog(@"Notification fired with message state unknown: %@", notification.alertBody);
+    }
+    
+}
+
+
+-(UIImage *)compressedUserProfileImage:(CGFloat)compressionRatio {
+    
+    NSData *compressedUserImage = UIImageJPEGRepresentation(self.userProfileImage, compressionRatio);
+    UIImage *imageToReturn = [UIImage imageWithData:compressedUserImage];
+    
+    return imageToReturn;
+}
 
 @end

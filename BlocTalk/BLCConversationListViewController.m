@@ -7,17 +7,31 @@
 //
 
 #import "BLCConversationListViewController.h"
-#import "BLCMessageTableViewCell.h"
+#import "BLCJSQMessageWrapper.h"
+#import "BLCConversationViewController.h"
+#import "BLCMultiPeerManager.h"
+#import "BLCConversationCell.h"
+#import "BLCConversation.h"
+#import "BLCUser.h"
+#import "BLCTextMessage.h"
+#import "BLCDataSource.h"
+#import "BLCAppDelegate.h"
+#import "HDNotificationView.h"
+#import "MCSession+PeerDataManipulation.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
+#import <JSQMessage.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
+
 
 @interface BLCConversationListViewController ()
 
-@property (nonatomic, strong) NSArray *testData;
 @property (nonatomic, strong) UINib *messageCellViewNib;
-@property (nonatomic, strong) UIColor *backgroundColorBlue;
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
-@property (nonatomic, strong) UIView *noConversationsMainView;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
+@property (nonatomic, strong) BLCDataSource *dataSource;
+@property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
+@property (nonatomic, strong) UIImageView *messageIconImageView;
 
 @end
 
@@ -27,18 +41,156 @@
     
     [super viewDidLoad];
     
-//    self.testData = @[@"Ini Atoyebi", @"Tireni Atoyebi"];
+    self.dataSource = [BLCDataSource sharedInstance];
     
-    self.testData = [NSArray new];
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    self.backgroundColorBlue = [UIColor colorWithRed:0.81 green:0.89 blue:0.95 alpha:1.0];
+    self.tableView.backgroundColor = self.appDelegate.appThemeColor;
     
-    self.tableView.backgroundColor = self.backgroundColorBlue;
+    [self setUpNoConversationsViewCheckingDataArray:self.dataSource.conversations];
     
-    [self setUpNoConversationsViewCheckingDataArray:self.testData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessageToIndividual:) name:PostToIndividualConversation object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessageToGroup:) name:PostToGroupConversation object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
+    
+    
+    
+    [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
+    
+    [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
+    
+    self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
 }
 
+
+
+
+-(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
+    
+    //This is a notification so isn't done on the main thread
+        
+    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
+    
+    MCSession *session = [[notification userInfo] objectForKey:@"session"];
+    
+    NSData *receivedData = [[notification userInfo] objectForKey:@"data"];
+    
+    BLCTextMessage *receivedText = (BLCTextMessage *)[NSKeyedUnarchiver unarchiveObjectWithData:receivedData];
+    
+    NSMutableArray *peerRecipientsWithoutMe = [receivedText.peersInConversation mutableCopy];
+    
+    //get all the recipients in this conversation and exclude me from it.
+    if ([peerRecipientsWithoutMe containsObject:session.myPeerID]) {
+        [peerRecipientsWithoutMe removeObject:session.myPeerID];
+    }
+    
+    receivedText.peersInConversation = peerRecipientsWithoutMe;
+    
+    BLCConversation *conversation = nil;
+    
+    #warning find existing conversation with recipients might have to have different recipients than for this session
+    conversation = [self.dataSource findExistingConversationWithRecipients:receivedText.peersInConversation];
+    
+    BLCUser *userWhoSentMessage = [self.dataSource.knownUsersDictionary objectForKey:receivedText.user.initializingUserID];
+    
+    if (conversation) {
+        
+        NSLog(@"Found the conversation! Yay!");
+        
+        BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
+        
+        if (userWhoSentMessage) {
+            receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        }
+        
+        //update the recipients of the conversation in case someone else has been added
+        conversation.recipients = receivedText.peersInConversation;
+        
+        [conversation.messages addObject:receivedMessage];
+            
+        [self sendMessageReceivedNotification:receivedMessage];
+        
+        
+    }
+    else {
+        
+        NSLog(@"This is a new conversation");
+        
+        BLCConversation *brandNewConversation = [[BLCConversation alloc] init];
+        
+        BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
+        
+        if (userWhoSentMessage) {
+            receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        }
+        
+        
+        #warning find existing conversation with recipients might have to have different recipients than for this session
+        brandNewConversation.recipients = peerRecipientsWithoutMe;
+        
+        brandNewConversation.isGroupConversation = (peerRecipientsWithoutMe.count > 1) ? YES : NO;
+        
+        brandNewConversation.user = [BLCUser currentDeviceUser];
+        
+        [brandNewConversation.messages addObject:receivedMessage];
+        [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
+        
+        [self sendMessageReceivedNotification:receivedMessage];
+        
+        if (!self.noConversationsInfoLabel.hidden) {
+            [self removeNoConversationViewFromTableView];
+        }
+        
+        
+    }
+    
+    for (BLCConversationCell *cell in [self.tableView visibleCells]) {
+        [cell updateConversationCell];
+    }
+    [self.tableView reloadData];
+    
+}
+
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.appDelegate.mpManager startBrowsingForPeers];
+    
+}
+
+-(void)didSendNewMessageToIndividual:(NSNotification *)notification {
+    
+    MCPeerID *recipientPeerID = [[notification userInfo] objectForKey:@"recipient"];
+    
+    BLCConversation *conversation = [[notification userInfo] objectForKey:@"conversation"];
+    
+    BLCUser *user = [self.dataSource findUserObjectWithPeerID:recipientPeerID];
+    
+    if (!self.noConversationsInfoLabel.isHidden) {
+        [self removeNoConversationViewFromTableView];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        NSIndexPath *indexPath = [self.dataSource getIndexPathForConversation:conversation];
+        
+        BLCConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        [cell updateConversationCellWithProfilePictureFromUser:user];
+        
+    });
+
+    
+    
+}
+
+
+-(void)didSendNewMessageToGroup:(NSNotification *)notification {
+    
+}
 
 
 - (void)setUpNoConversationsViewCheckingDataArray:(NSArray *)conversationsArray {
@@ -47,23 +199,46 @@
         
         CGSize deviceSize = [UIScreen mainScreen].bounds.size;
         
+        NSMutableParagraphStyle *paragraphStyles = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyles.alignment = NSTextAlignmentJustified;
+        paragraphStyles.firstLineHeadIndent = 10.0;
+        
+        self.messageIconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat.png"]];
+        
         self.noConversationsInfoLabel = [UILabel new];
         self.noConversationsInfoLabel.numberOfLines = 3;
-        self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:18.0f];
+        self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:20.0f];
         self.noConversationsInfoLabel.text = @"There's Nothing Here. Tap + To Start A New Chat";
+        self.noConversationsInfoLabel.textAlignment = NSTextAlignmentJustified;
         [self.tableView addSubview:self.noConversationsInfoLabel];
+        [self.tableView addSubview:self.messageIconImageView];
         
         [self.noConversationsInfoLabel autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
-        [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3.5];
+        [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3];
+        
+        [self.messageIconImageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.noConversationsInfoLabel];
+        [self.messageIconImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.noConversationsInfoLabel withOffset:-15];
+        
+        [self.messageIconImageView autoSetDimensionsToSize:CGSizeMake(65, 65)];
         
         NSMutableAttributedString *attributedLabelText = [[NSMutableAttributedString alloc] initWithAttributedString:self.noConversationsInfoLabel.attributedText];
         
         [attributedLabelText addAttribute:NSForegroundColorAttributeName value:self.tableView.tintColor range:NSMakeRange(26, 1)];
+        [attributedLabelText addAttribute:NSParagraphStyleAttributeName value:paragraphStyles range:NSMakeRange(26, 1)];
         self.noConversationsInfoLabel.attributedText = attributedLabelText;
         
-        [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.50)];
+        [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.60)];
         
     }
+    
+}
+
+
+-(void)removeNoConversationViewFromTableView {
+    
+    self.noConversationsInfoLabel.hidden = YES;
+    self.tableView.scrollEnabled = YES;
+    self.messageIconImageView.hidden = YES;
     
 }
 
@@ -76,7 +251,8 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.testData.count;
+    
+    return [self.kvoConversationsArray count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -84,42 +260,66 @@
 }
 
 
+-(void)dealloc {
+    [self.dataSource removeObserver:self forKeyPath:NSStringFromSelector(@selector(conversations))];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    BLCConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-        
     }
     
     // Configure the cell...
+    BLCConversation *currConversation = [self.kvoConversationsArray objectAtIndex:indexPath.section];
+    cell.conversation = currConversation;
     
-    NSString *currentName = [self.testData objectAtIndex:indexPath.section];
-    cell.textLabel.text = currentName;
-    cell.imageView.image = [UIImage imageNamed:@"Landscape-Placeholder.png"];
-    cell.contentView.backgroundColor = [UIColor whiteColor];
-    cell.backgroundColor = self.backgroundColorBlue;
+    [cell setupCell];
+    
+    cell.tag = currConversation.conversationID;
+    
+    cell.backgroundColor = self.appDelegate.appThemeColor;
     
     return cell;
 }
 
 
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BLCConversationCell *convCell = (BLCConversationCell *)cell;
+    
+    [convCell updateConversationCell];
+    
+}
+
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *view = [[UIView alloc] init];
-    view.backgroundColor = self.backgroundColorBlue;
+    view.backgroundColor = self.appDelegate.appThemeColor;
     return view;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] init];
-    view.backgroundColor = self.backgroundColorBlue;
+    view.backgroundColor = self.appDelegate.appThemeColor;
     return view;
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BLCConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [cell.messagePreviewTextView becomeFirstResponder];
+    
+    [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -161,14 +361,108 @@
 }
 */
 
-/*
+
+#pragma mark - Key Value Compliance Logic
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    
+    if (object == self.dataSource && [keyPath isEqualToString:NSStringFromSelector(@selector(conversations))]) {
+        
+        // We know conversations changed.  Let's see what kind of change it is.
+        int kindOfChange = [change[NSKeyValueChangeKindKey] intValue];
+        
+        if (kindOfChange == NSKeyValueChangeSetting) {
+            // Someone set a brand new conversations array
+            [self.tableView reloadData];
+        }
+        else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
+            
+            // We have an incremental change: inserted, deleted, or replaced conversations
+              
+               // Get a list of the index (or indices) that changed
+               NSIndexSet *indexSetOfChanges = change[NSKeyValueChangeIndexesKey];
+               
+               NSMutableArray *indexArrayOfChanges = [NSMutableArray array];
+               
+               [indexSetOfChanges enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                   
+                   NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:idx];
+                   [indexArrayOfChanges addObject:path];
+               }];
+            
+            
+               // Call `beginUpdates` to tell the table view we're about to make changes
+               [self.tableView beginUpdates];
+               
+               // Tell the table view what the changes are
+               if (kindOfChange == NSKeyValueChangeInsertion) {
+                   
+                   [UIView transitionWithView:self.tableView duration:0.7 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                       
+                       [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                       [self.tableView insertRowsAtIndexPaths:indexArrayOfChanges withRowAnimation:UITableViewRowAnimationLeft];
+                       
+                   } completion:nil];
+                   
+                   
+               } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                   [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+               } else if (kindOfChange == NSKeyValueChangeReplacement) {
+                   [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+               }
+               
+               // Tell the table view that we're done telling it about changes, and to complete the animation
+               [self.tableView endUpdates];
+        }
+        
+    }
+    
+    [self.tableView reloadData];
+    
+}
+
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    
+    if ([segue.identifier isEqualToString:@"pushExistingConversation"]) {
+        
+        
+        BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
+        
+        NSIndexPath *selectedCellIndexPath = [self.tableView indexPathForSelectedRow];
+        
+        BLCConversation *conversation = [self.kvoConversationsArray objectAtIndex:selectedCellIndexPath.section];
+        
+        conversationViewController.conversation = conversation;
+        conversationViewController.senderDisplayName = conversation.user.username;
+        conversationViewController.senderId = conversation.user.initializingUserID;
+        
+    }
+    
+    
 }
-*/
+
+
+#pragma mark - Custom Actions
+
+-(void)sendMessageReceivedNotification:(BLCJSQMessageWrapper *)receivedMessage {
+
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    NSDate *dateToFire = [NSDate dateWithTimeIntervalSinceNow:2.5];
+    localNotification.fireDate = dateToFire;
+    localNotification.alertBody = [NSString stringWithFormat:@"%@\n%@", receivedMessage.senderDisplayName, receivedMessage.text];
+    localNotification.alertTitle = receivedMessage.senderDisplayName;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+
+}
+
 
 @end

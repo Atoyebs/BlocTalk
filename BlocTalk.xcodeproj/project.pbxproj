@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8104B6B71D27D26D00471675 /* BLCRemoveMiddleVCSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8104B6B61D27D26D00471675 /* BLCRemoveMiddleVCSegue.m */; };
-		8106387B1D24119E004BA1EC /* BLCMessageTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8106387A1D24119E004BA1EC /* BLCMessageTestViewController.m */; };
 		810B25031D189FB600167D97 /* BLCConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B25021D189FB600167D97 /* BLCConversationListViewController.m */; };
 		810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */; };
+		8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */; };
+		8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */; };
 		814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814275CD1D1AA76E00F95162 /* Main.storyboard */; };
 		814275D01D1AAC7400F95162 /* messages-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275CF1D1AAC7400F95162 /* messages-icon.png */; };
 		814275D21D1AACD400F95162 /* profile-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275D11D1AACD400F95162 /* profile-icon.png */; };
@@ -18,13 +19,17 @@
 		814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275D81D1AD04000F95162 /* Switch Camera-104.png */; };
 		814275DD1D1AEE3100F95162 /* take-photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275DC1D1AEE3100F95162 /* take-photo.png */; };
 		814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */; };
+		814398221D288766007FC02A /* UIColor+JSQMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 814398211D288766007FC02A /* UIColor+JSQMessages.m */; };
 		816345B31D26BF01004FFFA1 /* BLCConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345B21D26BF01004FFFA1 /* BLCConversation.m */; };
 		816345B61D26BFA2004FFFA1 /* BLCUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345B51D26BFA2004FFFA1 /* BLCUser.m */; };
 		816345B91D26C49D004FFFA1 /* BLCConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345B81D26C49D004FFFA1 /* BLCConversationViewController.m */; };
 		816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345BB1D26FA9F004FFFA1 /* BLCDataSource.m */; };
 		816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816345BE1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m */; };
-		81780F131D25B42F009DB3E2 /* BLCMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81780F121D25B42F009DB3E2 /* BLCMessageTableViewCell.m */; };
-		81780F151D25C880009DB3E2 /* MessageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81780F141D25C880009DB3E2 /* MessageViewCell.xib */; };
+		817121401D33D72300FB6717 /* BLCTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8171213F1D33D72300FB6717 /* BLCTextMessage.m */; };
+		817121431D350A6B00FB6717 /* BLCMCBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */; };
+		817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121461D35209200FB6717 /* BLCMultiPeerManager.m */; };
+		8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121491D35668B00FB6717 /* BLCConnectorCell.m */; };
+		81780F131D25B42F009DB3E2 /* BLCConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81780F121D25B42F009DB3E2 /* BLCConversationCell.m */; };
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
 		818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */; };
@@ -36,8 +41,16 @@
 		81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */; };
 		81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B024371D18DA5B00273D14 /* profile-placeholder.jpg */; };
 		81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */; };
-		81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */; };
+		81C031371D3E39720056E609 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C031361D3E39720056E609 /* chat.png */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
+		81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */; };
+		81D3404D1D3BE20400A2F3F7 /* checked_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */; };
+		81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */; };
+		81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */; };
+		81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFACFF1D39B06A00EA046E /* disconnected_icon.png */; };
+		81DFAD021D39B06A00EA046E /* connected_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD001D39B06A00EA046E /* connected_icon.png */; };
+		81DFAD041D39B93F00EA046E /* disconnected-chains.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD031D39B93F00EA046E /* disconnected-chains.png */; };
+		81DFAD061D39B94700EA046E /* link.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DFAD051D39B94700EA046E /* link.png */; };
 		9F8655FBE0D6B94E4A48B157 /* libPods-BlocTalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0FDDDCB56EB80186E77BEC /* libPods-BlocTalkTests.a */; };
 		EB2D931AB8271C6E7A7B59B3 /* libPods-BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */; };
 /* End PBXBuildFile section */
@@ -60,12 +73,14 @@
 		6F5F2EBBDE283A13518A02D9 /* Pods-BlocTalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlocTalkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BlocTalkTests/Pods-BlocTalkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8104B6B51D27D26D00471675 /* BLCRemoveMiddleVCSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCRemoveMiddleVCSegue.h; sourceTree = "<group>"; };
 		8104B6B61D27D26D00471675 /* BLCRemoveMiddleVCSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCRemoveMiddleVCSegue.m; sourceTree = "<group>"; };
-		810638791D24119E004BA1EC /* BLCMessageTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMessageTestViewController.h; sourceTree = "<group>"; };
-		8106387A1D24119E004BA1EC /* BLCMessageTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMessageTestViewController.m; sourceTree = "<group>"; };
 		810B25011D189FB600167D97 /* BLCConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConversationListViewController.h; sourceTree = "<group>"; };
 		810B25021D189FB600167D97 /* BLCConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversationListViewController.m; sourceTree = "<group>"; };
 		810B25091D18B2B800167D97 /* UIImage+UIImageExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageExtensions.h"; sourceTree = "<group>"; };
 		810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageExtensions.m"; sourceTree = "<group>"; };
+		811667191D36519A00B27A95 /* BLCJSQMessageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCJSQMessageWrapper.h; sourceTree = "<group>"; };
+		8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCJSQMessageWrapper.m; sourceTree = "<group>"; };
+		8116671C1D365DE200B27A95 /* BLCPersistanceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCPersistanceObject.h; sourceTree = "<group>"; };
+		8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCPersistanceObject.m; sourceTree = "<group>"; };
 		814275CD1D1AA76E00F95162 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		814275CF1D1AAC7400F95162 /* messages-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "messages-icon.png"; sourceTree = "<group>"; };
 		814275D11D1AACD400F95162 /* profile-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-icon.png"; sourceTree = "<group>"; };
@@ -73,6 +88,8 @@
 		814275D81D1AD04000F95162 /* Switch Camera-104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Switch Camera-104.png"; sourceTree = "<group>"; };
 		814275DC1D1AEE3100F95162 /* take-photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "take-photo.png"; sourceTree = "<group>"; };
 		814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Landscape-Placeholder.png"; sourceTree = "<group>"; };
+		814398201D288766007FC02A /* UIColor+JSQMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JSQMessages.h"; sourceTree = "<group>"; };
+		814398211D288766007FC02A /* UIColor+JSQMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+JSQMessages.m"; sourceTree = "<group>"; };
 		816345B11D26BF01004FFFA1 /* BLCConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConversation.h; sourceTree = "<group>"; };
 		816345B21D26BF01004FFFA1 /* BLCConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversation.m; sourceTree = "<group>"; };
 		816345B41D26BFA2004FFFA1 /* BLCUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCUser.h; sourceTree = "<group>"; };
@@ -83,9 +100,16 @@
 		816345BB1D26FA9F004FFFA1 /* BLCDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDataSource.m; sourceTree = "<group>"; };
 		816345BD1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCAvailableContactsSelecterTableViewController.h; sourceTree = "<group>"; };
 		816345BE1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCAvailableContactsSelecterTableViewController.m; sourceTree = "<group>"; };
-		81780F111D25B42F009DB3E2 /* BLCMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMessageTableViewCell.h; sourceTree = "<group>"; };
-		81780F121D25B42F009DB3E2 /* BLCMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMessageTableViewCell.m; sourceTree = "<group>"; };
-		81780F141D25C880009DB3E2 /* MessageViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewCell.xib; sourceTree = "<group>"; };
+		8171213E1D33D72300FB6717 /* BLCTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCTextMessage.h; sourceTree = "<group>"; };
+		8171213F1D33D72300FB6717 /* BLCTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCTextMessage.m; sourceTree = "<group>"; };
+		817121411D350A6B00FB6717 /* BLCMCBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMCBrowserViewController.h; sourceTree = "<group>"; };
+		817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMCBrowserViewController.m; sourceTree = "<group>"; };
+		817121451D35209200FB6717 /* BLCMultiPeerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMultiPeerManager.h; sourceTree = "<group>"; };
+		817121461D35209200FB6717 /* BLCMultiPeerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMultiPeerManager.m; sourceTree = "<group>"; };
+		817121481D35668B00FB6717 /* BLCConnectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConnectorCell.h; sourceTree = "<group>"; };
+		817121491D35668B00FB6717 /* BLCConnectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectorCell.m; sourceTree = "<group>"; };
+		81780F111D25B42F009DB3E2 /* BLCConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConversationCell.h; sourceTree = "<group>"; };
+		81780F121D25B42F009DB3E2 /* BLCConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversationCell.m; sourceTree = "<group>"; };
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
@@ -105,10 +129,20 @@
 		81B024371D18DA5B00273D14 /* profile-placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "profile-placeholder.jpg"; sourceTree = "<group>"; };
 		81BF23F71D229AD00070C042 /* BLCMultiPeerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCMultiPeerConnector.h; sourceTree = "<group>"; };
 		81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMultiPeerConnector.m; sourceTree = "<group>"; };
-		81BF23FA1D22AEDD0070C042 /* BLCConnectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConnectionsViewController.h; sourceTree = "<group>"; };
-		81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectionsViewController.m; sourceTree = "<group>"; };
+		81C031361D3E39720056E609 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat.png; sourceTree = "<group>"; };
 		81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCDissmissSegue.h; sourceTree = "<group>"; };
 		81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDissmissSegue.m; sourceTree = "<group>"; };
+		81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNotificationView.h; sourceTree = "<group>"; };
+		81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNotificationView.m; sourceTree = "<group>"; };
+		81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked_icon2.png; sourceTree = "<group>"; };
+		81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MCSession+PeerDataManipulation.h"; sourceTree = "<group>"; };
+		81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MCSession+PeerDataManipulation.m"; sourceTree = "<group>"; };
+		81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNavBarConversationTitleView.h; sourceTree = "<group>"; };
+		81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCNavBarConversationTitleView.m; sourceTree = "<group>"; };
+		81DFACFF1D39B06A00EA046E /* disconnected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disconnected_icon.png; sourceTree = "<group>"; };
+		81DFAD001D39B06A00EA046E /* connected_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connected_icon.png; sourceTree = "<group>"; };
+		81DFAD031D39B93F00EA046E /* disconnected-chains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disconnected-chains.png"; sourceTree = "<group>"; };
+		81DFAD051D39B94700EA046E /* link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = link.png; sourceTree = "<group>"; };
 		E94CAA2E47273D2FE97E4835 /* libPods-BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -148,6 +182,8 @@
 				81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */,
 				816345BA1D26FA9F004FFFA1 /* BLCDataSource.h */,
 				816345BB1D26FA9F004FFFA1 /* BLCDataSource.m */,
+				817121451D35209200FB6717 /* BLCMultiPeerManager.h */,
+				817121461D35209200FB6717 /* BLCMultiPeerManager.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -158,8 +194,14 @@
 				814275DE1D1AF48F00F95162 /* Landscape-Placeholder.png */,
 				814275DC1D1AEE3100F95162 /* take-photo.png */,
 				814275D61D1AD04000F95162 /* Cancel-100.png */,
+				81DFAD031D39B93F00EA046E /* disconnected-chains.png */,
+				81DFAD051D39B94700EA046E /* link.png */,
+				81C031361D3E39720056E609 /* chat.png */,
+				81DFACFF1D39B06A00EA046E /* disconnected_icon.png */,
+				81DFAD001D39B06A00EA046E /* connected_icon.png */,
 				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
 				814275D11D1AACD400F95162 /* profile-icon.png */,
+				81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */,
 				814275CF1D1AAC7400F95162 /* messages-icon.png */,
 				819504A21D19A4170031EFB9 /* edit-textbox.png */,
 				819504A01D199E5D0031EFB9 /* Ok-icon.png */,
@@ -173,6 +215,10 @@
 			children = (
 				810B25091D18B2B800167D97 /* UIImage+UIImageExtensions.h */,
 				810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */,
+				814398201D288766007FC02A /* UIColor+JSQMessages.h */,
+				814398211D288766007FC02A /* UIColor+JSQMessages.m */,
+				81DAAEDA1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.h */,
+				81DAAEDB1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -189,6 +235,7 @@
 		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				817121441D350A7A00FB6717 /* MultiPeer */,
 				81780F101D259517009DB3E2 /* Messaging */,
 				81780F0F1D25950D009DB3E2 /* Settings */,
 			);
@@ -200,8 +247,14 @@
 			children = (
 				81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */,
 				81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */,
-				81780F111D25B42F009DB3E2 /* BLCMessageTableViewCell.h */,
-				81780F121D25B42F009DB3E2 /* BLCMessageTableViewCell.m */,
+				81780F111D25B42F009DB3E2 /* BLCConversationCell.h */,
+				81780F121D25B42F009DB3E2 /* BLCConversationCell.m */,
+				817121481D35668B00FB6717 /* BLCConnectorCell.h */,
+				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
+				81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */,
+				81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */,
+				81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */,
+				81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -209,6 +262,8 @@
 		811C0C0D1D1895EB00B969F9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8116671C1D365DE200B27A95 /* BLCPersistanceObject.h */,
+				8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -220,7 +275,6 @@
 				814275CD1D1AA76E00F95162 /* Main.storyboard */,
 				81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */,
 				81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */,
-				81780F141D25C880009DB3E2 /* MessageViewCell.xib */,
 				8104B6B51D27D26D00471675 /* BLCRemoveMiddleVCSegue.h */,
 				8104B6B61D27D26D00471675 /* BLCRemoveMiddleVCSegue.m */,
 			);
@@ -234,8 +288,21 @@
 				816345B21D26BF01004FFFA1 /* BLCConversation.m */,
 				816345B41D26BFA2004FFFA1 /* BLCUser.h */,
 				816345B51D26BFA2004FFFA1 /* BLCUser.m */,
+				8171213E1D33D72300FB6717 /* BLCTextMessage.h */,
+				8171213F1D33D72300FB6717 /* BLCTextMessage.m */,
+				811667191D36519A00B27A95 /* BLCJSQMessageWrapper.h */,
+				8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		817121441D350A7A00FB6717 /* MultiPeer */ = {
+			isa = PBXGroup;
+			children = (
+				817121411D350A6B00FB6717 /* BLCMCBrowserViewController.h */,
+				817121421D350A6B00FB6717 /* BLCMCBrowserViewController.m */,
+			);
+			name = MultiPeer;
 			sourceTree = "<group>";
 		};
 		81780F0F1D25950D009DB3E2 /* Settings */ = {
@@ -243,8 +310,6 @@
 			children = (
 				818C1A0A1D18946000130F5B /* BLCSettingsViewController.h */,
 				818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */,
-				81BF23FA1D22AEDD0070C042 /* BLCConnectionsViewController.h */,
-				81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -254,8 +319,6 @@
 			children = (
 				810B25011D189FB600167D97 /* BLCConversationListViewController.h */,
 				810B25021D189FB600167D97 /* BLCConversationListViewController.m */,
-				810638791D24119E004BA1EC /* BLCMessageTestViewController.h */,
-				8106387A1D24119E004BA1EC /* BLCMessageTestViewController.m */,
 				816345B71D26C49D004FFFA1 /* BLCConversationViewController.h */,
 				816345B81D26C49D004FFFA1 /* BLCConversationViewController.m */,
 				816345BD1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.h */,
@@ -387,6 +450,11 @@
 					818C1A001D18946000130F5B = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C84Y8645XV;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					818C1A191D18946100130F5B = {
 						CreatedOnToolsVersion = 7.3;
@@ -418,19 +486,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81D3404D1D3BE20400A2F3F7 /* checked_icon2.png in Resources */,
 				819504A31D19A4170031EFB9 /* edit-textbox.png in Resources */,
 				814275D91D1AD04000F95162 /* Cancel-100.png in Resources */,
 				818C1A141D18946100130F5B /* LaunchScreen.storyboard in Resources */,
 				814275DF1D1AF48F00F95162 /* Landscape-Placeholder.png in Resources */,
-				81780F151D25C880009DB3E2 /* MessageViewCell.xib in Resources */,
+				81DFAD021D39B06A00EA046E /* connected_icon.png in Resources */,
 				814275D21D1AACD400F95162 /* profile-icon.png in Resources */,
 				81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */,
 				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
 				814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */,
+				81DFAD061D39B94700EA046E /* link.png in Resources */,
+				81C031371D3E39720056E609 /* chat.png in Resources */,
 				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
 				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,
+				81DFAD041D39B93F00EA046E /* disconnected-chains.png in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
+				81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,22 +615,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				8104B6B71D27D26D00471675 /* BLCRemoveMiddleVCSegue.m in Sources */,
+				817121431D350A6B00FB6717 /* BLCMCBrowserViewController.m in Sources */,
 				818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */,
+				817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */,
 				818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */,
 				816345BC1D26FA9F004FFFA1 /* BLCDataSource.m in Sources */,
+				81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */,
+				81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */,
+				814398221D288766007FC02A /* UIColor+JSQMessages.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 				816345B31D26BF01004FFFA1 /* BLCConversation.m in Sources */,
 				816345B61D26BFA2004FFFA1 /* BLCUser.m in Sources */,
 				810B25031D189FB600167D97 /* BLCConversationListViewController.m in Sources */,
 				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,
 				81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */,
-				8106387B1D24119E004BA1EC /* BLCMessageTestViewController.m in Sources */,
+				8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */,
+				8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */,
 				81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */,
 				816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */,
-				81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */,
+				81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */,
+				8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */,
 				816345B91D26C49D004FFFA1 /* BLCConversationViewController.m in Sources */,
 				81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */,
-				81780F131D25B42F009DB3E2 /* BLCMessageTableViewCell.m in Sources */,
+				817121401D33D72300FB6717 /* BLCTextMessage.m in Sources */,
+				81780F131D25B42F009DB3E2 /* BLCConversationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +769,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -702,6 +784,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

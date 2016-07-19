@@ -7,10 +7,13 @@
 //
 
 #import "BLCProfilePictureImageView.h"
+#import "BLCMultiPeerManager.h"
 #import "BLCSettingsViewController.h"
 #import <PureLayout/PureLayout.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
+#import <AFDropdownNotification/AFDropdownNotification.h>
 #import "BLCDataSource.h"
+#import "BLCAppDelegate.h"
 
 @interface BLCSettingsViewController () <UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -36,7 +39,8 @@
 
 @property (nonatomic, assign) BOOL imageChosenFromGallery;
 
-@property (nonatomic, strong)  BLCDataSource *mainDataSource;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
+@property (nonatomic, strong) BLCDataSource *mainDataSource;
 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewDistanceFromTop;
@@ -54,14 +58,16 @@
     [super viewDidLoad];
     
     self.mainDataSource = [BLCDataSource sharedInstance];
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.hasSetupConstraints = NO;
     self.usernameKey = @"usernameKey";
     self.minimumUsernameLength = 5;
     
+    self.usernameTextField.placeholder = [UIDevice currentDevice].name;
     NSString *storedUsername = [UICKeyChainStore stringForKey:self.usernameKey];
     
-    self.view.backgroundColor = [UIColor colorWithRed:0.62 green:0.77 blue:0.91 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:208.0f/255.0f green:246.0f/255.0f blue:249.0f/255.0f alpha:1.0];
     
     self.textFieldLimit = 25;
     [self.usernameTextField setFont:[UIFont fontWithName:@"AppleSDGothicNeo-SemiBold" size:17.0f]];
@@ -70,6 +76,10 @@
     if (storedUsername) {
         self.userName = storedUsername;
         [self.usernameTextField setText:storedUsername];
+        self.appDelegate.userName = storedUsername;
+    }
+    else {
+        self.appDelegate.userName = self.usernameTextField.placeholder;
     }
     
     [self loadProfilePictureDataFromDisk];
@@ -290,6 +300,8 @@
              UIImageWriteToSavedPhotosAlbum(imageToUse, nil, nil, nil);
         }
         
+        self.appDelegate.userProfileImage = imageToUse;
+        
     }];
 }
 
@@ -308,7 +320,10 @@
     [self setUsernameTextfieldStateActive:NO];
     
     [UICKeyChainStore setString:self.usernameTextField.text forKey:self.usernameKey];
-    [self.mainDataSource changeUserName:self.usernameTextField.text];
+    self.appDelegate.userName = self.usernameTextField.text;
+    
+    #warning there might be a need to update the username for all existing conversations and messages;
+    
 }
 
 
@@ -359,6 +374,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if (loadedImageView) {
+                self.appDelegate.userProfileImage = loadedImageView.profilePicImage;
                 self.profilePicture.image = loadedImageView.profilePicImage;
                 self.profilePicture.hideLabel = YES;
                 NSLog(@"ImageView succesfully loaded");

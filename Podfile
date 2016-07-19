@@ -7,6 +7,7 @@ target 'BlocTalk' do
    pod 'PureLayout'
    pod 'UICKeyChainStore'
    pod 'JSQMessagesViewController'
+   pod 'AFDropdownNotification', '~> 1.0'
 end
 
 target 'BlocTalkTests' do

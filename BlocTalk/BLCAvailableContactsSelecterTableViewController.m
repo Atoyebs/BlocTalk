@@ -8,6 +8,9 @@
 
 #import "BLCAvailableContactsSelecterTableViewController.h"
 #import "BLCDataSource.h"
+#import "BLCUser.h"
+#import "BLCConversation.h"
+#import "BLCAppDelegate.h"
 #import "BLCConversationViewController.h"
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
 
@@ -15,7 +18,8 @@
 
 @property (nonatomic, strong) BLCDataSource *mainDataSource;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *finishedSelectingRecipientsButton;
-
+@property (nonatomic, strong) NSMutableArray *kvoConnectedDevicesArray;
+@property (nonatomic, strong) BLCAppDelegate *appDelegate;
 
 @end
 
@@ -24,17 +28,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
+    
     self.mainDataSource = [BLCDataSource sharedInstance];
     
-    
-    if ([self.mainDataSource getConnectedDevices].count <= 1) {
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 1"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 2"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 3"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 4"];
-        [[self.mainDataSource getConnectedDevices] addObject:@"Number 5"];
-    }
-    
+    self.kvoConnectedDevicesArray = [self.mainDataSource mutableArrayValueForKey:NSStringFromSelector(@selector(connectedDevices))];
+        
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -51,7 +50,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.mainDataSource getConnectedDevices].count;
+    return self.kvoConnectedDevicesArray.count;
 }
 
 
@@ -61,7 +60,9 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPath.row];
+    MCPeerID *currentPeerID = [self.kvoConnectedDevicesArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = currentPeerID.displayName;
     
     return cell;
 }
@@ -131,43 +132,100 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
+    NSArray <MCPeerID *> *selectedPeers = [self selectedRecipientsArray];
+    
+    BOOL conversationExists = [self.mainDataSource doesConversationAlreadyExistForRecipients:selectedPeers];
+    
+    if (conversationExists) {
         
-        BLCConversationViewController *convoVC = (BLCConversationViewController *)[segue destinationViewController];
+        NSLog(@"Conversation Already Exists!");
         
-        NSMutableArray *selectedPeers = [NSMutableArray new];
-        
-        NSArray *selectedIndexesArray = [self.tableView indexPathsForSelectedRows];
-        
-        for (id obj in selectedIndexesArray) {
+        if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
             
-            NSIndexPath *indexPath = (NSIndexPath *)obj;
+            BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
             
-            NSNumber *indexPathRow = [NSNumber numberWithInteger:indexPath.row];
+            BLCConversation *conv = [self.mainDataSource findExistingConversationWithRecipients:selectedPeers];
             
-            id retrievedObj = [[self.mainDataSource getConnectedDevices] objectAtIndex:indexPathRow.integerValue];
-            
-            if ([retrievedObj isKindOfClass:[NSString class]]) {
-                NSString *stringObj = (NSString *)retrievedObj;
-                [selectedPeers addObject:stringObj];
-            }
-            else  {
-                MCPeerID *peerID = (MCPeerID *)retrievedObj;
-                [selectedPeers addObject:peerID];
-            }
+            if (conv) {
+                
+                conversationViewController.conversation = conv;
+                conversationViewController.senderId = conv.user.initializingUserID;
+                conversationViewController.senderDisplayName = conv.user.username;
 
+            }
             
         }
-        
-        if (selectedPeers.count > 0) {
-            convoVC.selectedRecipients = selectedPeers;
-            convoVC.senderId = [self.mainDataSource getUserName];
-            convoVC.senderDisplayName = [self.mainDataSource getUserName];
-        }
+
         
     }
+    else if ([segue.identifier isEqualToString:@"pushToConversationVC"]) {
+        
+        NSLog(@"We are starting a brand new conversation");
+        
+        [self pushNewConversation:segue sender:sender recipients:selectedPeers];
+    }
+    
     
 }
 
+
+-(NSArray *)selectedRecipientsArray {
+    
+    NSMutableArray *selectedPeers = [NSMutableArray new];
+    
+    NSArray *selectedIndexesArray = [self.tableView indexPathsForSelectedRows];
+    
+    for (id obj in selectedIndexesArray) {
+        
+        NSIndexPath *indexPath = (NSIndexPath *)obj;
+        
+        NSNumber *indexPathRow = [NSNumber numberWithInteger:indexPath.row];
+        
+        id retrievedObj = [self.kvoConnectedDevicesArray objectAtIndex:indexPathRow.integerValue];
+        
+        if ([retrievedObj isKindOfClass:[NSString class]]) {
+            NSString *stringObj = (NSString *)retrievedObj;
+            [selectedPeers addObject:stringObj];
+        }
+        else  {
+            MCPeerID *peerID = (MCPeerID *)retrievedObj;
+            [selectedPeers addObject:peerID];
+        }
+        
+        
+        
+    }
+
+    return selectedPeers;
+    
+}
+
+
+-(void)pushNewConversation:(UIStoryboardSegue *)segue sender:(id)sender recipients:(NSArray *)selectedPeers {
+    
+    BLCConversationViewController *convoVC = (BLCConversationViewController *)[segue destinationViewController];
+    
+    if (selectedPeers.count > 0) {
+        
+        BLCConversation *newConversation = [[BLCConversation alloc] init];
+        newConversation.recipients = selectedPeers;
+        
+//        BLCUser *initialisingUser = [[BLCUser alloc] init];
+//        initialisingUser.username = self.appDelegate.userName;
+//        initialisingUser.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+        
+        newConversation.user = [BLCUser currentDeviceUser];
+        
+        convoVC.senderId = newConversation.user.initializingUserID;
+        convoVC.senderDisplayName = newConversation.user.username;
+        
+        if (selectedPeers.count == 1) {
+            newConversation.isGroupConversation = NO;
+        }
+        
+        convoVC.conversation = newConversation;
+        
+    }
+}
 
 @end

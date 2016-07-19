@@ -8,16 +8,35 @@
 
 #import <Foundation/Foundation.h>
 
+@class BLCConversation, MCPeerID, BLCUser;
+
 @interface BLCDataSource : NSObject
 
 + (instancetype) sharedInstance;
 
-- (NSMutableArray *)getConnectedDevices;
+- (BOOL)doesConversationAlreadyExistForRecipients:(NSArray *)recipients;
 
-- (NSMutableArray *)getConversations;
+- (BLCConversation *)findExistingConversationWithRecipients:(NSArray *)recipients;
 
-- (void)changeUserName:(NSString *)userName;
+- (BLCUser *)findUserObjectWithPeerID:(MCPeerID *)peerID;
 
-- (NSString *)getUserName;
+- (NSArray *)getPeerIDsForSelectedRecipients:(NSArray *)recipients;
+
+- (NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation;
+
+- (BOOL)isPeerConnected:(MCPeerID *)peerID;
+
+- (NSUInteger)countOfConversations;
+
+
+
+
+@property (nonatomic, strong, readonly) NSMutableArray <BLCConversation *> *conversations;
+
+@property (nonatomic, strong, readonly) NSMutableArray <MCPeerID *> *connectedDevices;
+
+@property (nonatomic, strong) NSMutableArray *unConnectedFoundDevices;
+
+@property (nonatomic, strong) NSMutableDictionary <NSString *,BLCUser *> *knownUsersDictionary;
 
 @end
