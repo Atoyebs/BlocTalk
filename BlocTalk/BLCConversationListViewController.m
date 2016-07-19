@@ -31,6 +31,7 @@
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) BLCDataSource *dataSource;
 @property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
+@property (nonatomic, strong) UIImageView *messageIconImageView;
 
 @end
 
@@ -134,18 +135,13 @@
         
         brandNewConversation.user = [BLCUser currentDeviceUser];
         
-//        if (!brandNewConversation.isGroupConversation) {
-//            [HDNotificationView showNotificationViewWithImage:receivedMessage.image title:[NSString stringWithFormat:@"%@", receivedMessage.senderDisplayName] message:receivedMessage.text ];
-//        }
-        
         [brandNewConversation.messages addObject:receivedMessage];
         [self.kvoConversationsArray insertObject:brandNewConversation atIndex:0];
         
         [self sendMessageReceivedNotification:receivedMessage];
         
         if (!self.noConversationsInfoLabel.hidden) {
-            self.noConversationsInfoLabel.hidden = YES;
-            self.tableView.scrollEnabled = YES;
+            [self removeNoConversationViewFromTableView];
         }
         
         
@@ -174,8 +170,7 @@
     BLCUser *user = [self.dataSource findUserObjectWithPeerID:recipientPeerID];
     
     if (!self.noConversationsInfoLabel.isHidden) {
-        self.noConversationsInfoLabel.hidden = YES;
-        self.tableView.scrollEnabled = YES;
+        [self removeNoConversationViewFromTableView];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -204,25 +199,46 @@
         
         CGSize deviceSize = [UIScreen mainScreen].bounds.size;
         
+        NSMutableParagraphStyle *paragraphStyles = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyles.alignment = NSTextAlignmentJustified;
+        paragraphStyles.firstLineHeadIndent = 10.0;
+        
+        self.messageIconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat.png"]];
+        
         self.noConversationsInfoLabel = [UILabel new];
         self.noConversationsInfoLabel.numberOfLines = 3;
         self.noConversationsInfoLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Light" size:20.0f];
         self.noConversationsInfoLabel.text = @"There's Nothing Here. Tap + To Start A New Chat";
+        self.noConversationsInfoLabel.textAlignment = NSTextAlignmentJustified;
         [self.tableView addSubview:self.noConversationsInfoLabel];
+        [self.tableView addSubview:self.messageIconImageView];
         
         [self.noConversationsInfoLabel autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
         [self.noConversationsInfoLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.tableView withOffset:deviceSize.height/3];
         
+        [self.messageIconImageView autoAlignAxis:ALAxisVertical toSameAxisOfView:self.noConversationsInfoLabel];
+        [self.messageIconImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.noConversationsInfoLabel withOffset:-15];
+        
+        [self.messageIconImageView autoSetDimensionsToSize:CGSizeMake(65, 65)];
+        
         NSMutableAttributedString *attributedLabelText = [[NSMutableAttributedString alloc] initWithAttributedString:self.noConversationsInfoLabel.attributedText];
         
         [attributedLabelText addAttribute:NSForegroundColorAttributeName value:self.tableView.tintColor range:NSMakeRange(26, 1)];
+        [attributedLabelText addAttribute:NSParagraphStyleAttributeName value:paragraphStyles range:NSMakeRange(26, 1)];
         self.noConversationsInfoLabel.attributedText = attributedLabelText;
         
         [self.noConversationsInfoLabel autoSetDimension:ALDimensionWidth toSize:(self.tableView.frame.size.width * 0.60)];
         
-        self.tableView.scrollEnabled = NO;
-        
     }
+    
+}
+
+
+-(void)removeNoConversationViewFromTableView {
+    
+    self.noConversationsInfoLabel.hidden = YES;
+    self.tableView.scrollEnabled = YES;
+    self.messageIconImageView.hidden = YES;
     
 }
 

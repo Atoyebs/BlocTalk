@@ -43,6 +43,7 @@
 		81B024381D18DA5B00273D14 /* profile-placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81B024371D18DA5B00273D14 /* profile-placeholder.jpg */; };
 		81BF23F91D229AD00070C042 /* BLCMultiPeerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */; };
 		81BF23FC1D22AEDD0070C042 /* BLCConnectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */; };
+		81C031371D3E39720056E609 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C031361D3E39720056E609 /* chat.png */; };
 		81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */; };
 		81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */; };
 		81D3404D1D3BE20400A2F3F7 /* checked_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 81D3404C1D3BE20400A2F3F7 /* checked_icon2.png */; };
@@ -134,6 +135,7 @@
 		81BF23F81D229AD00070C042 /* BLCMultiPeerConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMultiPeerConnector.m; sourceTree = "<group>"; };
 		81BF23FA1D22AEDD0070C042 /* BLCConnectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConnectionsViewController.h; sourceTree = "<group>"; };
 		81BF23FB1D22AEDD0070C042 /* BLCConnectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectionsViewController.m; sourceTree = "<group>"; };
+		81C031361D3E39720056E609 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat.png; sourceTree = "<group>"; };
 		81CFDD201D1FDCD7002CFD1D /* BLCDissmissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCDissmissSegue.h; sourceTree = "<group>"; };
 		81CFDD211D1FDCD7002CFD1D /* BLCDissmissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCDissmissSegue.m; sourceTree = "<group>"; };
 		81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNotificationView.h; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				814275D61D1AD04000F95162 /* Cancel-100.png */,
 				81DFAD031D39B93F00EA046E /* disconnected-chains.png */,
 				81DFAD051D39B94700EA046E /* link.png */,
+				81C031361D3E39720056E609 /* chat.png */,
 				81DFACFF1D39B06A00EA046E /* disconnected_icon.png */,
 				81DFAD001D39B06A00EA046E /* connected_icon.png */,
 				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
@@ -520,6 +523,7 @@
 				814275DD1D1AEE3100F95162 /* take-photo.png in Resources */,
 				814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */,
 				81DFAD061D39B94700EA046E /* link.png in Resources */,
+				81C031371D3E39720056E609 /* chat.png in Resources */,
 				819504A11D199E5D0031EFB9 /* Ok-icon.png in Resources */,
 				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,
