@@ -271,7 +271,10 @@
 
 -(void)peerDidGetDisconnectedWithID:(MCPeerID *)peerID {
     
-    if ([self.conversation.recipients containsObject:peerID]) {
+    NSLog(@"\n\nJust entering peerDidGetDisconnectedWithID method in BLCConversationCell");
+    
+    if ([self.dataSource doesConversationAlreadyExistForRecipients:self.conversation.recipients]) {
+        NSLog(@"about to animate disconnected icon for recipients");
         [self animateDisconnectedFromRecipientOfConversation];
     }
     
@@ -279,8 +282,11 @@
 
 -(void)peerDidGetConnectedWithID:(MCPeerID *)peerID {
     
-    if ([self.conversation.recipients containsObject:peerID]) {
-        [self animateDisconnectedFromRecipientOfConversation];
+    NSLog(@"Just entering peerDidGetConnectedWithID method in BLCConversationCell");
+    
+    if ([self.dataSource doesConversationAlreadyExistForRecipients:self.conversation.recipients]) {
+        NSLog(@"about to animate connected icon for recipients");
+        [self animateConnectedToRecipientOfConversation];
     }
     
 }
