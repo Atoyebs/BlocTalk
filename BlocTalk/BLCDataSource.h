@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class BLCConversation, MCPeerID, BLCUser;
 
@@ -20,13 +21,18 @@
 
 - (BLCUser *)findUserObjectWithPeerID:(MCPeerID *)peerID;
 
+- (UIImage *)findImageForPeerDisplayName:(NSString *)peerName;
+
 - (NSArray *)getPeerIDsForSelectedRecipients:(NSArray *)recipients;
 
 - (NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation;
 
 - (BOOL)isPeerConnected:(MCPeerID *)peerID;
 
+- (MCPeerID *)connectedPeerWithPeerDisplayName:(NSString *)peerDisplayName;
+
 - (NSUInteger)countOfConversations;
+
 
 
 

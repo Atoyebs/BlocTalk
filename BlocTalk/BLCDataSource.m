@@ -215,6 +215,38 @@
     return userObject;
 }
 
+
+-(BLCUser *)findUserObjectWithPeerName:(NSString *)peerName {
+    
+    BLCUser *userObject = nil;
+    
+    for (BLCUser *user in self.knownUsersDictionary.allValues) {
+        
+        if ([user.username isEqualToString:peerName]) {
+            userObject = user;
+            break;
+        }
+        
+    }
+    
+    return userObject;
+    
+}
+
+-(UIImage *)findImageForPeerDisplayName:(NSString *)peerName {
+    
+    BLCUser *user = [self findUserObjectWithPeerName:peerName];
+    
+    UIImage *imageOfUser = nil;
+    
+    if (user) {
+        imageOfUser = user.profilePicture;
+    }
+    
+    
+    return imageOfUser;
+}
+
 -(NSIndexPath *)getIndexPathForConversation:(BLCConversation *)conversation {
     
     NSIndexPath *indexPath = nil;
@@ -236,9 +268,35 @@
 
 -(BOOL)isPeerConnected:(MCPeerID *)peerID {
     
-    BOOL isPeerConnected = [self.connectedDevices containsObject:peerID];
+    BOOL isPeerConnected = NO;
+    
+    for (MCPeerID *peer in self.connectedDevices) {
+        
+        if ([peerID.displayName isEqualToString:peer.displayName]) {
+            isPeerConnected = YES;
+            break;
+        }
+        
+    }
     
     return isPeerConnected;
+}
+
+
+-(MCPeerID *)connectedPeerWithPeerDisplayName:(NSString *)peerDisplayName {
+    
+    MCPeerID *foundPeerID = nil;
+    
+    for (MCPeerID *peerID in self.connectedDevices) {
+        
+        if ([peerID.displayName isEqualToString:peerDisplayName]) {
+            foundPeerID = peerID;
+            break;
+        }
+        
+    }
+    
+    return foundPeerID;
 }
 
 

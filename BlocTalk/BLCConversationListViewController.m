@@ -447,6 +447,24 @@
         
         BLCConversation *conversation = [self.kvoConversationsArray objectAtIndex:selectedCellIndexPath.section];
         
+        MCPeerID *foundPeerID = nil;
+        
+        if (!conversation.isGroupConversation) {
+            
+            MCPeerID *existingPeerID = (MCPeerID *)conversation.recipients.firstObject;
+            
+            if (existingPeerID) {
+                
+                foundPeerID = [self.dataSource connectedPeerWithPeerDisplayName:existingPeerID.displayName];
+                
+                if (foundPeerID) {
+                    conversation.recipients = [NSArray arrayWithObject:foundPeerID];
+                }
+                
+            }
+            
+        }
+        
         conversationViewController.conversation = conversation;
         conversationViewController.senderDisplayName = conversation.user.username;
         conversationViewController.senderId = conversation.user.initializingUserID;

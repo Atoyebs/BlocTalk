@@ -120,8 +120,19 @@
     BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewTextView.text = mostRecentMessage.text;
     
-    if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
-        self.userProfilePicture.image = mostRecentMessage.image;
+    
+    if (!self.conversation.isGroupConversation) {
+        
+        MCPeerID *peerID = (MCPeerID *)self.conversation.recipients.firstObject;
+        
+        UIImage *imageToUse = [self.dataSource findImageForPeerDisplayName:peerID.displayName];
+        
+        self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
+        
+        if (imageToUse) {
+            self.userProfilePicture.image = imageToUse;
+        }
+
     }
     
     if (!self.conversation.isGroupConversation && [self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
