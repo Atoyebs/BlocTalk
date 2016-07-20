@@ -86,7 +86,7 @@
         
         [self layoutCell];
         
-        [self setNeedsLayout];
+        [self layoutSubviews];
         
     }
     
@@ -154,10 +154,14 @@
 -(void)layoutSubviews {
     
     [super layoutSubviews];
-
-    self.userProfilePicture.clipsToBounds = YES;
-    self.userProfilePicture.layer.masksToBounds = YES;
-    self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.userProfilePicture.clipsToBounds = YES;
+        self.userProfilePicture.layer.masksToBounds = YES;
+        self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
+        
+    });
     
 }
 

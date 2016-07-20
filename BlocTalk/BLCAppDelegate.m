@@ -50,6 +50,7 @@
         NSLog(@"ImageView succesfully loaded in BLCAppDelegate");
     } nothingFound:^{
         self.userProfileImage = self.profilePicturePlaceholderImage;
+        NSLog(@"ImageView succesfully set in BLCAppDelegate to default placeholder");
     }];
     
     self.mpManager = [[BLCMultiPeerManager alloc] init];

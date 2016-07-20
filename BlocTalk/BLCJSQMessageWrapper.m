@@ -11,7 +11,7 @@
 @implementation BLCJSQMessageWrapper
 
 
--(instancetype)initWithSenderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date text:(NSString *)text image:(UIImage *)image {
+- (instancetype)initWithSenderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date text:(NSString *)text image:(UIImage *)image {
     
     self = [super initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text];
     
@@ -23,7 +23,25 @@
 }
 
 
-+(instancetype)messageWithSenderId:(NSString *)senderId displayName:(NSString *)displayName text:(NSString *)text image:(UIImage *)image {
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
+    }
+    
+    return self;
+}
+
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.image forKey:NSStringFromSelector(@selector(image))];
+}
+
+
++ (instancetype)messageWithSenderId:(NSString *)senderId displayName:(NSString *)displayName text:(NSString *)text image:(UIImage *)image {
     
     BLCJSQMessageWrapper *message = [BLCJSQMessageWrapper messageWithSenderId:senderId displayName:displayName text:text];
     message.image = image;

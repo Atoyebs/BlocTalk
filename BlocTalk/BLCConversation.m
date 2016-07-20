@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversation.h"
+#import "BLCPersistanceObject.h"
 #import "BLCJSQMessageWrapper.h"
 #import "BLCUser.h"
 #import "UIColor+JSQMessages.h"
@@ -14,6 +15,7 @@
 #import <JSQMessagesViewController/JSQMessageBubbleImageDataSource.h>
 #import <JSQMessagesViewController/JSQMessagesBubbleImageFactory.h>
 #import "BLCAppDelegate.h"
+#import "BLCDataSource.h"
 
 @interface BLCConversation()
 
@@ -53,6 +55,40 @@
 }
 
 
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
+        
+        self.messages = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(messages))];
+        self.recipients = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(recipients))];
+        self.user = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(user))];
+        self.isGroupConversation = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isGroupConversation))];
+        
+        self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
+        
+        self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
+        
+        self.conversationID = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(conversationID))];
+        
+    }
+    
+    return self;
+}
+
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.messages forKey:NSStringFromSelector(@selector(messages))];
+    [aCoder encodeObject:self.recipients forKey:NSStringFromSelector(@selector(recipients))];
+    [aCoder encodeObject:self.user forKey:NSStringFromSelector(@selector(user))];
+    [aCoder encodeBool:self.isGroupConversation forKey:NSStringFromSelector(@selector(isGroupConversation))];
+    [aCoder encodeInteger:self.conversationID forKey:NSStringFromSelector(@selector(conversationID))];
+}
+
+
 -(NSString *)conversationTitle {
     
     MCPeerID *peer = (MCPeerID *)[self.recipients firstObject];
@@ -68,11 +104,31 @@
 
 
 -(void)insertObject:(BLCJSQMessageWrapper *)object inMessagesAtIndex:(NSUInteger)index {
+    
     [self.messages insertObject:object atIndex:index];
+    
+    [BLCPersistanceObject persistObjectToMemory:[BLCDataSource sharedInstance].conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the message to the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(void)removeObjectFromMessagesAtIndex:(NSUInteger)index {
+    
     [self.messages removeObjectAtIndex:index];
+    
+    [BLCPersistanceObject persistObjectToMemory:[BLCDataSource sharedInstance].conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the message to the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(BLCJSQMessageWrapper *)objectInMessagesAtIndex:(NSUInteger)index {

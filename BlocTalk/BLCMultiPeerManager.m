@@ -7,6 +7,7 @@
 //
 
 #import "HDNotificationView.h"
+#import "BLCPersistanceObject.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCJSQMessageWrapper.h"
 #import "BLCConversationListViewController.h"
@@ -244,6 +245,17 @@ static NSString *const ServiceType = @"bloctalk-chat";
                 [self.dataSource.knownUsersDictionary setObject:receivedUserObject forKey:receivedUserObject.initializingUserID];
                 NSLog(@"Just recived initial information from user: %@", receivedUserObject.username);
             }
+            else {
+                NSLog(@"User already exists low key in the database");
+            }
+            
+            [BLCPersistanceObject persistObjectToMemory:self.dataSource.knownUsersDictionary forFileName:NSStringFromSelector(@selector(knownUsersDictionary)) withCompletionBlock:^(BOOL persistSuccesful) {
+               
+                if (!persistSuccesful) {
+                    NSLog(@"Something went wrong when trying to persist the knownUsersDictionary to memory.");
+                }
+                
+            }];
             
         }];
         receiveInitialUserData.qualityOfService = NSQualityOfServiceUtility;

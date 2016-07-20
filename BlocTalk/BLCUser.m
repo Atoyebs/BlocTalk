@@ -39,6 +39,7 @@
     user.profilePicture = nil;
     user.username = appDelegate.userName;
     user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    user.dateLastUpdated = [NSDate new];
     
     return user;
     
@@ -53,6 +54,7 @@
     user.profilePicture = appDelegate.userProfileImage;
     user.username = appDelegate.userName;
     user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
+    user.dateLastUpdated = [NSDate new];
     
     return [NSKeyedArchiver archivedDataWithRootObject:user];
 }
@@ -66,7 +68,8 @@
     user.profilePicture = nil;
     user.username = appDelegate.userName;
     user.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
- 
+    user.dateLastUpdated = [NSDate new];
+    
     return [NSKeyedArchiver archivedDataWithRootObject:user];
     
 }
@@ -80,7 +83,9 @@
         self.profilePicture = [UIImage imageWithData:[aDecoder decodeObjectForKey:NSStringFromSelector(@selector(profilePicture))]];
         self.username = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(username))];
         self.initializingUserID = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(initializingUserID))];
+        self.dateLastUpdated = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(dateLastUpdated))];
     }
+    
     
     return self;
 }
@@ -89,6 +94,7 @@
     [aCoder encodeObject:UIImageJPEGRepresentation(self.profilePicture, 0.2) forKey:NSStringFromSelector(@selector(profilePicture))];
     [aCoder encodeObject:self.username forKey:NSStringFromSelector(@selector(username))];
     [aCoder encodeObject:self.initializingUserID forKey:NSStringFromSelector(@selector(initializingUserID))];
+    [aCoder encodeObject:self.dateLastUpdated forKey:NSStringFromSelector(@selector(dateLastUpdated))];
 }
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "BLCDataSource.h"
+#import "BLCPersistanceObject.h"
 #import "BLCUser.h"
 #import "BLCConversation.h"
+#import "BLCPersistanceObject.h"
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <UIKit/UIKit.h>
 #import <MultiPeerConnectivity/MultipeerConnectivity.h>
@@ -45,10 +47,32 @@
     if (self) {
         
         _connectedDevices = [NSMutableArray new];
-        _conversations = [NSMutableArray new];
-        self.unConnectedFoundDevices = [NSMutableArray new];
-        self.knownUsersDictionary = [NSMutableDictionary new];
         
+        [BLCPersistanceObject loadObjectFromMemoryForFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL loadSuccesful, id loadedObject) {
+           
+            if (loadSuccesful) {
+                _conversations = (NSMutableArray <BLCConversation *> *) loadedObject;
+            }
+            
+        }];
+        
+        [BLCPersistanceObject loadObjectFromMemoryForFileName:NSStringFromSelector(@selector(knownUsersDictionary)) withCompletionBlock:^(BOOL loadSuccesful, id loadedObject) {
+           
+            if (loadedObject) {
+                _knownUsersDictionary = (NSMutableDictionary <NSString *,BLCUser *> *) loadedObject;
+            }
+            
+        }];
+        
+        if (!_conversations) {
+            _conversations = [NSMutableArray new];
+        }
+        
+        if (!_knownUsersDictionary) {
+            _knownUsersDictionary = [NSMutableDictionary new];
+        }
+        
+        self.unConnectedFoundDevices = [NSMutableArray new];
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
      
         if (!self.userName) {
@@ -237,11 +261,30 @@
 }
 
 -(void)removeConversationsAtIndexes:(NSIndexSet *)indexes {
-    [_conversations objectsAtIndexes:indexes];
+    [_conversations removeObjectsAtIndexes:indexes];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(void)insertConversations:(NSArray *)array atIndexes:(NSIndexSet *)indexes {
+    
     [_conversations insertObjects:array atIndexes:indexes];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(void)insertObject:(BLCConversation *)object inConversationsAtIndex:(NSUInteger)index {
@@ -255,16 +298,42 @@
         [_conversations insertObject:object atIndex:object.conversationID];
     }
     
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(void)replaceObjectInConversationsAtIndex:(NSUInteger)index withObject:(BLCConversation *)object {
+    
     [_conversations replaceObjectAtIndex:index withObject:object];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
 }
 
 
 -(void)addNewlyRecievedConversation:(BLCConversation *)conversation {
     conversation.conversationID = _conversations.count;
     [_conversations insertObject:conversation atIndex:0];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 
