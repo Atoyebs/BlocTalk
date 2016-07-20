@@ -279,6 +279,9 @@ static NSString *const ServiceType = @"bloctalk-chat";
         if ([streamName isEqualToString:@"typing"]) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MCPeerIsTypingNotification" object:nil];
         }
+        else if([streamName isEqualToString:@"stopped_typing"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCPeerStoppedTypingNotification" object:nil];
+        }
         
 
     });

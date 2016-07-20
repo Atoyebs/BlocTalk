@@ -27,13 +27,14 @@
 
 
 
-@interface BLCConversationViewController () <BLCMultiPeerTextMessageDelegate>
+@interface BLCConversationViewController () <BLCMultiPeerTextMessageDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSArray *currentlyAvailablePeers;
 @property (nonatomic, strong) BLCAppDelegate *appDelegate;
 @property (nonatomic, strong) BLCDataSource *dataSource;
 @property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoConversationsArray;
 @property (nonatomic, strong) BLCNavBarConversationTitleView *titleView;
+@property (nonatomic, strong) UITapGestureRecognizer *collectionViewGestureRecognizer;
 
 @end
 
@@ -73,6 +74,15 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPeerIsTypingNotification) name:@"MCPeerIsTypingNotification" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedPeerStoppedTypingNotification) name:@"MCPeerStoppedTypingNotification" object:nil];
+    
+    self.collectionViewGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(collectionViewTapped)];
+    self.collectionViewGestureRecognizer.numberOfTapsRequired = 1;
+    self.collectionViewGestureRecognizer.numberOfTouchesRequired = 1;
+    
+    self.collectionViewGestureRecognizer.delegate = self;
+    [self.collectionView addGestureRecognizer:self.collectionViewGestureRecognizer];
+    
 }
 
 
@@ -103,6 +113,9 @@
     
 }
 
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
 
 -(void)peerDidChangeStateNotification:(NSNotification *)notification {
     
@@ -134,6 +147,19 @@
     [self scrollToBottomAnimated:YES];
 }
 
+-(void)receivedPeerStoppedTypingNotification {
+    [self setShowTypingIndicator:NO];
+}
+
+
+-(void)collectionViewTapped {
+    NSError *error;
+    [self.appDelegate.mpManager.session startStreamWithName:@"stopped_typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    [self.view endEditing:YES];
+    [self.inputToolbar.contentView.textView resignFirstResponder];
+}
+
+
 #pragma mark - JSQMessagesCollectionViewDataSource
 
 
@@ -144,13 +170,13 @@
 
 
 -(void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Tapped A Message!");
 }
 
 
 -(void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath {
     
     [self.conversation.messages removeObjectAtIndex:indexPath.item];
+    [self.collectionView reloadData];
     
 }
 
@@ -389,11 +415,26 @@
     [super textViewDidChange:textView];
     
     NSError *error;
-        
-    [self.appDelegate.mpManager.session startStreamWithName:@"typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    
+    if (textView.text.length >= 1) {
+        [self.appDelegate.mpManager.session startStreamWithName:@"typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    }
+    else {
+        [self.appDelegate.mpManager.session startStreamWithName:@"stopped_typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    }
     
 }
 
+
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    
+    [super textViewDidEndEditing:textView];
+    
+    NSError *error;
+    
+    [self.appDelegate.mpManager.session startStreamWithName:@"stopped_typing" toPeer:self.conversation.recipients.firstObject error:&error];
+    
+}
 
 
 /*
