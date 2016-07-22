@@ -20,7 +20,6 @@
 }
 
 
-
 +(void)loadProfilePictureDataFromDisk:(profilePictureIsStoredBlock)isStoredBlock nothingFound:(nothingFoundBlock)nothingFound {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -46,5 +45,41 @@
     
 }
 
+
++(void)persistObjectToMemory:(id)objectToPersist forFileName:(NSString *)filename withCompletionBlock:(void (^) (BOOL persistSuccesful))completionBlock {
+    
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSString *fullPath = [BLCPersistanceObject pathForFilename:filename];
+        
+        NSData *dataToSave = [NSKeyedArchiver archivedDataWithRootObject:objectToPersist];
+        
+        BOOL persistSuccesful = NO;
+        
+        NSError *persistError = nil;
+        
+        persistSuccesful = [dataToSave writeToFile:fullPath options:NSDataWritingAtomic | NSDataWritingFileProtectionCompleteUnlessOpen error:&persistError];
+        
+        completionBlock(persistSuccesful);
+        
+    });
+    
+}
+
+
++ (void)loadObjectFromMemoryForFileName:(NSString *)filename withCompletionBlock:(void (^) (BOOL loadSuccesful, id loadedObject))completionBlock {
+        
+        NSString *fullPath = [BLCPersistanceObject pathForFilename:filename];
+        
+        id objectToLoad = [NSKeyedUnarchiver unarchiveObjectWithFile:fullPath];
+        
+        if (!objectToLoad) {
+            completionBlock(NO, nil);
+        }
+        else {
+            completionBlock(YES, objectToLoad);
+        }
+    
+}
 
 @end

@@ -86,7 +86,7 @@
         
         [self layoutCell];
         
-        [self setNeedsLayout];
+        [self layoutSubviews];
         
     }
     
@@ -120,8 +120,19 @@
     BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
     self.messagePreviewTextView.text = mostRecentMessage.text;
     
-    if (![mostRecentMessage.senderId isEqualToString:[[UIDevice currentDevice]identifierForVendor].UUIDString]) {
-        self.userProfilePicture.image = mostRecentMessage.image;
+    
+    if (!self.conversation.isGroupConversation) {
+        
+        MCPeerID *peerID = (MCPeerID *)self.conversation.recipients.firstObject;
+        
+        UIImage *imageToUse = [self.dataSource findImageForPeerDisplayName:peerID.displayName];
+        
+        self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
+        
+        if (imageToUse) {
+            self.userProfilePicture.image = imageToUse;
+        }
+
     }
     
     if (!self.conversation.isGroupConversation && [self.dataSource isPeerConnected:self.conversation.recipients.firstObject]) {
@@ -154,10 +165,14 @@
 -(void)layoutSubviews {
     
     [super layoutSubviews];
-
-    self.userProfilePicture.clipsToBounds = YES;
-    self.userProfilePicture.layer.masksToBounds = YES;
-    self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.userProfilePicture.clipsToBounds = YES;
+        self.userProfilePicture.layer.masksToBounds = YES;
+        self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
+        
+    });
     
 }
 

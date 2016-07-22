@@ -9,8 +9,7 @@
 #import <JSQMessagesViewController/JSQMessagesViewController.h>
 #import <JSQMessage.h>
 
-#warning you might want to consider changing the name of the class to something like BLCJSQMessageWrapper
-@interface BLCJSQMessageWrapper : JSQMessage
+@interface BLCJSQMessageWrapper : JSQMessage <NSCoding>
 
 @property (nonatomic, strong) UIImage *image;
 

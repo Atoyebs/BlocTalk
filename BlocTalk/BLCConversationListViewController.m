@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationListViewController.h"
+#import "BLCPersistanceObject.h"
 #import "BLCJSQMessageWrapper.h"
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
@@ -22,6 +23,7 @@
 #import "BLCConversationViewController.h"
 #import <JSQMessage.h>
 #import <AFDropdownNotification/AFDropdownNotification.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface BLCConversationListViewController ()
@@ -54,7 +56,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSendNewMessageToGroup:) name:PostToGroupConversation object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveDataWithNotificaion:) name:@"MCDidReceiveDataNotification" object:nil];
-    
     
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
@@ -110,9 +111,16 @@
         conversation.recipients = receivedText.peersInConversation;
         
         [conversation.messages addObject:receivedMessage];
-            
-        [self sendMessageReceivedNotification:receivedMessage];
         
+        [BLCPersistanceObject persistObjectToMemory:self.dataSource.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+            
+            if (!persistSuccesful) {
+                NSLog(@"persisting the message to the conversation list was unsuccesful!");
+            }
+            
+        }];
+        
+        [self sendMessageReceivedNotification:receivedMessage];
         
     }
     else {
@@ -126,7 +134,6 @@
         if (userWhoSentMessage) {
             receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
         }
-        
         
         #warning find existing conversation with recipients might have to have different recipients than for this session
         brandNewConversation.recipients = peerRecipientsWithoutMe;
@@ -419,6 +426,7 @@
     
     [self.tableView reloadData];
     
+    
 }
 
 
@@ -438,6 +446,24 @@
         NSIndexPath *selectedCellIndexPath = [self.tableView indexPathForSelectedRow];
         
         BLCConversation *conversation = [self.kvoConversationsArray objectAtIndex:selectedCellIndexPath.section];
+        
+        MCPeerID *foundPeerID = nil;
+        
+        if (!conversation.isGroupConversation) {
+            
+            MCPeerID *existingPeerID = (MCPeerID *)conversation.recipients.firstObject;
+            
+            if (existingPeerID) {
+                
+                foundPeerID = [self.dataSource connectedPeerWithPeerDisplayName:existingPeerID.displayName];
+                
+                if (foundPeerID) {
+                    conversation.recipients = [NSArray arrayWithObject:foundPeerID];
+                }
+                
+            }
+            
+        }
         
         conversationViewController.conversation = conversation;
         conversationViewController.senderDisplayName = conversation.user.username;

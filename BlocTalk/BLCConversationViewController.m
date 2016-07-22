@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationViewController.h"
+#import "BLCPersistanceObject.h"
 #import "BLCNavBarConversationTitleView.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversation.h"
@@ -251,6 +252,14 @@
               
                [self.conversation.messages addObject:message];
                
+               [BLCPersistanceObject persistObjectToMemory:self.dataSource.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+                   
+                   if (!persistSuccesful) {
+                       NSLog(@"persisting the message to the conversation list was unsuccesful!");
+                   }
+                   
+               }];
+               
                if (self.conversation.messages.count == 1) {
                    [self.kvoConversationsArray insertObject:self.conversation atIndex:0];
                }
@@ -436,15 +445,5 @@
     
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

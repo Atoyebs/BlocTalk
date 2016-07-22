@@ -19,4 +19,8 @@ typedef void(^nothingFoundBlock)(void);
 
 + (void)loadProfilePictureDataFromDisk:(profilePictureIsStoredBlock)isStoredBlock nothingFound:(nothingFoundBlock)nothingFound;
 
++ (void)persistObjectToMemory:(id)objectToPersist forFileName:(NSString *)filename withCompletionBlock:(void (^) (BOOL persistSuccesful))completionBlock;
+
++ (void)loadObjectFromMemoryForFileName:(NSString *)filename withCompletionBlock:(void (^) (BOOL loadSuccesful, id loadedObject))completionBlock;
+
 @end

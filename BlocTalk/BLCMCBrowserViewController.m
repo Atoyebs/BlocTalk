@@ -67,6 +67,8 @@ static NSString *const notConnected = @"Not Connected";
     
     [self.deviceConnectionStatusDictionary setValue:self.dataSource.unConnectedFoundDevices forKey:notConnected];
     
+    
+    
 }
 
 

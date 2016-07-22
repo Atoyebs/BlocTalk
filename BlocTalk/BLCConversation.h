@@ -10,7 +10,7 @@
 
 @class JSQMessagesBubbleImage, BLCUser, JSQMessage, BLCJSQMessageWrapper;
 
-@interface BLCConversation : NSObject
+@interface BLCConversation : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSMutableArray <BLCJSQMessageWrapper *>  *messages;
 

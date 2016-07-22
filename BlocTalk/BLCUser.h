@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIImage *profilePicture;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *initializingUserID;
+@property (nonatomic, strong) NSDate *dateLastUpdated;
 
 +(instancetype)currentDeviceUser;
 
