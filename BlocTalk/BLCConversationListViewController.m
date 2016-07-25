@@ -19,6 +19,7 @@
 #import "BLCAppDelegate.h"
 #import "HDNotificationView.h"
 #import "MCSession+PeerDataManipulation.h"
+#import "UITableViewCell+Swipe.h"
 #import <PureLayout/PureLayout.h>
 #import "BLCConversationViewController.h"
 #import <JSQMessage.h>
@@ -26,7 +27,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface BLCConversationListViewController ()
+@interface BLCConversationListViewController () <BLCConversationCellSwipeDelegate>
 
 @property (nonatomic, strong) UINib *messageCellViewNib;
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
@@ -281,6 +282,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     }
     
+    cell.delegate = self;
     // Configure the cell...
     BLCConversation *currConversation = [self.kvoConversationsArray objectAtIndex:indexPath.section];
     cell.conversation = currConversation;
@@ -490,5 +492,24 @@
 
 }
 
+
+-(void)swipeableTableViewCell:(BLCConversationCell *)cell didTriggerLeftViewButtonWithIndex:(NSInteger)index {
+    
+    NSLog(@"Swipe Has Been Succesfully triggered!");
+    
+}
+
+
+-(void)swipeableTableViewCell:(BLCConversationCell *)cell didCompleteSwipe:(YATableSwipeMode)swipeMode {
+    
+    NSLog(@"About to archive conversation!");
+    
+    if ([self.dataSource.conversations containsObject:cell.conversation]) {
+        
+        #warning at the moment this removes the conversation from the conversation array, but it should be storing it in the archive array and THEN removing it from the main conversations array.
+        [_kvoConversationsArray removeObject:cell.conversation];
+    }
+    
+}
 
 @end

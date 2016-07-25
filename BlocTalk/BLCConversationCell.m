@@ -7,6 +7,7 @@
 //
 
 #import "BLCConversationCell.h"
+#import "BLCButtonSwipeView.h"
 #import "BLCDataSource.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCJSQMessageWrapper.h"
@@ -30,6 +31,8 @@
 
 @property (nonatomic, strong) UIImageView *connectionIconImageView;
 
+@property (nonatomic, strong) BLCButtonSwipeView *leftSwipeView;
+
 @end
 
 
@@ -47,6 +50,7 @@
     
     if (self) {
         
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
         self.dataSource = [BLCDataSource sharedInstance];
         
@@ -94,6 +98,45 @@
 }
 
 
+-(void)setupSwipeViews {
+    
+    BLCButtonSwipeView *swipeViewLeft = [[BLCButtonSwipeView alloc] init];
+    
+    [self setSwipeEffect:YATableSwipeEffectUnmask];
+    self.allowMultiple = YES;
+    self.swipeContainerViewBackgroundColor = swipeViewLeft.swipeColor;
+    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.1;
+    
+    __weak BLCConversationCell *weakSelf = self;
+    
+    [self setSwipeBlock:^(UITableViewCell *cell, CGPoint translation){
+        if (translation.x > 0) {
+            [weakSelf.leftSwipeView didSwipeWithTranslation:translation];
+        }
+    }];
+    
+    // Call the didTriggerLeftViewButtonWithIndex delegate when the left view button is triggered
+    swipeViewLeft.buttonTappedActionBlock= ^(void) {
+        if (weakSelf.delegate) {
+            [weakSelf.delegate swipeableTableViewCell:weakSelf didTriggerLeftViewButtonWithIndex:0];
+        }
+    };
+    
+    [self setModeChangedBlock:^(UITableViewCell *cell, YATableSwipeMode mode){
+        [swipeViewLeft didChangeMode:mode];
+        
+        if (weakSelf.delegate) {
+            [weakSelf.delegate swipeableTableViewCell:weakSelf didCompleteSwipe:mode];
+        }
+    }];
+
+
+    self.leftSwipeView = swipeViewLeft;
+    [self addLeftView:self.leftSwipeView];
+    
+}
+
+
 
 -(void)setupCell {
     
@@ -109,6 +152,8 @@
     }
     
     self.usernameLabel.text = self.conversation.conversationTitle;
+    
+    [self setupSwipeViews];
     
     self.contentView.backgroundColor = [UIColor whiteColor];
 
@@ -174,6 +219,19 @@
         
     });
     
+    self.leftSwipeView.frame = self.bounds;
+    
+    // Make some layout adjustments to the image in the left swipe view
+    BLCButtonSwipeView *leftView = (BLCButtonSwipeView *)self.leftSwipeView;
+    leftView.aButton.contentHorizontalAlignment = (self.swipeEffect == YATableSwipeEffectUnmask) ? UIControlContentHorizontalAlignmentLeft : UIControlContentHorizontalAlignmentRight;
+    CGFloat leftInset = (self.swipeEffect == YATableSwipeEffectUnmask) ? 20.0 : 0;
+    CGFloat rightInset = (self.swipeEffect == YATableSwipeEffectUnmask) ? 0 : 20.0;
+    [leftView.aButton setImageEdgeInsets:UIEdgeInsetsMake(0, leftInset, 0, rightInset)];
+    
+    // Set the snap thresholds
+    self.rightSwipeSnapThreshold = self.bounds.size.width * 0.3;
+    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.1;
+    
 }
 
 
@@ -181,7 +239,6 @@
     
        
     CGSize cellSize = self.frame.size;
-
 
     self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.userProfilePicture.translatesAutoresizingMaskIntoConstraints = NO;
@@ -255,6 +312,8 @@
     [self addConstraints:@[connectionIconPositionX, connectionIconPositionY, connectionIconWidth, connectionIconHeight]];
 
 }
+
+
 
 
 -(void)animateConnectedToRecipientOfConversation {

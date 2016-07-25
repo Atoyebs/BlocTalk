@@ -331,6 +331,10 @@
     
 }
 
+-(void)removeConversationsObject:(BLCConversation *)object {
+    [_conversations removeObject:object];
+}
+
 -(void)insertConversations:(NSArray *)array atIndexes:(NSIndexSet *)indexes {
     
     [_conversations insertObjects:array atIndexes:indexes];

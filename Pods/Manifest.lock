@@ -5,12 +5,14 @@ PODS:
   - JSQSystemSoundPlayer (2.0.1)
   - PureLayout (3.0.2)
   - UICKeyChainStore (2.1.0)
+  - YMSwipeTableViewCell (2.1.2)
 
 DEPENDENCIES:
   - AFDropdownNotification (~> 1.0)
   - JSQMessagesViewController
   - PureLayout
   - UICKeyChainStore
+  - YMSwipeTableViewCell (~> 2.1.1)
 
 SPEC CHECKSUMS:
   AFDropdownNotification: 4125b132cd03a8d6293e09ce000aeef55ced1364
@@ -18,7 +20,8 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
+  YMSwipeTableViewCell: 44de4fa6a66bc6d9fbcb80b16bbfdd81b7d0c4f9
 
-PODFILE CHECKSUM: 7a5149500ddbdb0e9a2e2906a2cd2768968183a7
+PODFILE CHECKSUM: 971b534f4549f1d61baabfdda589e0e2891d1bff
 
 COCOAPODS: 1.0.0.beta.5

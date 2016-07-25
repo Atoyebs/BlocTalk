@@ -8,6 +8,7 @@ target 'BlocTalk' do
    pod 'UICKeyChainStore'
    pod 'JSQMessagesViewController'
    pod 'AFDropdownNotification', '~> 1.0'
+   pod 'YMSwipeTableViewCell', '~> 2.1.1'
 end
 
 target 'BlocTalkTests' do

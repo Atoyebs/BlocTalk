@@ -30,6 +30,8 @@
 		817121471D35209200FB6717 /* BLCMultiPeerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121461D35209200FB6717 /* BLCMultiPeerManager.m */; };
 		8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 817121491D35668B00FB6717 /* BLCConnectorCell.m */; };
 		81780F131D25B42F009DB3E2 /* BLCConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81780F121D25B42F009DB3E2 /* BLCConversationCell.m */; };
+		8180DC4B1D464C7500D06277 /* BLCButtonSwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8180DC4A1D464C7500D06277 /* BLCButtonSwipeView.m */; };
+		8180DC4D1D466E5500D06277 /* archive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8180DC4C1D466E5500D06277 /* archive.png */; };
 		818C1A061D18946000130F5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A051D18946000130F5B /* main.m */; };
 		818C1A091D18946000130F5B /* BLCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A081D18946000130F5B /* BLCAppDelegate.m */; };
 		818C1A0C1D18946000130F5B /* BLCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818C1A0B1D18946000130F5B /* BLCSettingsViewController.m */; };
@@ -110,6 +112,9 @@
 		817121491D35668B00FB6717 /* BLCConnectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConnectorCell.m; sourceTree = "<group>"; };
 		81780F111D25B42F009DB3E2 /* BLCConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCConversationCell.h; sourceTree = "<group>"; };
 		81780F121D25B42F009DB3E2 /* BLCConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversationCell.m; sourceTree = "<group>"; };
+		8180DC491D464C7500D06277 /* BLCButtonSwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCButtonSwipeView.h; sourceTree = "<group>"; };
+		8180DC4A1D464C7500D06277 /* BLCButtonSwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCButtonSwipeView.m; sourceTree = "<group>"; };
+		8180DC4C1D466E5500D06277 /* archive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = archive.png; sourceTree = "<group>"; };
 		818C1A011D18946000130F5B /* BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818C1A051D18946000130F5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		818C1A071D18946000130F5B /* BLCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLCAppDelegate.h; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 				81DFAD031D39B93F00EA046E /* disconnected-chains.png */,
 				81DFAD051D39B94700EA046E /* link.png */,
 				81C031361D3E39720056E609 /* chat.png */,
+				8180DC4C1D466E5500D06277 /* archive.png */,
 				81DFACFF1D39B06A00EA046E /* disconnected_icon.png */,
 				81DFAD001D39B06A00EA046E /* connected_icon.png */,
 				814275D81D1AD04000F95162 /* Switch Camera-104.png */,
@@ -255,6 +261,8 @@
 				81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */,
 				81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */,
 				81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */,
+				8180DC491D464C7500D06277 /* BLCButtonSwipeView.h */,
+				8180DC4A1D464C7500D06277 /* BLCButtonSwipeView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -268,7 +276,7 @@
 			name = Utility;
 			sourceTree = "<group>";
 		};
-		811C0C0E1D18962900B969F9 /* StoryBoards */ = {
+		811C0C0E1D18962900B969F9 /* StoryBoards & Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				818C1A121D18946100130F5B /* LaunchScreen.storyboard */,
@@ -278,7 +286,7 @@
 				8104B6B51D27D26D00471675 /* BLCRemoveMiddleVCSegue.h */,
 				8104B6B61D27D26D00471675 /* BLCRemoveMiddleVCSegue.m */,
 			);
-			name = StoryBoards;
+			name = "StoryBoards & Xibs";
 			sourceTree = "<group>";
 		};
 		816345B01D26BEA8004FFFA1 /* Model */ = {
@@ -354,7 +362,7 @@
 				810B25081D18B26C00167D97 /* Categories */,
 				810B25051D18ACE400167D97 /* Images */,
 				810B25041D189FD400167D97 /* Data */,
-				811C0C0E1D18962900B969F9 /* StoryBoards */,
+				811C0C0E1D18962900B969F9 /* StoryBoards & Xibs */,
 				811C0C0D1D1895EB00B969F9 /* Utility */,
 				811C0C0C1D1895D900B969F9 /* Custom UI (Views) */,
 				811C0C0B1D1895C700B969F9 /* View Controllers */,
@@ -502,6 +510,7 @@
 				814275DB1D1AD04000F95162 /* Switch Camera-104.png in Resources */,
 				814275D01D1AAC7400F95162 /* messages-icon.png in Resources */,
 				81DFAD041D39B93F00EA046E /* disconnected-chains.png in Resources */,
+				8180DC4D1D466E5500D06277 /* archive.png in Resources */,
 				818C1A111D18946000130F5B /* Assets.xcassets in Resources */,
 				81DFAD011D39B06A00EA046E /* disconnected_icon.png in Resources */,
 			);
@@ -623,6 +632,7 @@
 				81D3404B1D3BDD0E00A2F3F7 /* HDNotificationView.m in Sources */,
 				81DAAEDC1D2E9B2700C4CEBC /* MCSession+PeerDataManipulation.m in Sources */,
 				814398221D288766007FC02A /* UIColor+JSQMessages.m in Sources */,
+				8180DC4B1D464C7500D06277 /* BLCButtonSwipeView.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 				816345B31D26BF01004FFFA1 /* BLCConversation.m in Sources */,
 				816345B61D26BFA2004FFFA1 /* BLCUser.m in Sources */,
