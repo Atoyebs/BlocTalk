@@ -33,6 +33,9 @@
 
 @property (nonatomic, strong) BLCButtonSwipeView *leftSwipeView;
 
+@property (nonatomic, assign) CGPoint lastKnownTranslation;
+
+
 @end
 
 
@@ -85,7 +88,7 @@
         [self.contentView addSubview:self.messagePreviewTextView];
         [self.contentView addSubview:self.connectionIconImageView];
         
-        
+        self.lastKnownTranslation = CGPointZero;
         self.appDelegate.mpManager.delegate = self;
         
         [self layoutCell];
@@ -105,14 +108,17 @@
     [self setSwipeEffect:YATableSwipeEffectUnmask];
     self.allowMultiple = YES;
     self.swipeContainerViewBackgroundColor = swipeViewLeft.swipeColor;
-    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.1;
+    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.30;
     
     __weak BLCConversationCell *weakSelf = self;
     
     [self setSwipeBlock:^(UITableViewCell *cell, CGPoint translation){
+        
         if (translation.x > 0) {
             [weakSelf.leftSwipeView didSwipeWithTranslation:translation];
         }
+        
+        weakSelf.lastKnownTranslation = translation;
     }];
     
     // Call the didTriggerLeftViewButtonWithIndex delegate when the left view button is triggered
@@ -125,9 +131,14 @@
     [self setModeChangedBlock:^(UITableViewCell *cell, YATableSwipeMode mode){
         [swipeViewLeft didChangeMode:mode];
         
-        if (weakSelf.delegate) {
-            [weakSelf.delegate swipeableTableViewCell:weakSelf didCompleteSwipe:mode];
+        if (weakSelf.lastKnownTranslation.x > self.bounds.size.width * 0.30) {
+            
+            if (weakSelf.delegate) {
+                [weakSelf.delegate swipeableTableViewCell:weakSelf didCompleteSwipe:mode];
+            }
+            
         }
+        
     }];
 
 

@@ -102,7 +102,7 @@
     [super updateConstraints];
     
     [self.aButton autoSetDimensionsToSize:CGSizeMake(60, 40)];
-    [self.aButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:30];
+    [self.aButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self withOffset:15];
     [self.aButton autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
     
     [self.swipeFunctionDescriptionLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.aButton withOffset:10];

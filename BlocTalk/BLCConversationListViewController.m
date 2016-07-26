@@ -415,7 +415,11 @@
                    
                    
                } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                   
                    [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+                   
+                   [self setUpNoConversationsViewCheckingDataArray:self.kvoConversationsArray];
+                   
                } else if (kindOfChange == NSKeyValueChangeReplacement) {
                    [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
                }
