@@ -46,8 +46,6 @@
     
     [super layoutSubviews];
     
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    
     self.conversationUserNameLabel.adjustsFontSizeToFitWidth = YES;
     
     [self.conversationUserNameLabel autoAlignAxis:ALAxisHorizontal toSameAxisOfView:self withOffset:-5];

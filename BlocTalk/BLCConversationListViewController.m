@@ -65,16 +65,26 @@
     
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
+    UIBarButtonItem *archiveBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"archive-bar-button"] style:UIBarButtonItemStyleDone target:self action:@selector(archiveBarButtonPressed:)];
+    
+    NSMutableArray *actionButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
+    
+    [actionButtonItems addObject:archiveBarButton];
+    
+//    self.navigationItem.rightBarButtonItems = actionButtonItems;
+    self.navigationItem.leftBarButtonItems = actionButtonItems;
+    
 }
 
 
+-(void)archiveBarButtonPressed:(UIBarButtonItem *)sender {
+    NSLog(@"Archive Button Pressed");
+}
 
 
 -(void)didReceiveDataWithNotificaion:(NSNotification *)notification {
     
     //This is a notification so isn't done on the main thread
-        
-    MCPeerID *peerID = [[notification userInfo] objectForKey:@"peerID"];
     
     MCSession *session = [[notification userInfo] objectForKey:@"session"];
     
