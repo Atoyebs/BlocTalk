@@ -495,7 +495,7 @@
 
 -(void)swipeableTableViewCell:(BLCConversationCell *)cell didTriggerLeftViewButtonWithIndex:(NSInteger)index {
     
-    NSLog(@"Swipe Has Been Succesfully triggered!");
+//    NSLog(@"Swipe Has Been Succesfully triggered!");
     
 }
 
@@ -506,8 +506,16 @@
     
     if ([self.dataSource.conversations containsObject:cell.conversation]) {
         
-        #warning at the moment this removes the conversation from the conversation array, but it should be storing it in the archive array and THEN removing it from the main conversations array.
-        [_kvoConversationsArray removeObject:cell.conversation];
+        //archive the conversation
+        [self.dataSource archiveConversation:cell.conversation];
+        
+        //check if the conversation is in the archive array
+        if ([self.dataSource.archivedConversations containsObject:cell.conversation]) {
+            
+            //remove the object from the conversationsArray and it should disappear from the view.
+            [self.kvoConversationsArray removeObject:cell.conversation];
+        }
+        
     }
     
 }

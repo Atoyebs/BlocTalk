@@ -47,6 +47,8 @@
         
         self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
         
+        self.isArchived = NO;
+        
         self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
         
     }
@@ -67,12 +69,10 @@
         self.recipients = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(recipients))];
         self.user = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(user))];
         self.isGroupConversation = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isGroupConversation))];
-        
         self.outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleBlueColor]];
-        
         self.incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-        
         self.conversationID = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(conversationID))];
+        self.isArchived = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isArchived))];
         
     }
     
@@ -86,6 +86,7 @@
     [aCoder encodeObject:self.user forKey:NSStringFromSelector(@selector(user))];
     [aCoder encodeBool:self.isGroupConversation forKey:NSStringFromSelector(@selector(isGroupConversation))];
     [aCoder encodeInteger:self.conversationID forKey:NSStringFromSelector(@selector(conversationID))];
+    [aCoder encodeBool:self.isArchived forKey:NSStringFromSelector(@selector(isArchived))];
 }
 
 
@@ -101,7 +102,6 @@
     
     return convTitle;
 }
-
 
 -(void)insertObject:(BLCJSQMessageWrapper *)object inMessagesAtIndex:(NSUInteger)index {
     

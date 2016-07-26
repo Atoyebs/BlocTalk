@@ -33,7 +33,7 @@
 
 - (NSUInteger)countOfConversations;
 
-
+- (void)archiveConversation:(BLCConversation *)conversation;
 
 
 
@@ -44,5 +44,8 @@
 @property (nonatomic, strong) NSMutableArray *unConnectedFoundDevices;
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *,BLCUser *> *knownUsersDictionary;
+
+@property (nonatomic, strong) NSMutableArray <BLCConversation *> *archivedConversations;
+
 
 @end

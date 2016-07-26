@@ -28,4 +28,7 @@
 
 @property (nonatomic, assign) NSInteger conversationID;
 
+@property (nonatomic, assign) BOOL isArchived;
+
+
 @end

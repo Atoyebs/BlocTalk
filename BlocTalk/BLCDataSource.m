@@ -64,6 +64,14 @@
             
         }];
         
+        [BLCPersistanceObject loadObjectFromMemoryForFileName:NSStringFromSelector(@selector(archivedConversations)) withCompletionBlock:^(BOOL loadSuccesful, id loadedObject) {
+           
+            if (loadedObject) {
+                _archivedConversations = (NSMutableArray <BLCConversation *> *)loadedObject;
+            }
+            
+        }];
+        
         if (!_conversations) {
             _conversations = [NSMutableArray new];
         }
@@ -75,8 +83,12 @@
         self.unConnectedFoundDevices = [NSMutableArray new];
         self.userName = [UICKeyChainStore stringForKey:@"usernameKey"];
      
-        if (!self.userName) {
-            self.userName = [[UIDevice currentDevice] name];
+        if (!_userName) {
+            _userName = [[UIDevice currentDevice] name];
+        }
+        
+        if (!_archivedConversations) {
+            _archivedConversations = [[NSMutableArray alloc] init];
         }
         
     }
@@ -435,7 +447,30 @@
 }
 
 
+#pragma mark - Archiving Conversations
 
+-(void)archiveConversation:(BLCConversation *)conversation {
+    
+    [self.archivedConversations addObject:conversation];
+    
+    if ([self.archivedConversations containsObject:conversation]) {
+        conversation.isArchived = YES;
+    }
+    else {
+        conversation.isArchived = NO;
+    }
+    
+    [BLCPersistanceObject persistObjectToMemory:self.archivedConversations forFileName:NSStringFromSelector(@selector(archivedConversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+       
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation to the archive array list was unsuccesful!");
+        }
+        else {
+            NSLog(@"congrats, persisting the conversation to the archive array list was succesful!");
+        }
+    }];
+    
+}
 
 
 
