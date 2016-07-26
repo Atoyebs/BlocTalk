@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -158,92 +157,6 @@
             </objects>
             <point key="canvasLocation" x="3305" y="1"/>
         </scene>
-        <!--Messages Prototype-->
-        <scene sceneID="UG6-ch-A3Y">
-            <objects>
-                <viewController title="Messages Prototype" id="ewT-rR-5tL" customClass="BLCMessageTestViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nfI-nx-2LN"/>
-                        <viewControllerLayoutGuide type="bottom" id="hVV-zH-Lay"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="del-AS-n4S">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4iC-zp-Pfe">
-                                <rect key="frame" x="0.0" y="64" width="600" height="101"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your message . . ." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9U0-Vg-CAL">
-                                        <rect key="frame" x="8" y="27" width="584" height="30"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8oF-fV-0n9">
-                                        <rect key="frame" x="243" y="-13" width="40" height="27"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PD-nc-3uY">
-                                        <rect key="frame" x="9" y="63" width="48" height="30"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
-                                        <state key="normal" title="Cancel"/>
-                                        <connections>
-                                            <action selector="cancelButtonPressed:" destination="ewT-rR-5tL" eventType="touchUpInside" id="Udu-8D-7OL"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYp-P0-Cuk">
-                                        <rect key="frame" x="544" y="63" width="48" height="30"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
-                                        <state key="normal" title="Send"/>
-                                        <connections>
-                                            <action selector="sendButtonPressed:" destination="ewT-rR-5tL" eventType="touchUpInside" id="wzv-yx-ZRv"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="9U0-Vg-CAL" firstAttribute="top" secondItem="4iC-zp-Pfe" secondAttribute="top" constant="27" id="0BQ-Dd-fbF"/>
-                                    <constraint firstItem="4PD-nc-3uY" firstAttribute="leading" secondItem="9U0-Vg-CAL" secondAttribute="leading" id="2Cz-GJ-07o"/>
-                                    <constraint firstItem="CYp-P0-Cuk" firstAttribute="trailing" secondItem="9U0-Vg-CAL" secondAttribute="trailing" id="JF9-Xr-TA5"/>
-                                    <constraint firstItem="4PD-nc-3uY" firstAttribute="top" secondItem="9U0-Vg-CAL" secondAttribute="bottom" constant="8" symbolic="YES" id="TWi-ea-s7A"/>
-                                    <constraint firstItem="9U0-Vg-CAL" firstAttribute="leading" secondItem="4iC-zp-Pfe" secondAttribute="leading" constant="20" symbolic="YES" id="WnT-Ru-2nS"/>
-                                    <constraint firstItem="4PD-nc-3uY" firstAttribute="centerY" secondItem="CYp-P0-Cuk" secondAttribute="centerY" id="my7-xl-fpZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="9U0-Vg-CAL" secondAttribute="trailing" constant="20" symbolic="YES" id="pCc-2X-Og9"/>
-                                    <constraint firstItem="9U0-Vg-CAL" firstAttribute="centerX" secondItem="4iC-zp-Pfe" secondAttribute="centerX" id="qG8-57-8mR"/>
-                                </constraints>
-                            </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NHi-Z9-6QJ">
-                                <rect key="frame" x="0.0" y="173" width="600" height="378"/>
-                                <color key="backgroundColor" white="0.81807528409090913" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="4iC-zp-Pfe" secondAttribute="trailing" constant="-20" id="2yp-MW-8pP"/>
-                            <constraint firstItem="4iC-zp-Pfe" firstAttribute="width" secondItem="del-AS-n4S" secondAttribute="width" id="9lU-kf-Ja7"/>
-                            <constraint firstItem="hVV-zH-Lay" firstAttribute="top" secondItem="NHi-Z9-6QJ" secondAttribute="bottom" id="Axt-Hs-fCW"/>
-                            <constraint firstItem="4iC-zp-Pfe" firstAttribute="height" secondItem="del-AS-n4S" secondAttribute="height" multiplier="0.2" id="JKK-Qh-Rg6"/>
-                            <constraint firstItem="4iC-zp-Pfe" firstAttribute="leading" secondItem="del-AS-n4S" secondAttribute="leadingMargin" constant="-20" id="SjC-1y-7zb"/>
-                            <constraint firstItem="NHi-Z9-6QJ" firstAttribute="top" secondItem="4iC-zp-Pfe" secondAttribute="bottom" constant="8" symbolic="YES" id="Y1Q-X4-pIx"/>
-                            <constraint firstItem="NHi-Z9-6QJ" firstAttribute="leading" secondItem="del-AS-n4S" secondAttribute="leadingMargin" constant="-20" id="hTg-eh-Rpc"/>
-                            <constraint firstItem="4iC-zp-Pfe" firstAttribute="top" secondItem="nfI-nx-2LN" secondAttribute="bottom" id="irK-zl-gty"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="NHi-Z9-6QJ" secondAttribute="trailing" constant="-20" id="njy-Cj-vqQ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Messages" id="cRc-nK-JiL"/>
-                    <connections>
-                        <outlet property="cancelButton" destination="4PD-nc-3uY" id="MEg-qK-DLo"/>
-                        <outlet property="messageResponseTextView" destination="NHi-Z9-6QJ" id="JEN-ge-kqA"/>
-                        <outlet property="messageToSendTextField" destination="9U0-Vg-CAL" id="9cm-Oo-nIc"/>
-                        <outlet property="sendButton" destination="CYp-P0-Cuk" id="7fS-Kz-nBm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jsu-OI-uEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6265" y="-1503"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="pYb-RP-NoP">
             <objects>
@@ -346,6 +259,6 @@
         <image name="wifi" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uv8-sq-z8F"/>
+        <segue reference="DUl-mI-ce5"/>
     </inferredMetricsTieBreakers>
 </document>
