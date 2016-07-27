@@ -35,7 +35,6 @@
 
 @property (nonatomic, assign) CGPoint lastKnownTranslation;
 
-
 @end
 
 

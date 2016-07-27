@@ -10,6 +10,8 @@
 		8104B6B71D27D26D00471675 /* BLCRemoveMiddleVCSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8104B6B61D27D26D00471675 /* BLCRemoveMiddleVCSegue.m */; };
 		810B25031D189FB600167D97 /* BLCConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B25021D189FB600167D97 /* BLCConversationListViewController.m */; };
 		810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */; };
+		810C76F21D48C86B00469A4C /* BLCBaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */; };
+		810C76F61D48CEFA00469A4C /* BLCNewConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */; };
 		8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */; };
 		8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */; };
 		814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814275CD1D1AA76E00F95162 /* Main.storyboard */; };
@@ -79,6 +81,11 @@
 		810B25021D189FB600167D97 /* BLCConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCConversationListViewController.m; sourceTree = "<group>"; };
 		810B25091D18B2B800167D97 /* UIImage+UIImageExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIImageExtensions.h"; sourceTree = "<group>"; };
 		810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIImageExtensions.m"; sourceTree = "<group>"; };
+		810C76F01D48C86B00469A4C /* BLCBaseConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCBaseConversationCell.h; sourceTree = "<group>"; };
+		810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCBaseConversationCell.m; sourceTree = "<group>"; };
+		810C76F41D48CEFA00469A4C /* BLCNewConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNewConversationCell.h; sourceTree = "<group>"; };
+		810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCNewConversationCell.m; sourceTree = "<group>"; };
+		810C76F71D48D35300469A4C /* BLCBaseConversationCellPrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCBaseConversationCellPrivateProperties.h; sourceTree = "<group>"; };
 		811667191D36519A00B27A95 /* BLCJSQMessageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCJSQMessageWrapper.h; sourceTree = "<group>"; };
 		8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCJSQMessageWrapper.m; sourceTree = "<group>"; };
 		8116671C1D365DE200B27A95 /* BLCPersistanceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCPersistanceObject.h; sourceTree = "<group>"; };
@@ -229,6 +236,23 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		810C76F31D48C9B300469A4C /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				81780F111D25B42F009DB3E2 /* BLCConversationCell.h */,
+				81780F121D25B42F009DB3E2 /* BLCConversationCell.m */,
+				817121481D35668B00FB6717 /* BLCConnectorCell.h */,
+				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
+				8180DC491D464C7500D06277 /* BLCButtonSwipeView.h */,
+				8180DC4A1D464C7500D06277 /* BLCButtonSwipeView.m */,
+				810C76F01D48C86B00469A4C /* BLCBaseConversationCell.h */,
+				810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */,
+				810C76F41D48CEFA00469A4C /* BLCNewConversationCell.h */,
+				810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */,
+			);
+			name = UITableView;
+			sourceTree = "<group>";
+		};
 		811C0C0A1D1895B500B969F9 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,18 +275,13 @@
 		811C0C0C1D1895D900B969F9 /* Custom UI (Views) */ = {
 			isa = PBXGroup;
 			children = (
+				810C76F31D48C9B300469A4C /* UITableView */,
 				81B024321D18CEDF00273D14 /* BLCProfilePictureImageView.h */,
 				81B024331D18CEDF00273D14 /* BLCProfilePictureImageView.m */,
-				81780F111D25B42F009DB3E2 /* BLCConversationCell.h */,
-				81780F121D25B42F009DB3E2 /* BLCConversationCell.m */,
-				817121481D35668B00FB6717 /* BLCConnectorCell.h */,
-				817121491D35668B00FB6717 /* BLCConnectorCell.m */,
 				81DFACFC1D3961AC00EA046E /* BLCNavBarConversationTitleView.h */,
 				81DFACFD1D3961AC00EA046E /* BLCNavBarConversationTitleView.m */,
 				81D340491D3BDD0E00A2F3F7 /* HDNotificationView.h */,
 				81D3404A1D3BDD0E00A2F3F7 /* HDNotificationView.m */,
-				8180DC491D464C7500D06277 /* BLCButtonSwipeView.h */,
-				8180DC4A1D464C7500D06277 /* BLCButtonSwipeView.m */,
 			);
 			name = "Custom UI (Views)";
 			sourceTree = "<group>";
@@ -378,6 +397,7 @@
 			children = (
 				818C1A151D18946100130F5B /* Info.plist */,
 				818C1A051D18946000130F5B /* main.m */,
+				810C76F71D48D35300469A4C /* BLCBaseConversationCellPrivateProperties.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -644,7 +664,9 @@
 				81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */,
 				816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */,
 				81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */,
+				810C76F61D48CEFA00469A4C /* BLCNewConversationCell.m in Sources */,
 				8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */,
+				810C76F21D48C86B00469A4C /* BLCBaseConversationCell.m in Sources */,
 				816345B91D26C49D004FFFA1 /* BLCConversationViewController.m in Sources */,
 				81B024341D18CEDF00273D14 /* BLCProfilePictureImageView.m in Sources */,
 				817121401D33D72300FB6717 /* BLCTextMessage.m in Sources */,

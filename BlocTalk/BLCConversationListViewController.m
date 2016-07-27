@@ -12,6 +12,7 @@
 #import "BLCConversationViewController.h"
 #import "BLCMultiPeerManager.h"
 #import "BLCConversationCell.h"
+#import "BLCNewConversationCell.h"
 #import "BLCConversation.h"
 #import "BLCUser.h"
 #import "BLCTextMessage.h"
@@ -27,7 +28,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface BLCConversationListViewController () <BLCConversationCellSwipeDelegate>
+@interface BLCConversationListViewController () <BLCConversationCellSwipeDelegate, BLCNewConversationCellSwipeDelegate>
 
 @property (nonatomic, strong) UINib *messageCellViewNib;
 @property (nonatomic, strong) UILabel *noConversationsInfoLabel;
@@ -61,7 +62,9 @@
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
     
-    [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
+//    [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
+    
+    [self.tableView registerClass:[BLCNewConversationCell class] forCellReuseIdentifier:@"cell"];
     
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
     
@@ -70,8 +73,7 @@
     NSMutableArray *actionButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
     
     [actionButtonItems addObject:archiveBarButton];
-    
-//    self.navigationItem.rightBarButtonItems = actionButtonItems;
+
     self.navigationItem.leftBarButtonItems = actionButtonItems;
     
 }
@@ -286,7 +288,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+//    BLCConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    BLCNewConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];

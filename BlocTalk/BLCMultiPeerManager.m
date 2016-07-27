@@ -195,7 +195,9 @@ static NSString *const ServiceType = @"bloctalk-chat";
                 
                 [HDNotificationView showNotificationViewWithImage:[UIImage imageNamed:@"checked_icon2.png"] title:@"Succesful Connection" message:[NSString stringWithFormat:@"Made Succesful Connection To %@", peerID.displayName] ];
                 
-                [self.delegate peerDidGetConnectedWithID:peerID];
+                if (self.delegate) {
+                    [self.delegate peerDidGetConnectedWithID:peerID];
+                }
                 
             }
             else if (state == MCSessionStateNotConnected){
@@ -210,7 +212,9 @@ static NSString *const ServiceType = @"bloctalk-chat";
                     [self.kvoConnectedDevicesMutableArray removeObject:peerID];
                 }
                 
-                [self.delegate peerDidGetDisconnectedWithID:peerID];
+                if (self.delegate) {
+                     [self.delegate peerDidGetDisconnectedWithID:peerID];
+                }
                 
                 [HDNotificationView showNotificationViewWithImage:[UIImage imageNamed:@"disconnected_icon.png"] title:@"Warning" message:[NSString stringWithFormat:@"Disconnected From Peer: %@", peerID.displayName] ];
                 
