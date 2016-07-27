@@ -62,8 +62,6 @@
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(conversations)) options:0 context:nil];
     
-//    [self.tableView registerClass:[BLCConversationCell class] forCellReuseIdentifier:@"cell"];
-    
     [self.tableView registerClass:[BLCNewConversationCell class] forCellReuseIdentifier:@"cell"];
     
     self.kvoConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
@@ -80,7 +78,7 @@
 
 
 -(void)archiveBarButtonPressed:(UIBarButtonItem *)sender {
-    NSLog(@"Archive Button Pressed");
+    [self performSegueWithIdentifier:@"pushArchivedTableViewController" sender:self];
 }
 
 
@@ -288,7 +286,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    BLCConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     BLCNewConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
@@ -459,7 +456,6 @@
     
     if ([segue.identifier isEqualToString:@"pushExistingConversation"]) {
         
-        
         BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
         
         NSIndexPath *selectedCellIndexPath = [self.tableView indexPathForSelectedRow];
@@ -484,6 +480,7 @@
             
         }
         
+        conversationViewController.selectedFromArchiveVC = NO;
         conversationViewController.conversation = conversation;
         conversationViewController.senderDisplayName = conversation.user.username;
         conversationViewController.senderId = conversation.user.initializingUserID;

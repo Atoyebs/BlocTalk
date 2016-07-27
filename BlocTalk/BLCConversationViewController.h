@@ -16,5 +16,7 @@ static NSString *const PostToGroupConversation = @"DidPostToGroupConversation";
 @interface BLCConversationViewController : JSQMessagesViewController
 
 @property (nonatomic, strong) BLCConversation *conversation;
+@property (nonatomic, assign) BOOL selectedFromArchiveVC;
+
 
 @end

@@ -50,20 +50,39 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.titleView = [[BLCNavBarConversationTitleView alloc] init];
-    self.navigationItem.titleView = self.titleView;
-    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    if (self.conversation.recipients.count > 1) {
-        self.titleView.conversationUserNameLabel.text = @"Multiple Recipients";
-    }
-    else if (self.conversation.recipients.count == 1) {
-        MCPeerID *peer = [self.conversation.recipients firstObject];
-        self.titleView.conversationUserNameLabel.text = peer.displayName;
+    if (!self.selectedFromArchiveVC) {
+        
+        self.titleView = [[BLCNavBarConversationTitleView alloc] init];
+        self.navigationItem.titleView = self.titleView;
+        
+        if (self.conversation.recipients.count > 1) {
+            self.titleView.conversationUserNameLabel.text = @"Multiple Recipients";
+        }
+        else if (self.conversation.recipients.count == 1) {
+            MCPeerID *peer = [self.conversation.recipients firstObject];
+            self.titleView.conversationUserNameLabel.text = peer.displayName;
+        }
+        else {
+            self.titleView.conversationUserNameLabel.text = @"Unknown";
+        }
+        
     }
     else {
-        self.titleView.conversationUserNameLabel.text = @"Unknown";
+        
+        if (self.conversation.recipients.count > 1) {
+            self.title = @"Multiple Recipients";
+        }
+        else if (self.conversation.recipients.count == 1) {
+            MCPeerID *peer = [self.conversation.recipients firstObject];
+            self.title = peer.displayName;
+        }
+        else {
+            self.title = @"Unknown";
+        }
+        
     }
+    
+    self.appDelegate = (BLCAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.dataSource = [BLCDataSource sharedInstance];
     
@@ -83,6 +102,14 @@
     
     self.collectionViewGestureRecognizer.delegate = self;
     [self.collectionView addGestureRecognizer:self.collectionViewGestureRecognizer];
+    
+    self.inputToolbar.contentView.textView.editable = YES;
+    
+    if (self.selectedFromArchiveVC) {
+        self.inputToolbar.contentView.textView.editable = NO;
+        self.inputToolbar.contentView.textView.placeHolder = @"Disabled";
+    }
+    
     
 }
 

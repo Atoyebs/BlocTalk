@@ -12,6 +12,7 @@
 		810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 810B250A1D18B2B800167D97 /* UIImage+UIImageExtensions.m */; };
 		810C76F21D48C86B00469A4C /* BLCBaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */; };
 		810C76F61D48CEFA00469A4C /* BLCNewConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */; };
+		810C76FE1D4930CF00469A4C /* BLCArchivedConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76FD1D4930CF00469A4C /* BLCArchivedConversationListViewController.m */; };
 		8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */; };
 		8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */; };
 		814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814275CD1D1AA76E00F95162 /* Main.storyboard */; };
@@ -86,6 +87,8 @@
 		810C76F41D48CEFA00469A4C /* BLCNewConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCNewConversationCell.h; sourceTree = "<group>"; };
 		810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCNewConversationCell.m; sourceTree = "<group>"; };
 		810C76F71D48D35300469A4C /* BLCBaseConversationCellPrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCBaseConversationCellPrivateProperties.h; sourceTree = "<group>"; };
+		810C76FC1D4930CF00469A4C /* BLCArchivedConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCArchivedConversationListViewController.h; sourceTree = "<group>"; };
+		810C76FD1D4930CF00469A4C /* BLCArchivedConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCArchivedConversationListViewController.m; sourceTree = "<group>"; };
 		811667191D36519A00B27A95 /* BLCJSQMessageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCJSQMessageWrapper.h; sourceTree = "<group>"; };
 		8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCJSQMessageWrapper.m; sourceTree = "<group>"; };
 		8116671C1D365DE200B27A95 /* BLCPersistanceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCPersistanceObject.h; sourceTree = "<group>"; };
@@ -253,6 +256,15 @@
 			name = UITableView;
 			sourceTree = "<group>";
 		};
+		810C76F81D492EEA00469A4C /* Archives */ = {
+			isa = PBXGroup;
+			children = (
+				810C76FC1D4930CF00469A4C /* BLCArchivedConversationListViewController.h */,
+				810C76FD1D4930CF00469A4C /* BLCArchivedConversationListViewController.m */,
+			);
+			name = Archives;
+			sourceTree = "<group>";
+		};
 		811C0C0A1D1895B500B969F9 /* App Delegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +277,7 @@
 		811C0C0B1D1895C700B969F9 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				810C76F81D492EEA00469A4C /* Archives */,
 				817121441D350A7A00FB6717 /* MultiPeer */,
 				81780F101D259517009DB3E2 /* Messaging */,
 				81780F0F1D25950D009DB3E2 /* Settings */,
@@ -655,6 +668,7 @@
 				8180DC4B1D464C7500D06277 /* BLCButtonSwipeView.m in Sources */,
 				818C1A061D18946000130F5B /* main.m in Sources */,
 				816345B31D26BF01004FFFA1 /* BLCConversation.m in Sources */,
+				810C76FE1D4930CF00469A4C /* BLCArchivedConversationListViewController.m in Sources */,
 				816345B61D26BFA2004FFFA1 /* BLCUser.m in Sources */,
 				810B25031D189FB600167D97 /* BLCConversationListViewController.m in Sources */,
 				810B250B1D18B2B800167D97 /* UIImage+UIImageExtensions.m in Sources */,

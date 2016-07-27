@@ -52,6 +52,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="wZD-DH-qOI" kind="show" identifier="pushExistingConversation" id="DUl-mI-ce5"/>
+                        <segue destination="Aje-At-WtB" kind="show" identifier="pushArchivedTableViewController" id="ZfE-QM-T1X"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJD-0x-R5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -86,6 +87,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Mq-Mo-Z6I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2285" y="890"/>
+        </scene>
+        <!--Archives-->
+        <scene sceneID="WMO-WM-HwZ">
+            <objects>
+                <tableViewController id="Aje-At-WtB" customClass="BLCArchivedConversationListViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="egA-wC-YHf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" id="HyV-bW-dJT">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HyV-bW-dJT" id="B9u-Uc-gal">
+                                    <rect key="frame" x="0.0" y="0.0" width="561" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Aje-At-WtB" id="CY9-WK-QPC"/>
+                            <outlet property="delegate" destination="Aje-At-WtB" id="ihT-yM-pvv"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Archives" id="OR8-N9-vEf">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="7Yi-dJ-FO0"/>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="wZD-DH-qOI" kind="show" identifier="pushExistingConversation" id="R8m-vd-tzs"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cPr-CA-7eX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3305" y="890"/>
         </scene>
         <!--Available Contacts-->
         <scene sceneID="XCR-Zn-1yh">
@@ -259,6 +294,6 @@
         <image name="wifi" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DUl-mI-ce5"/>
+        <segue reference="R8m-vd-tzs"/>
     </inferredMetricsTieBreakers>
 </document>
