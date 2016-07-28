@@ -36,6 +36,10 @@
 @property (nonatomic, strong) NSMutableArray <BLCConversation *> *kvoArchivedConversationsArray;
 @property (nonatomic, strong) UIImageView *messageIconImageView;
 @property (nonatomic, strong) UIColor *backGColor;
+
+
+@property (nonatomic, strong) UIBarButtonItem *editBarButton, *doneBarButton;
+
 @end
 
 
@@ -60,6 +64,11 @@
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(archivedConversations)) options:0 context:nil];
     
+    self.editBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed:)];
+    
+    self.doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
+    
+    self.navigationItem.rightBarButtonItem = self.editBarButton;
     
 }
 
@@ -69,6 +78,19 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+-(void)editButtonPressed:(UIBarButtonItem *)sender {
+    
+    [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
+    
+}
+
+
+-(void)doneButtonPressed:(UIBarButtonItem *)sender {
+    
+    [self.navigationItem setRightBarButtonItem:self.editBarButton animated:YES];
+    
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     

@@ -97,11 +97,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" id="HyV-bW-dJT">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="HyV-bW-dJT">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HyV-bW-dJT" id="B9u-Uc-gal">
-                                    <rect key="frame" x="0.0" y="0.0" width="561" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -111,9 +111,7 @@
                             <outlet property="delegate" destination="Aje-At-WtB" id="ihT-yM-pvv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Archives" id="OR8-N9-vEf">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="7Yi-dJ-FO0"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Archives" id="OR8-N9-vEf"/>
                     <connections>
                         <segue destination="wZD-DH-qOI" kind="show" identifier="pushExistingConversation" id="R8m-vd-tzs"/>
                     </connections>
