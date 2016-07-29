@@ -48,6 +48,8 @@
 }
 
 
+
+
 -(void)setupSwipeViews {
     
     BLCButtonSwipeView *swipeViewLeft = [[BLCButtonSwipeView alloc] init];
@@ -66,6 +68,7 @@
         }
         
         weakSelf.lastKnownTranslation = translation;
+        
     }];
     
     // Call the didTriggerLeftViewButtonWithIndex delegate when the left view button is triggered
@@ -82,9 +85,12 @@
             
             if (weakSelf.delegate) {
                 [weakSelf.delegate swipeableTableViewCell:weakSelf didCompleteSwipe:mode];
+                weakSelf.lastKnownTranslation = CGPointZero;
             }
             
         }
+        
+        
         
     }];
     
@@ -127,14 +133,15 @@
     
     // Make some layout adjustments to the image in the left swipe view
     BLCButtonSwipeView *leftView = (BLCButtonSwipeView *)self.leftSwipeView;
+    
     leftView.aButton.contentHorizontalAlignment = (self.swipeEffect == YATableSwipeEffectUnmask) ? UIControlContentHorizontalAlignmentLeft : UIControlContentHorizontalAlignmentRight;
     CGFloat leftInset = (self.swipeEffect == YATableSwipeEffectUnmask) ? 20.0 : 0;
     CGFloat rightInset = (self.swipeEffect == YATableSwipeEffectUnmask) ? 0 : 20.0;
+    
     [leftView.aButton setImageEdgeInsets:UIEdgeInsetsMake(0, leftInset, 0, rightInset)];
     
     // Set the snap thresholds
     self.rightSwipeSnapThreshold = self.bounds.size.width * 0.3;
-    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.1;
     
 }
 

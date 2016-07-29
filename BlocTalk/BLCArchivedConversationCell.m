@@ -50,6 +50,9 @@
         self.unselectedArchiveEditAccessory.translatesAutoresizingMaskIntoConstraints = NO;
         self.selectedForArchiveEditAccessory.translatesAutoresizingMaskIntoConstraints = NO;
         
+        self.selectedForArchiveEditAccessory.enabled = NO;
+        self.unselectedArchiveEditAccessory.enabled = NO;
+        
         [self.contentView addSubview:self.unselectedArchiveEditAccessory];
         [self.contentView addSubview:self.selectedForArchiveEditAccessory];
         

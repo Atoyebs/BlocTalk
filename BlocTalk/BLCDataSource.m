@@ -472,6 +472,35 @@
     
 }
 
+-(void)removeArchivedConversationsAtIndexes:(NSIndexSet *)indexes {
+    
+    [self.archivedConversations removeObjectsAtIndexes:indexes];
+}
 
+
+-(void)unarchiveConversations:(NSIndexSet *)selectedConversationsIndexes {
+    
+    NSMutableArray *archivedConversationKVOArray = [self mutableArrayValueForKey:NSStringFromSelector(@selector(archivedConversations))];
+    NSMutableArray *mainConversationListKVOArray = [self mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
+    
+    NSArray <BLCConversation *> *arrayOfConversations = [archivedConversationKVOArray objectsAtIndexes:selectedConversationsIndexes];
+    
+    for (BLCConversation *conv in arrayOfConversations) {
+        [mainConversationListKVOArray insertObject:conv atIndex:0];
+    }
+    
+    [archivedConversationKVOArray removeObjectsAtIndexes:selectedConversationsIndexes];
+    
+    [BLCPersistanceObject persistObjectToMemory:self.archivedConversations forFileName:NSStringFromSelector(@selector(archivedConversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation to the archive array list was unsuccesful!");
+        }
+        else {
+            NSLog(@"congrats, persisting the conversation to the archive array list was succesful!");
+        }
+    }];
+    
+}
 
 @end

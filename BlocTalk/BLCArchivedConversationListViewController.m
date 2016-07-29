@@ -43,7 +43,7 @@
 
 @property (nonatomic, strong) UIBarButtonItem *editBarButton, *doneBarButton, *cancelBarButton;
 
-@property (nonatomic, strong) NSMutableArray <BLCConversation *> *conversationsToUnarchive;
+@property (nonatomic, strong) NSMutableIndexSet *conversationsToUnarchive;
 
 @end
 
@@ -96,12 +96,13 @@
     self.isInEditMode = YES;
     
     if (!self.conversationsToUnarchive) {
-        self.conversationsToUnarchive = [[NSMutableArray alloc] init];
+        self.conversationsToUnarchive = [NSMutableIndexSet indexSet];
     }
     
     for (BLCArchivedConversationCell *cell in self.tableView.visibleCells) {
         [cell showCustomEditAccessoryView];
     }
+    
     
 }
 
@@ -111,6 +112,16 @@
     self.isInEditMode = NO;
     
     [self.navigationItem setRightBarButtonItem:self.editBarButton animated:YES];
+    
+    if ([self.tableView indexPathsForSelectedRows].count > 0) {
+        
+        for (NSIndexPath *indexPath in [self.tableView indexPathsForSelectedRows]) {
+            [self.conversationsToUnarchive addIndex:indexPath.section];
+        }
+        
+    }
+    
+    [self.dataSource unarchiveConversations:self.conversationsToUnarchive];
     
     for (BLCArchivedConversationCell *cell in self.tableView.visibleCells) {
         [cell hideAllCellEditAccessoryControls];
@@ -158,7 +169,7 @@
     BLCArchivedConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        cell = [[BLCArchivedConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
     // Configure the cell...
@@ -207,14 +218,13 @@
         
         [cell changeEditAccessoryViewControl];
         
-        [self.conversationsToUnarchive addObject:cell.conversation];
+        [self.conversationsToUnarchive addIndex:indexPath.section];
         
-        if (self.conversationsToUnarchive.count >  0 && ![self.navigationItem.rightBarButtonItem isEqual:self.doneBarButton]) {
-            [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
-        }
+        [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
         
     }
     else {
+        cell.selected = NO;
         [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
     }
     
@@ -233,7 +243,7 @@
         
         [cell changeEditAccessoryViewControl];
         
-        [self.conversationsToUnarchive removeObject:cell.conversation];
+        [self.conversationsToUnarchive removeIndex:indexPath.section];
         
         if (self.conversationsToUnarchive.count <  1 && [self.navigationItem.rightBarButtonItem isEqual:self.doneBarButton]) {
             [self.navigationItem setRightBarButtonItem:self.cancelBarButton animated:YES];
@@ -243,6 +253,46 @@
     
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(archivedConversations))]) {
+        
+        NSLog(@"\n\nChange Occuring In Archived Conversations Array");
+        
+        // We know the property has changed.  Let's see what kind of change it is.
+        int kindOfChange = [change[NSKeyValueChangeKindKey] intValue];
+        
+        if (kindOfChange == NSKeyValueChangeSetting) {
+            // A new property for archivedConversations has been set
+            [self.tableView reloadData];
+        }
+        else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
+            
+            // Get a list of the index (or indices) that changed
+            NSIndexSet *indexSetOfChanges = change[NSKeyValueChangeIndexesKey];
+            
+            // Call `beginUpdates` to tell the table view we're about to make changes
+            [self.tableView beginUpdates];
+            
+            // Tell the table view what the changes are
+            if (kindOfChange == NSKeyValueChangeInsertion) {
+                [self.tableView insertSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                [self.tableView deleteSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (kindOfChange == NSKeyValueChangeReplacement) {
+                [self.tableView reloadSections:indexSetOfChanges withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            
+            // Tell the table view that we're done telling it about changes, and to complete the animation
+            [self.tableView endUpdates];
+            
+        }
+        
+        
+        [self.tableView reloadData];
+    }
+    
+}
 
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -250,6 +300,8 @@
     BLCArchivedConversationCell *cellToDisplay = (BLCArchivedConversationCell *)cell;
     
     [cellToDisplay hideAllCellEditAccessoryControls];
+    
+    NSLog(@"Cell Selected State = %@", (cell.selected)? @"Selected" : @"Not Selected");
     
     if (self.isInEditMode) {
         [cellToDisplay changeEditAccessoryViewControl];
@@ -262,6 +314,7 @@
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+
 
 
 

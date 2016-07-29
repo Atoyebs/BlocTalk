@@ -107,7 +107,7 @@
     [self setSwipeEffect:YATableSwipeEffectUnmask];
     self.allowMultiple = YES;
     self.swipeContainerViewBackgroundColor = swipeViewLeft.swipeColor;
-    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.30;
+//    self.leftSwipeSnapThreshold = self.bounds.size.width * 0.30;
     
     __weak BLCConversationCell *weakSelf = self;
     

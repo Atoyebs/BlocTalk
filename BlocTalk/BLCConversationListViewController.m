@@ -286,10 +286,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCNewConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    BLCNewConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
     if (!cell) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        cell = [[BLCNewConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     
     cell.delegate = self;
@@ -310,7 +310,9 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCConversationCell *convCell = (BLCConversationCell *)cell;
+    BLCNewConversationCell *convCell = (BLCNewConversationCell *)cell;
+    
+    [cell resetSwipe:nil withAnimation:NO];
     
     [convCell updateConversationCell];
     
@@ -423,6 +425,7 @@
                        
                    } completion:nil];
                    
+                   [self removeNoConversationViewFromTableView];
                    
                } else if (kindOfChange == NSKeyValueChangeRemoval) {
                    
@@ -509,7 +512,7 @@
 
 -(void)swipeableTableViewCell:(BLCConversationCell *)cell didTriggerLeftViewButtonWithIndex:(NSInteger)index {
     
-//    NSLog(@"Swipe Has Been Succesfully triggered!");
+    NSLog(@"Swipe Has Been Succesfully triggered!");
     
 }
 

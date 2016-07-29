@@ -35,6 +35,7 @@
 
 - (void)archiveConversation:(BLCConversation *)conversation;
 
+- (void)unarchiveConversations:(NSIndexSet *)selectedConversationsIndexes;
 
 
 @property (nonatomic, strong, readonly) NSMutableArray <BLCConversation *> *conversations;
