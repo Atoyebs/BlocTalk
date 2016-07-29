@@ -7,6 +7,7 @@
 //
 
 #import "BLCArchivedConversationListViewController.h"
+#import "BLCArchivedConversationCell.h"
 #import "BLCBaseConversationCell.h"
 #import "BLCConversationListViewController.h"
 #import "BLCPersistanceObject.h"
@@ -37,8 +38,12 @@
 @property (nonatomic, strong) UIImageView *messageIconImageView;
 @property (nonatomic, strong) UIColor *backGColor;
 
+@property (nonatomic, assign) BOOL isInEditMode;
 
-@property (nonatomic, strong) UIBarButtonItem *editBarButton, *doneBarButton;
+
+@property (nonatomic, strong) UIBarButtonItem *editBarButton, *doneBarButton, *cancelBarButton;
+
+@property (nonatomic, strong) NSMutableArray <BLCConversation *> *conversationsToUnarchive;
 
 @end
 
@@ -58,15 +63,20 @@
     
     self.tableView.backgroundColor = self.backGColor;
     
-    [self.tableView registerClass:[BLCBaseConversationCell class] forCellReuseIdentifier:@"cell"];
+    [self.tableView registerClass:[BLCArchivedConversationCell class] forCellReuseIdentifier:@"cell"];
 
     self.kvoArchivedConversationsArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(archivedConversations))];
     
     [self.dataSource addObserver:self forKeyPath:NSStringFromSelector(@selector(archivedConversations)) options:0 context:nil];
     
-    self.editBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPressed:)];
+    self.editBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(editButtonPressed:)];
     
-    self.doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
+    self.isInEditMode = NO;
+    
+    self.doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Unarchive" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonPressed:)];
+    
+    self.cancelBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelButtonPressed:)];
+    
     
     self.navigationItem.rightBarButtonItem = self.editBarButton;
     
@@ -81,16 +91,57 @@
 
 -(void)editButtonPressed:(UIBarButtonItem *)sender {
     
-    [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
+    [self.navigationItem setRightBarButtonItem:self.cancelBarButton animated:YES];
+    
+    self.isInEditMode = YES;
+    
+    if (!self.conversationsToUnarchive) {
+        self.conversationsToUnarchive = [[NSMutableArray alloc] init];
+    }
+    
+    for (BLCArchivedConversationCell *cell in self.tableView.visibleCells) {
+        [cell showCustomEditAccessoryView];
+    }
     
 }
 
 
 -(void)doneButtonPressed:(UIBarButtonItem *)sender {
     
+    self.isInEditMode = NO;
+    
+    [self.navigationItem setRightBarButtonItem:self.editBarButton animated:YES];
+    
+    for (BLCArchivedConversationCell *cell in self.tableView.visibleCells) {
+        [cell hideAllCellEditAccessoryControls];
+    }
+    
+}
+
+
+-(void)cancelButtonPressed:(UIBarButtonItem *)sender {
+    
+    self.isInEditMode = NO;
+    
+    self.conversationsToUnarchive = nil;
+    
+    for (BLCArchivedConversationCell *cell in self.tableView.visibleCells) {
+        [cell hideAllCellEditAccessoryControls];
+    }
+    
     [self.navigationItem setRightBarButtonItem:self.editBarButton animated:YES];
     
 }
+
+
+-(void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    self.isInEditMode = NO;
+    [self.navigationItem setRightBarButtonItem:self.editBarButton animated:YES];
+    
+}
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -104,7 +155,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCBaseConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    BLCArchivedConversationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     if (!cell) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -145,21 +196,75 @@
 }
 
 
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    BLCBaseConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    BLCArchivedConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     [cell.messagePreviewTextView becomeFirstResponder];
     
-    [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
+    if (self.isInEditMode) {
+        
+        [cell changeEditAccessoryViewControl];
+        
+        [self.conversationsToUnarchive addObject:cell.conversation];
+        
+        if (self.conversationsToUnarchive.count >  0 && ![self.navigationItem.rightBarButtonItem isEqual:self.doneBarButton]) {
+            [self.navigationItem setRightBarButtonItem:self.doneBarButton animated:YES];
+        }
+        
+    }
+    else {
+        [self performSegueWithIdentifier:@"pushExistingConversation" sender:self];
+    }
+    
+    
+    
 }
 
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BLCArchivedConversationCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    [cell.messagePreviewTextView becomeFirstResponder];
+    
+    if (self.isInEditMode) {
+        
+        [cell changeEditAccessoryViewControl];
+        
+        [self.conversationsToUnarchive removeObject:cell.conversation];
+        
+        if (self.conversationsToUnarchive.count <  1 && [self.navigationItem.rightBarButtonItem isEqual:self.doneBarButton]) {
+            [self.navigationItem setRightBarButtonItem:self.cancelBarButton animated:YES];
+        }
+        
+    }
+    
+}
+
+
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BLCArchivedConversationCell *cellToDisplay = (BLCArchivedConversationCell *)cell;
+    
+    [cellToDisplay hideAllCellEditAccessoryControls];
+    
+    if (self.isInEditMode) {
+        [cellToDisplay changeEditAccessoryViewControl];
+    }
+    
+}
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+
+
+
 
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

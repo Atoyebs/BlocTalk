@@ -13,6 +13,7 @@
 		810C76F21D48C86B00469A4C /* BLCBaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */; };
 		810C76F61D48CEFA00469A4C /* BLCNewConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */; };
 		810C76FE1D4930CF00469A4C /* BLCArchivedConversationListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C76FD1D4930CF00469A4C /* BLCArchivedConversationListViewController.m */; };
+		810C77011D4AD23700469A4C /* BLCArchivedConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 810C77001D4AD23700469A4C /* BLCArchivedConversationCell.m */; };
 		8116671B1D36519A00B27A95 /* BLCJSQMessageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */; };
 		8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8116671D1D365DE200B27A95 /* BLCPersistanceObject.m */; };
 		814275CE1D1AA76E00F95162 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 814275CD1D1AA76E00F95162 /* Main.storyboard */; };
@@ -89,6 +90,8 @@
 		810C76F71D48D35300469A4C /* BLCBaseConversationCellPrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCBaseConversationCellPrivateProperties.h; sourceTree = "<group>"; };
 		810C76FC1D4930CF00469A4C /* BLCArchivedConversationListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCArchivedConversationListViewController.h; sourceTree = "<group>"; };
 		810C76FD1D4930CF00469A4C /* BLCArchivedConversationListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCArchivedConversationListViewController.m; sourceTree = "<group>"; };
+		810C76FF1D4AD23700469A4C /* BLCArchivedConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCArchivedConversationCell.h; sourceTree = "<group>"; };
+		810C77001D4AD23700469A4C /* BLCArchivedConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCArchivedConversationCell.m; sourceTree = "<group>"; };
 		811667191D36519A00B27A95 /* BLCJSQMessageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCJSQMessageWrapper.h; sourceTree = "<group>"; };
 		8116671A1D36519A00B27A95 /* BLCJSQMessageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCJSQMessageWrapper.m; sourceTree = "<group>"; };
 		8116671C1D365DE200B27A95 /* BLCPersistanceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCPersistanceObject.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				810C76F11D48C86B00469A4C /* BLCBaseConversationCell.m */,
 				810C76F41D48CEFA00469A4C /* BLCNewConversationCell.h */,
 				810C76F51D48CEFA00469A4C /* BLCNewConversationCell.m */,
+				810C76FF1D4AD23700469A4C /* BLCArchivedConversationCell.h */,
+				810C77001D4AD23700469A4C /* BLCArchivedConversationCell.m */,
 			);
 			name = UITableView;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				8116671E1D365DE200B27A95 /* BLCPersistanceObject.m in Sources */,
 				8171214A1D35668B00FB6717 /* BLCConnectorCell.m in Sources */,
 				81CFDD221D1FDCD7002CFD1D /* BLCDissmissSegue.m in Sources */,
+				810C77011D4AD23700469A4C /* BLCArchivedConversationCell.m in Sources */,
 				816345BF1D270657004FFFA1 /* BLCAvailableContactsSelecterTableViewController.m in Sources */,
 				81DFACFE1D3961AC00EA046E /* BLCNavBarConversationTitleView.m in Sources */,
 				810C76F61D48CEFA00469A4C /* BLCNewConversationCell.m in Sources */,
