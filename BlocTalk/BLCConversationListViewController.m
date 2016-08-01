@@ -108,9 +108,10 @@
     
     BLCUser *userWhoSentMessage = [self.dataSource.knownUsersDictionary objectForKey:receivedText.user.initializingUserID];
     
-    if (conversation) {
+    //if the conversation exists AND isn't archived!
+    if (conversation && !conversation.isArchived) {
         
-        NSLog(@"Found the conversation! Yay!");
+        NSLog(@"Received A New Message For An Existing Conversation That Isn't Archived!");
         
         BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
         
@@ -132,6 +133,42 @@
         }];
         
         [self sendMessageReceivedNotification:receivedMessage];
+        
+    }
+    else if (conversation && conversation.isArchived) {
+        
+        NSLog(@"Received A New Message For An Existing Archived Conversation!");
+        
+        BLCJSQMessageWrapper *receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:receivedText.user.initializingUserID displayName:receivedText.user.username text:receivedText.textMessage image:self.appDelegate.profilePicturePlaceholderImage];
+        
+        if (userWhoSentMessage) {
+            receivedMessage = [BLCJSQMessageWrapper messageWithSenderId:userWhoSentMessage.initializingUserID displayName:userWhoSentMessage.username text:receivedText.textMessage image:userWhoSentMessage.profilePicture];
+        }
+        
+        NSMutableArray <BLCConversation *> *kvoArchiveMutableArray = [self.dataSource mutableArrayValueForKey:NSStringFromSelector(@selector(archivedConversations))];
+        
+        //add the message to the conversation
+        [conversation.messages addObject:receivedMessage];
+        
+        //remove the conversation from the archive array
+        [kvoArchiveMutableArray removeObject:conversation];
+        
+        //if the conversation DOES NOT contain the conversation (if it's (the conversation) been removed succesfully)
+        if (![kvoArchiveMutableArray containsObject:conversation]) {
+            
+            //add the conversation to the main conversations array
+            [self.kvoConversationsArray addObject:conversation];
+
+            [BLCPersistanceObject persistObjectToMemory:self.dataSource.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+                
+                if (!persistSuccesful) {
+                    NSLog(@"persisting the message to the conversation list was unsuccesful!");
+                }
+                
+            }];
+
+            
+        }
         
     }
     else {
@@ -359,12 +396,12 @@
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        [self.kvoConversationsArray removeObjectAtIndex:indexPath.section];
+    }
+    
 }
 
 

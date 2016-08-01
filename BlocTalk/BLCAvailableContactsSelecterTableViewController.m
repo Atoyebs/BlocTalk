@@ -134,9 +134,9 @@
     
     NSArray <MCPeerID *> *selectedPeers = [self selectedRecipientsArray];
     
-    BOOL conversationExists = [self.mainDataSource doesConversationAlreadyExistForRecipients:selectedPeers];
+    BLCConversation *foundConversation = [self.mainDataSource findExistingConversationWithRecipients:selectedPeers];
     
-    if (conversationExists) {
+    if (foundConversation) {
         
         NSLog(@"Conversation Already Exists!");
         
@@ -144,15 +144,9 @@
             
             BLCConversationViewController *conversationViewController = (BLCConversationViewController *)[segue destinationViewController];
             
-            BLCConversation *conv = [self.mainDataSource findExistingConversationWithRecipients:selectedPeers];
-            
-            if (conv) {
-                
-                conversationViewController.conversation = conv;
-                conversationViewController.senderId = conv.user.initializingUserID;
-                conversationViewController.senderDisplayName = conv.user.username;
-
-            }
+            conversationViewController.conversation = foundConversation;
+            conversationViewController.senderId = foundConversation.user.initializingUserID;
+            conversationViewController.senderDisplayName = foundConversation.user.username;
             
         }
 
@@ -209,10 +203,6 @@
         
         BLCConversation *newConversation = [[BLCConversation alloc] init];
         newConversation.recipients = selectedPeers;
-        
-//        BLCUser *initialisingUser = [[BLCUser alloc] init];
-//        initialisingUser.username = self.appDelegate.userName;
-//        initialisingUser.initializingUserID = [[UIDevice currentDevice] identifierForVendor].UUIDString;
         
         newConversation.user = [BLCUser currentDeviceUser];
         

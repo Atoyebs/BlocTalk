@@ -307,6 +307,8 @@
         [cellToDisplay changeEditAccessoryViewControl];
     }
     
+    [cellToDisplay updateConversationCell];
+    
 }
 
 // Override to support conditional editing of the table view.

@@ -116,22 +116,6 @@
 }
 
 
--(void)updateConversationCellWithProfilePictureFromUser:(BLCUser *)user {
-    
-    BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
-    
-    if (user) {
-        self.userProfilePicture.image = user.profilePicture;
-    }
-    else {
-        self.userProfilePicture.image = self.appDelegate.profilePicturePlaceholderImage;
-    }
-    
-    self.messagePreviewTextView.text = mostRecentMessage.text;
-    
-}
-
-
 -(void)updateConversationCell {
     
     BLCJSQMessageWrapper *mostRecentMessage = [self.conversation.messages lastObject];
@@ -151,8 +135,9 @@
         }
         
     }
-        
+    
 }
+
 
 
 
@@ -226,11 +211,13 @@
 -(void)layoutSubviews {
     
         [super layoutSubviews];
-        
-        self.userProfilePicture.clipsToBounds = YES;
-        self.userProfilePicture.layer.masksToBounds = YES;
-        self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
-        
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.userProfilePicture.clipsToBounds = YES;
+            self.userProfilePicture.layer.masksToBounds = YES;
+            self.userProfilePicture.layer.cornerRadius = self.userProfilePicture.layer.frame.size.width/2;
+        });
+    
         [self layoutCell];
     
 }

@@ -276,16 +276,22 @@
         if (!sendTextMessageError) {
             
            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-              
+               
                [self.conversation.messages addObject:message];
                
-               [BLCPersistanceObject persistObjectToMemory:self.dataSource.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+               if (!self.conversation.isArchived) {
                    
-                   if (!persistSuccesful) {
-                       NSLog(@"persisting the message to the conversation list was unsuccesful!");
-                   }
+                   [BLCPersistanceObject persistObjectToMemory:self.dataSource.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+                       
+                       if (!persistSuccesful) {
+                           NSLog(@"persisting the message to the conversation list was unsuccesful!");
+                       }
+                       
+                   }];
                    
-               }];
+               }
+               
+               [self.dataSource unarchiveConversation:self.conversation];
                
                if (self.conversation.messages.count == 1) {
                    [self.kvoConversationsArray insertObject:self.conversation atIndex:0];

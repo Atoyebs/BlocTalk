@@ -185,11 +185,56 @@
         }
         
     }
-
+    
+    if (!foundConversation) {
+        foundConversation = [self findExistingArchivedConversationWithRecipients:recipients];
+    }
     
     return foundConversation;
     
 }
+
+
+-(BLCConversation *)findExistingArchivedConversationWithRecipients:(NSArray *)recipients {
+    
+    BLCConversation *foundConversation = nil;
+    
+    NSInteger numberOfUsersMatched = 0;
+    
+    for (BLCConversation *conv in self.archivedConversations) {
+        
+        if (recipients.count == conv.recipients.count) {
+            
+            for (MCPeerID *selectedRecipient in recipients) {
+                
+                for (MCPeerID *currRecipient in conv.recipients) {
+                    
+                    if ([currRecipient.displayName isEqualToString:selectedRecipient.displayName]) {
+                        numberOfUsersMatched++;
+                        break;
+                    }
+                    
+                    
+                }
+            }
+            
+            if (numberOfUsersMatched == conv.recipients.count) {
+                foundConversation = conv;
+                break;
+            }
+            else {
+                numberOfUsersMatched = 0;
+            }
+            
+        }
+        
+    }
+
+    return foundConversation;
+    
+}
+
+
 
 -(NSArray *)getPeerIDsForSelectedRecipients:(NSArray *)recipients {
 
@@ -344,7 +389,31 @@
 }
 
 -(void)removeConversationsObject:(BLCConversation *)object {
+    
     [_conversations removeObject:object];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
+}
+
+-(void)removeObjectFromConversationsAtIndex:(NSUInteger)index {
+    
+    [self.conversations removeObjectAtIndex:index];
+    
+    [BLCPersistanceObject persistObjectToMemory:_conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+        
+        if (!persistSuccesful) {
+            NSLog(@"persisting the conversation list was unsuccesful!");
+        }
+        
+    }];
+    
 }
 
 -(void)insertConversations:(NSArray *)array atIndexes:(NSIndexSet *)indexes {
@@ -475,8 +544,27 @@
 -(void)removeArchivedConversationsAtIndexes:(NSIndexSet *)indexes {
     
     [self.archivedConversations removeObjectsAtIndexes:indexes];
+    
+    [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        BLCConversation *conv = [self.archivedConversations objectAtIndex:idx];
+        
+        if (conv) {
+            conv.isArchived = NO;
+        }
+        
+    }];
+    
 }
 
+-(void)removeArchivedConversationsObject:(BLCConversation *)object {
+    
+    [self.archivedConversations removeObject:object];
+    
+    if (![self.archivedConversations containsObject:object]) {
+        object.isArchived = NO;
+    }
+}
 
 -(void)unarchiveConversations:(NSIndexSet *)selectedConversationsIndexes {
     
@@ -500,6 +588,43 @@
             NSLog(@"congrats, persisting the conversation to the archive array list was succesful!");
         }
     }];
+    
+}
+
+
+-(void)unarchiveConversation:(BLCConversation *)conversation {
+    
+    NSMutableArray *archivedConversationKVOArray = [self mutableArrayValueForKey:NSStringFromSelector(@selector(archivedConversations))];
+    NSMutableArray *mainConversationListKVOArray = [self mutableArrayValueForKey:NSStringFromSelector(@selector(conversations))];
+    
+    if (conversation.isArchived && [archivedConversationKVOArray containsObject:conversation]) {
+        
+        [archivedConversationKVOArray removeObject:conversation];
+        
+        if (![archivedConversationKVOArray containsObject:conversation] ) {
+            conversation.isArchived = NO;
+            [mainConversationListKVOArray addObject:conversation];
+        }
+        
+        [BLCPersistanceObject persistObjectToMemory:self.archivedConversations forFileName:NSStringFromSelector(@selector(archivedConversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+            
+            if (!persistSuccesful) {
+                NSLog(@"persisting the conversation to the archive array list was unsuccesful!");
+            }
+            else {
+                NSLog(@"congrats, persisting the conversation to the archive array list was succesful!");
+            }
+        }];
+        
+        [BLCPersistanceObject persistObjectToMemory:self.conversations forFileName:NSStringFromSelector(@selector(conversations)) withCompletionBlock:^(BOOL persistSuccesful) {
+            
+            if (!persistSuccesful) {
+                NSLog(@"persisting the conversation list was unsuccesful!");
+            }
+            
+        }];
+        
+    }
     
 }
 
