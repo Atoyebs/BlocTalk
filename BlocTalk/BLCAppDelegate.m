@@ -17,6 +17,7 @@
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import <AFDropdownNotification/AFDropdownNotification.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import <BuddyBuildSDK/BuddyBuildSDK.h>
 
 @interface BLCAppDelegate ()
 
@@ -29,6 +30,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [BuddyBuildSDK setup];
+    
     // Override point for customization after application launch.
     
     self.multiPeerOperationQueue = [[NSOperationQueue alloc] init];
